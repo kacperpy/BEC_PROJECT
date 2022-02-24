@@ -29,4 +29,7 @@ public class DayOpenModel {
     @Column
     private LocalDateTime hour_to;
 
+    @ManyToOne
+    private FacilityModel facility;
+
 }

@@ -19,15 +19,15 @@ public class FeatureModel {
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
-    @ManyToOne
-    private FacilityModel facility;
-
-    @OneToMany
-    private List<BookableObjectModel> bookableObjects;
-
     @Column(length = 64)
     private String name;
 
     @Column(length = 200)
     private String description;
+
+    @ManyToOne
+    private FacilityModel facility;
+
+    @OneToMany
+    private List<BookableObjectModel> bookables;
 }
