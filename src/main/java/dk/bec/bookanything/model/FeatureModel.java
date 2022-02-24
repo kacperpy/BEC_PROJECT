@@ -3,6 +3,7 @@ package dk.bec.bookanything.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -20,6 +21,9 @@ public class FeatureModel {
 
     @ManyToOne
     private FacilityModel facility;
+
+    @OneToMany
+    private List<BookableObjectModel> bookableObjects;
 
     @Column(length = 64)
     private String name;

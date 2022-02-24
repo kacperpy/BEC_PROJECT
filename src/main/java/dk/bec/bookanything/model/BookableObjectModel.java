@@ -19,6 +19,9 @@ public class BookableObjectModel {
     @OneToMany
     private List<ReservationModel> reservations;
 
+    @ManyToOne
+    private FeatureModel feature;
+
     @Column
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
