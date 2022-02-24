@@ -1,10 +1,14 @@
 package dk.bec.bookanything.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
-@Entity(name = "facility_case")
-public class FacilityCaseModel {
+@Data
+@Table
+@Entity(name = "role")
+public class RoleModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
