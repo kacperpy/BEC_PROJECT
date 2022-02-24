@@ -36,6 +36,6 @@ public class AddressModel {
     @Column(nullable = false)
     String country;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne
     private FacilityModel facilityModel;
 }
