@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,6 +15,9 @@ public class BookableObjectModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToMany
+    List<ReservationModel> reservations;
 
     @Column
     @GeneratedValue(generator = "uuid2")

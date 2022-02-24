@@ -26,4 +26,8 @@ public class FacilityModel {
 
     @Column(nullable = false)
     String krs;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private AddressModel addressModel;
 }
