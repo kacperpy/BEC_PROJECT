@@ -1,7 +1,11 @@
 package dk.bec.bookanything.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
+@Table
 @Entity(name = "feature")
 public class FeatureModel {
 
