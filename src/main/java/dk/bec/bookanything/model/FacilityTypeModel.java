@@ -4,11 +4,12 @@ package dk.bec.bookanything.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Table
-@Entity(name = "facility_case")
+@Entity(name = "facility_type")
 public class FacilityTypeModel {
 
     @Id
@@ -21,4 +22,8 @@ public class FacilityTypeModel {
 
     @Column(length = 200)
     private String name;
+
+    @OneToMany(cascade =  CascadeType.ALL)
+    private List<FacilityModel> facilityModel;
+
 }
