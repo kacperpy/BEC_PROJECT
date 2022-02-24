@@ -14,12 +14,12 @@ public class AddressModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(nullable = false)
-    String street;
-
     @Column
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
+
+    @Column(nullable = false)
+    String street;
 
     @Column(nullable = false)
     String streetNumber;

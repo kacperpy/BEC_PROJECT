@@ -15,9 +15,6 @@ public class ReservationModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private BookableObjectModel bookableObjectModel;
-
     @Column
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
@@ -27,4 +24,7 @@ public class ReservationModel {
 
     @Column(name = "date_to", nullable = false)
     private LocalDateTime dateTo;
+
+    @ManyToOne
+    private BookableObjectModel bookableObjectModel;
 }
