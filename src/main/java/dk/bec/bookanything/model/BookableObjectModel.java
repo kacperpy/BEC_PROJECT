@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,22 +16,25 @@ public class BookableObjectModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToMany
+    List<ReservationModel> reservations;
+
     @Column
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
-    @Column(name = "name", length = 64, nullable = false)
+    @Column(length = 64, nullable = false)
     private String name;
 
-    @Column(name = "time_period", nullable = true)
+    @Column(nullable = true)
     private Integer time_period;
 
-    @Column(name = "capacity", nullable = false)
+    @Column(nullable = false)
     private Integer capacity;
 
-    @Column(name = "description", length = 256, nullable = false)
+    @Column(length = 256, nullable = false)
     private String description;
 
-    @Column(name = "date_time", nullable = true)
+    @Column(nullable = true)
     private LocalDateTime date_time;
 }
