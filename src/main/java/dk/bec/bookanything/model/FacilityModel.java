@@ -3,6 +3,7 @@ package dk.bec.bookanything.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -30,4 +31,19 @@ public class FacilityModel {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private AddressModel addressModel;
+
+    @OneToMany(cascade =  CascadeType.ALL)
+    private List<DayOpenModel> dayOpenList;
+
+    @OneToMany(cascade =  CascadeType.ALL)
+    private List<DiscountCodeModel> discountCodeList;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "facility_type_id")
+    private FacilityTypeModel facilityTypeModel;
+
+    @OneToMany(cascade =  CascadeType.ALL)
+    private List<FeatureModel> featureModel;
+
+
 }
