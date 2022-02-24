@@ -27,7 +27,7 @@ public class UserModel {
     private LocalDateType birthDate;
 
     @Column
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @ManyToOne
     private RoleModel role;
