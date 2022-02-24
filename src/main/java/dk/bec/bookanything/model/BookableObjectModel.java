@@ -17,7 +17,7 @@ public class BookableObjectModel {
     private Long id;
 
     @OneToMany
-    List<ReservationModel> reservations;
+    private List<ReservationModel> reservations;
 
     @Column
     @GeneratedValue(generator = "uuid2")
