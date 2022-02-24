@@ -18,12 +18,12 @@ public class DiscountCodeModel {
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
-    @ManyToOne
-    private FacilityModel facility;
-
     @Column
     private String code;
 
     @Column
     private Integer amount;
+
+    @ManyToOne
+    private FacilityModel facility;
 }
