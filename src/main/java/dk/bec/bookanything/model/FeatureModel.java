@@ -29,5 +29,5 @@ public class FeatureModel {
     private FacilityModel facility;
 
     @OneToMany
-    private List<BookableObjectModel> bookables;
+    private List<BookableObjectModel> bookableObjects;
 }

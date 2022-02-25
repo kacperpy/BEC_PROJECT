@@ -35,7 +35,4 @@ public class AddressModel {
 
     @Column(nullable = false)
     String country;
-
-    @OneToOne
-    private FacilityModel facilityModel;
 }

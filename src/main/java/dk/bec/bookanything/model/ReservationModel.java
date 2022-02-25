@@ -27,4 +27,7 @@ public class ReservationModel {
 
     @ManyToOne
     private BookableObjectModel bookableObjectModel;
+
+    @ManyToOne
+    private UserModel userModel;
 }

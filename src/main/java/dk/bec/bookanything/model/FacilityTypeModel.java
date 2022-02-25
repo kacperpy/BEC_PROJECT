@@ -22,8 +22,4 @@ public class FacilityTypeModel {
 
     @Column(length = 200)
     private String name;
-
-    @OneToMany(cascade =  CascadeType.ALL)
-    private List<FacilityModel> facilityModel;
-
 }

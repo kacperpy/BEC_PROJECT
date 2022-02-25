@@ -38,7 +38,7 @@ public class FacilityModel {
     @OneToMany(cascade =  CascadeType.ALL)
     private List<DiscountCodeModel> discountCodeList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "facility_type_id")
     private FacilityTypeModel facilityTypeModel;
 

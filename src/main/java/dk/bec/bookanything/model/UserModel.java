@@ -34,7 +34,4 @@ public class UserModel {
 
     @OneToMany
     private List<ReservationModel> reservations;
-
-
-
 }
