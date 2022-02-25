@@ -1,4 +1,4 @@
-package dk.bec.bookanything.repository;
+package dk.bec.bookanything.repository.springData;
 
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.FacilityEntity;
