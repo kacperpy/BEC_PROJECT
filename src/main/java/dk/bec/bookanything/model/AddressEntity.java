@@ -35,4 +35,7 @@ public class AddressEntity {
 
     @Column(nullable = false)
     String country;
+
+
+
 }
