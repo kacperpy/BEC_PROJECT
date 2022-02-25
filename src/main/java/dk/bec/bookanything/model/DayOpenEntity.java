@@ -21,7 +21,7 @@ public class DayOpenEntity {
     private UUID uuid;
 
     @Column
-    private String day;
+    private int day;
 
     @Column
     private LocalDateTime hour_from;
