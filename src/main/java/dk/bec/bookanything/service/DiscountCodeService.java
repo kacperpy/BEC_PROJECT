@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,12 +22,12 @@ public class DiscountCodeService {
         return discountCodeRepository.findAll();
     }
 
-    public DiscountCodeEntity getDiscountCode(String uuid) {
-        return discountCodeRepository.findDiscountCodeEntityByUuid(UUID.fromString(uuid));
+    public Optional<DiscountCodeEntity> getDiscountCode(String uuid) {
+        return Optional.of(discountCodeRepository.findDiscountCodeEntityByUuid(UUID.fromString(uuid)));
     }
 
-    public void createDiscountCode(DiscountCodeEntity discountCodeEntity) {
-        discountCodeRepository.save(discountCodeEntity);
+    public Optional<DiscountCodeEntity> createDiscountCode(DiscountCodeEntity discountCodeEntity) {
+        return Optional.of(discountCodeRepository.save(discountCodeEntity));
     }
 
 
@@ -34,12 +35,12 @@ public class DiscountCodeService {
         discountCodeRepository.deleteDiscountCodeEntityByUuid(UUID.fromString(uuid));
     }
 
-    public void updateDiscountCode(DiscountCodeEntity discountCode){
+    public Optional<DiscountCodeEntity> updateDiscountCode(DiscountCodeEntity discountCode){
       DiscountCodeEntity discountCodeEntity = discountCodeRepository.findDiscountCodeEntityByUuid(discountCode.getUuid());
       discountCodeEntity.setCode(discountCode.getCode());
       discountCodeEntity.setAmount(discountCode.getAmount());
       discountCodeEntity.setFacility(discountCode.getFacility());
-      discountCodeRepository.save(discountCodeEntity);
+      return Optional.of(discountCodeRepository.save(discountCodeEntity));
 
     }
 }

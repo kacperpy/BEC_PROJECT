@@ -2,12 +2,14 @@ package dk.bec.bookanything.controller;
 
 
 import dk.bec.bookanything.model.DiscountCodeEntity;
-import dk.bec.bookanything.repository.DiscountCodeRepository;
 import dk.bec.bookanything.service.DiscountCodeService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,18 +22,23 @@ public class DiscountCodeController {
     private final DiscountCodeService discountCodeService;
 
     @GetMapping
-    public List<DiscountCodeEntity> getDiscountCodes(){
-        return discountCodeService.getDiscountCodes();
+    public ResponseEntity<List<DiscountCodeEntity>> getDiscountCodes(){
+        List<DiscountCodeEntity> res = discountCodeService.getDiscountCodes();
+        if(res.size()>0) return new ResponseEntity<>(res, HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{uuid}")
-    public DiscountCodeEntity getDiscountCode(@PathVariable("uuid") String uuid){
-        return discountCodeService.getDiscountCode(uuid);
+    public ResponseEntity<DiscountCodeEntity> getDiscountCode(@PathVariable("uuid") String uuid){
+        Optional<DiscountCodeEntity> res = discountCodeService.getDiscountCode(uuid);
+        return res.isPresent()? new ResponseEntity<DiscountCodeEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
     @PostMapping
-    public void createDiscountCode(@RequestBody DiscountCodeEntity discountCode){
-        discountCodeService.createDiscountCode(discountCode);
+    public ResponseEntity<DiscountCodeEntity> createDiscountCode(@RequestBody DiscountCodeEntity discountCode){
+        Optional<DiscountCodeEntity> res = discountCodeService.createDiscountCode(discountCode);
+        return res.isPresent()? new ResponseEntity<DiscountCodeEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{uuid}")
@@ -40,8 +47,9 @@ public class DiscountCodeController {
     }
 
     @PutMapping
-    public void updateDiscountCode(@RequestBody DiscountCodeEntity discountCode){
-        discountCodeService.updateDiscountCode(discountCode);
+    public ResponseEntity<DiscountCodeEntity> updateDiscountCode(@RequestBody DiscountCodeEntity discountCode){
+        Optional<DiscountCodeEntity> res =discountCodeService.updateDiscountCode(discountCode);
+        return res.isPresent()? new ResponseEntity<DiscountCodeEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
