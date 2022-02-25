@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-public class UserModel {
+@Entity(name = "user")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +30,8 @@ public class UserModel {
     private String phoneNumber;
 
     @ManyToOne
-    private RoleModel role;
+    private RoleEntity role;
 
     @OneToMany
-    private List<ReservationModel> reservations;
+    private List<ReservationEntity> reservations;
 }

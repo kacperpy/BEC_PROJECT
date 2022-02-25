@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Table
-@Entity(name = "reservation_model")
+@Entity(name = "reservation")
 @Data
-public class ReservationModel {
+public class ReservationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +26,8 @@ public class ReservationModel {
     private LocalDateTime dateTo;
 
     @ManyToOne
-    private BookableObjectModel bookableObjectModel;
+    private BookableObjectEntity bookableObjectEntity;
 
     @ManyToOne
-    private UserModel userModel;
+    private UserEntity userEntity;
 }

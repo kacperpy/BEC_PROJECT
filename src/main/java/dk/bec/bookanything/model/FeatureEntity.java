@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @Table
 @Entity(name = "feature")
-public class FeatureModel {
+public class FeatureEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +26,8 @@ public class FeatureModel {
     private String description;
 
     @ManyToOne
-    private FacilityModel facility;
+    private FacilityEntity facility;
 
     @OneToMany
-    private List<BookableObjectModel> bookableObjects;
+    private List<BookableObjectEntity> bookableObjects;
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @Table
 @Entity(name="facility")
-public class FacilityModel {
+public class FacilityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,20 +30,20 @@ public class FacilityModel {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private AddressModel addressModel;
+    private AddressEntity addressEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
-    private List<DayOpenModel> dayOpenList;
+    private List<DayOpenEntity> dayOpenList;
 
     @OneToMany(cascade =  CascadeType.ALL)
-    private List<DiscountCodeModel> discountCodeList;
+    private List<DiscountCodeEntity> discountCodeList;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "facility_type_id")
-    private FacilityTypeModel facilityTypeModel;
+    private FacilityTypeEntity facilityTypeEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
-    private List<FeatureModel> featureModel;
+    private List<FeatureEntity> featureEntity;
 
 
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 @Table
 @Entity(name = "address")
-public class AddressModel {
+public class AddressEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

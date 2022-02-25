@@ -1,14 +1,16 @@
 package dk.bec.bookanything.model;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @Table
-@Entity(name = "discount_code")
-public class DiscountCodeModel {
+@Entity(name = "day_open")
+public class DayOpenEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +21,15 @@ public class DiscountCodeModel {
     private UUID uuid;
 
     @Column
-    private String code;
+    private String day;
 
     @Column
-    private Integer amount;
+    private LocalDateTime hour_from;
+
+    @Column
+    private LocalDateTime hour_to;
 
     @ManyToOne
-    private FacilityModel facility;
+    private FacilityEntity facility;
+
 }

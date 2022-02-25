@@ -2,7 +2,6 @@ package dk.bec.bookanything.model;
 
 
 import lombok.Data;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,8 +9,8 @@ import java.util.UUID;
 
 @Data
 @Table
-@Entity(name = "role")
-public class RoleModel {
+@Entity(name = "facility_type")
+public class FacilityTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +22,4 @@ public class RoleModel {
 
     @Column(length = 200)
     private String name;
-
-    @OneToMany
-    private List<UserModel> userList;
 }

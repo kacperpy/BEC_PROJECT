@@ -10,7 +10,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "bookable_object")
-public class BookableObjectModel {
+public class BookableObjectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +36,8 @@ public class BookableObjectModel {
     private LocalDateTime date_time;
 
     @OneToMany
-    private List<ReservationModel> reservations;
+    private List<ReservationEntity> reservations;
 
     @ManyToOne
-    private FeatureModel feature;
+    private FeatureEntity feature;
 }
