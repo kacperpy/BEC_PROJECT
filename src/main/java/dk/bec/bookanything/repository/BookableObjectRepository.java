@@ -1,4 +1,4 @@
-package dk.bec.bookanything.repository.springData;
+package dk.bec.bookanything.repository;
 
 import dk.bec.bookanything.model.BookableObjectEntity;
 import org.springframework.data.repository.CrudRepository;

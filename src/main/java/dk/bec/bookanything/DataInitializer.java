@@ -1,6 +1,6 @@
 package dk.bec.bookanything;
 
-import dk.bec.bookanything.repository.springData.AddressRepository;
+import dk.bec.bookanything.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
