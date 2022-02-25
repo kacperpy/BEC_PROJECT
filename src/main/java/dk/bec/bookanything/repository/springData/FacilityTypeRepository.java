@@ -1,4 +1,9 @@
 package dk.bec.bookanything.repository.springData;
 
-public interface FacilityTypeRepository {
+import dk.bec.bookanything.model.FacilityTypeEntity;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface FacilityTypeRepository  extends CrudRepository<FacilityTypeEntity, Long> {
 }
