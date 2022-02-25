@@ -37,7 +37,13 @@ public class BookableObjectController {
     }
 
     @GetMapping("/bookable-objects/{uuid}")
-    public BookableObjectEntity getBookableObjectByUUID(@PathVariable("uuid") UUID uuid) {
+    public BookableObjectEntity getBookableObjectByUuid(@PathVariable("uuid") UUID uuid) {
         return bookableObjectService.getBookableObjectByUUID(uuid);
+    }
+
+    @DeleteMapping("bookable-objects/{uuid}")
+    public ResponseEntity<Void> deleteBookableObjectByUuid(@PathVariable("uuid") UUID uuid) {
+        bookableObjectService.deleteBookableObject(uuid);
+        return ResponseEntity.ok().build();
     }
 }

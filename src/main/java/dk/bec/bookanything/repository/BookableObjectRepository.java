@@ -2,8 +2,6 @@ package dk.bec.bookanything.repository;
 
 import dk.bec.bookanything.model.BookableObjectEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
@@ -12,5 +10,6 @@ import java.util.UUID;
 public interface BookableObjectRepository extends JpaRepository<BookableObjectEntity, Long> {
 
     BookableObjectEntity findByUuid(UUID uuid);
+    void deleteByUuid(UUID uuid);
 
 }
