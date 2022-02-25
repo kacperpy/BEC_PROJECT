@@ -1,6 +1,7 @@
 package dk.bec.bookanything.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -10,32 +11,33 @@ import java.util.UUID;
 @Entity(name = "address")
 public class AddressEntity {
 
+    public AddressEntity() {
+        this.uuid = UUID.randomUUID();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column
-    @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
     @Column(nullable = false)
-    String street;
+    private String street;
 
     @Column(nullable = false)
-    String streetNumber;
+    private String streetNumber;
 
     @Column
-    String flatNumber;
+    private String flatNumber;
 
     @Column(nullable = false)
-    String city;
+    private String city;
 
     @Column(nullable = false)
-    String postalCode;
+    private String postalCode;
 
     @Column(nullable = false)
-    String country;
-
-
+    private String country;
 
 }
