@@ -12,5 +12,4 @@ public interface FacilityTypeRepository  extends JpaRepository<FacilityTypeEntit
 
     FacilityTypeEntity findFacilityTypeByUuid(UUID uuid);
 
-
 }
