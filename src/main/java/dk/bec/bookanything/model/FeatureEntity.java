@@ -3,12 +3,13 @@ package dk.bec.bookanything.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Table
 @Entity(name = "feature")
-public class FeatureModel {
+public class FeatureEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,4 +24,10 @@ public class FeatureModel {
 
     @Column(length = 200)
     private String description;
+
+    @ManyToOne
+    private FacilityEntity facility;
+
+    @OneToMany
+    private List<BookableObjectEntity> bookableObjects;
 }

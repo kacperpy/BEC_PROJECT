@@ -4,12 +4,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "bookable_object")
-public class BookableObjectModel {
+public class BookableObjectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,4 +34,10 @@ public class BookableObjectModel {
 
     @Column(nullable = true)
     private LocalDateTime date_time;
+
+    @OneToMany
+    private List<ReservationEntity> reservations;
+
+    @ManyToOne
+    private FeatureEntity feature;
 }

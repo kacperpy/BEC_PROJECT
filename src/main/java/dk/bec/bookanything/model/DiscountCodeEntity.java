@@ -1,6 +1,5 @@
 package dk.bec.bookanything.model;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,8 +7,8 @@ import java.util.UUID;
 
 @Data
 @Table
-@Entity(name = "facility_case")
-public class FacilityTypeModel {
+@Entity(name = "discount_code")
+public class DiscountCodeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +18,12 @@ public class FacilityTypeModel {
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
-    @Column(length = 200)
-    private String name;
+    @Column
+    private String code;
+
+    @Column
+    private Integer amount;
+
+    @ManyToOne
+    private FacilityEntity facility;
 }

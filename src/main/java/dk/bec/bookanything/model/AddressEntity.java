@@ -7,8 +7,8 @@ import java.util.UUID;
 
 @Data
 @Table
-@Entity(name="facility")
-public class FacilityModel {
+@Entity(name = "address")
+public class AddressEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +19,20 @@ public class FacilityModel {
     private UUID uuid;
 
     @Column(nullable = false)
-    String name;
+    String street;
 
     @Column(nullable = false)
-    String nip;
+    String streetNumber;
+
+    @Column
+    String flatNumber;
 
     @Column(nullable = false)
-    String krs;
+    String city;
+
+    @Column(nullable = false)
+    String postalCode;
+
+    @Column(nullable = false)
+    String country;
 }
