@@ -15,8 +15,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            .antMatchers("/h2-console/**");
         web.ignoring().antMatchers("/**");
     }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable();
     }
+
+
 }
