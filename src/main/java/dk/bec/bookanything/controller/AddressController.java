@@ -1,13 +1,14 @@
 package dk.bec.bookanything.controller;
 
+import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -19,28 +20,36 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/addresses/{uuid}")
-    ResponseEntity<AddressEntity> getAddress(@PathVariable("uuid") UUID uuid) {
-        Optional<AddressEntity> addressOptional = addressService.getAddressByUuid(uuid);
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/addresses/{id}")
+    ResponseEntity<AddressDto> getAddress(@PathVariable("id") Long id) {
+        Optional<AddressEntity> addressOptional = addressService.getAddressById(id);
+        Optional<AddressDto> addressDtoOptional = addressOptional.map(AddressDto::new);
+
+        return addressDtoOptional.map(addressDto -> new ResponseEntity<>(addressDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/addresses")
-    ResponseEntity<AddressEntity> createAddress(@RequestBody AddressEntity address) {
+    ResponseEntity<AddressDto> createAddress(@RequestBody AddressDto addressDto) {
+        AddressEntity address = new AddressEntity(addressDto);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(new AddressDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+
     }
 
-    @PutMapping("/addresses")
-    ResponseEntity<AddressEntity> updateAddress(@RequestBody AddressEntity address) {
-        Optional<AddressEntity> addressOptional = addressService.updateAddress(address);
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    @PutMapping("/addresses/{id}")
+    ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @RequestBody AddressDto addressDto) {
+        AddressEntity address = new AddressEntity(addressDto);
+        Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
+
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(new AddressDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @DeleteMapping("/addresses/{uuid}")
-    ResponseEntity<AddressEntity> deleteAddress(@PathVariable("uuid") UUID uuid) {
-        addressService.deleteAddressByUuid(uuid);
-        return addressService.getAddressByUuid(uuid).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/addresses/{id}")
+    ResponseEntity<AddressDto> deleteAddress(@PathVariable("id") Long id) {
+        addressService.deleteAddressById(id);
+
+        return addressService.getAddressById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
