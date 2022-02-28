@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/API")
@@ -27,9 +26,9 @@ public class FacilityTypeController {
         return facilityTypeService.getFacilityTypes();
     }
 
-    @GetMapping("/facility-types/{uuid}")
-    public FacilityTypeEntity getFacilityTypesByUuid(@PathVariable("uuid")UUID uuid){
-      return facilityTypeService.getFacilityTypeByUUID(uuid);
+    @GetMapping("/facility-types/{id}")
+    public FacilityTypeEntity getFacilityTypesById(@PathVariable("id")Long id){
+      return facilityTypeService.getFacilityTypeById(id);
     }
 
     @DeleteMapping("/facility-types")
@@ -37,9 +36,9 @@ public class FacilityTypeController {
         facilityTypeService.deleteFacilityType(facilityType);
     }
 
-    @DeleteMapping("/facility-types/{uuid}")
-    public void deleteFacilityType(@PathVariable("uuid") UUID uuid){
-        facilityTypeService.deleteFacilityTypeByUuid(uuid);
+    @DeleteMapping("/facility-types/{id}")
+    public void deleteFacilityType(@PathVariable("id") Long id){
+        facilityTypeService.deleteFacilityTypeById(id);
     }
 
     @PostMapping("/facility-types")
@@ -52,10 +51,10 @@ public class FacilityTypeController {
         }
     }
 
-    @PutMapping("/facility-types/{uuid}")
-    public ResponseEntity<FacilityTypeEntity> updateFacilityTypes(@PathVariable("uuid") UUID uuid, @RequestBody FacilityTypeEntity facilityType){
+    @PutMapping("/facility-types/{id}")
+    public ResponseEntity<FacilityTypeEntity> updateFacilityTypes(@PathVariable("id") Long id, @RequestBody FacilityTypeEntity facilityType){
         try {
-            facilityTypeService.updateFacilityType(uuid, facilityType);
+            facilityTypeService.updateFacilityType(id, facilityType);
             return new ResponseEntity<>(facilityType, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

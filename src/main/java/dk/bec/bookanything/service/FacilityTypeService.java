@@ -9,7 +9,6 @@ import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @ApplicationScope
@@ -30,21 +29,21 @@ public class FacilityTypeService {
         return facilityTypeRepository.findAll();
     }
 
-    public FacilityTypeEntity getFacilityTypeByUUID(UUID uuid){
-        return facilityTypeRepository.findFacilityTypeByUuid(uuid);
+    public FacilityTypeEntity getFacilityTypeById(Long id){
+        return facilityTypeRepository.findFacilityTypeById(id);
     }
 
     public void deleteFacilityType(FacilityTypeEntity facilityType){
         facilityTypeRepository.delete(facilityType);
     }
 
-    public void deleteFacilityTypeByUuid(UUID uuid){
-        Optional<FacilityTypeEntity> facilityType = Optional.ofNullable(getFacilityTypeByUUID(uuid));
+    public void deleteFacilityTypeById(Long id){
+        Optional<FacilityTypeEntity> facilityType = Optional.ofNullable(getFacilityTypeById(id));
         facilityType.ifPresent(facilityType1 -> facilityTypeRepository.delete(facilityType1));
     }
 
-    public void updateFacilityType(UUID uuid, FacilityTypeEntity newFacilityType){
-        Optional<FacilityTypeEntity> facilityTypeOptional = Optional.ofNullable(getFacilityTypeByUUID(uuid));
+    public void updateFacilityType(Long id, FacilityTypeEntity newFacilityType){
+        Optional<FacilityTypeEntity> facilityTypeOptional = Optional.ofNullable(getFacilityTypeById(id));
         facilityTypeOptional.ifPresent(facilityType -> facilityTypeRepository.save(facilityType));
     }
 
