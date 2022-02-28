@@ -1,10 +1,13 @@
-package dk.bec.bookanything.model;
+package dk.bec.bookanything.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dk.bec.bookanything.model.FacilityEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -12,13 +15,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
-@Entity(name = "day_open")
-public class DayOpenEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class DayOpenDto {
 
     @Column
     private int day;
@@ -28,7 +25,4 @@ public class DayOpenEntity {
 
     @Column
     private LocalDateTime hourTo;
-
-    @ManyToOne
-    private FacilityEntity facility;
 }
