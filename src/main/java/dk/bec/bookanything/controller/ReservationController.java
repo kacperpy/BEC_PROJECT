@@ -39,16 +39,21 @@ public class ReservationController {
         return res.map(reservationEntity -> new ResponseEntity<>(reservationEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-//    @PostMapping
-//    public ResponseEntity<ReservationEntity> createReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
-//        reservationService.createReservation();
-//    }
-//
-//    private ReservationEntity createReservationDtoToEntity(ReservationCreateDto reservationCreateDto) {
-//        return ReservationEntity.builder()
-//                                .bookableObjectEntity()
-//                                .dateFrom(reservationCreateDto.getDateFrom())
-//                                .dateTo(reservationCreateDto.getDateTo())
-//                                .build();
-//    }
+    @PostMapping
+    public ResponseEntity<ReservationEntity> createReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
+        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
+        if (bookableObjectEntity.isPresent()) {
+            Optional<ReservationEntity> res = reservationService.createReservation(createReservationDtoToEntity(reservationCreateDto, bookableObjectEntity.get()));
+            return res.map(reservationEntity -> new ResponseEntity<>(reservationEntity, HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    private ReservationEntity createReservationDtoToEntity(ReservationCreateDto reservationCreateDto, BookableObjectEntity bookableObjectEntity) {
+        return ReservationEntity.builder()
+                                .bookableObjectEntity(bookableObjectEntity)
+                                .dateFrom(reservationCreateDto.getDateFrom())
+                                .dateTo(reservationCreateDto.getDateTo())
+                                .build();
+    }
 }
