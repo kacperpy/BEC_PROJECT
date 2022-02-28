@@ -1,12 +1,11 @@
 package dk.bec.bookanything.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.repository.AddressRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AddressService {
@@ -17,8 +16,8 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public Optional<AddressEntity> getAddressById(Long id){
-        return addressRepository.findById(id);
+    public Optional<AddressEntity> getAddressByUuid(UUID uuid){
+        return addressRepository.findByUuid(uuid);
     }
 
     public Optional<AddressEntity> createAddress(AddressEntity address){
@@ -29,8 +28,8 @@ public class AddressService {
         return Optional.of(addressRepository.saveAndFlush(address));
     }
 
-    public void deleteAddressById(Long id){
-        addressRepository.deleteById(id);
+    public void deleteAddressByUuid(UUID uuid){
+        addressRepository.deleteByUuid(uuid);
     }
 
 

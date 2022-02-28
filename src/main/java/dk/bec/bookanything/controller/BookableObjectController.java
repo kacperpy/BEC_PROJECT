@@ -1,14 +1,17 @@
 package dk.bec.bookanything.controller;
 
+import dk.bec.bookanything.dto.BookableObjectCreateDto;
+import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.service.BookableObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -36,14 +39,26 @@ public class BookableObjectController {
         }
     }
 
-    @GetMapping("/bookable-objects/{uuid}")
-    public BookableObjectEntity getBookableObjectByUuid(@PathVariable("uuid") UUID uuid) {
-        return bookableObjectService.getBookableObjectByUUID(uuid);
+    @GetMapping("/bookable-objects/{id}")
+    public Optional<BookableObjectEntity> getBookableObjectById(@PathVariable("id") Long id) {
+        return bookableObjectService.getBookableObjectById(id);
     }
 
-    @DeleteMapping("bookable-objects/{uuid}")
-    public ResponseEntity<Void> deleteBookableObjectByUuid(@PathVariable("uuid") UUID uuid) {
-        bookableObjectService.deleteBookableObject(uuid);
-        return ResponseEntity.ok().build();
+    @PutMapping("/bookable-objects/{id}")
+    public Optional<BookableObjectReadDto> updateBookableObjectById(@RequestBody BookableObjectCreateDto bookableObjectCreateDto, @PathVariable("id") Long id) {
+        return Optional.ofNullable(bookableObjectService.updateBookableObject(dtoToEntity(bookableObjectCreateDto, id)));
+    }
+
+    private BookableObjectEntity dtoToEntity(BookableObjectCreateDto bookableObjectCreateDto, Long id) {
+        return BookableObjectEntity.builder()
+                .id(id)
+                .name(bookableObjectCreateDto.getName())
+                .time_period(bookableObjectCreateDto.getTime_period())
+                .capacity(bookableObjectCreateDto.getCapacity())
+                .description(bookableObjectCreateDto.getDescription())
+                .date_time(bookableObjectCreateDto.getDate_time())
+                .reservations(bookableObjectCreateDto.getReservations())
+                .feature(bookableObjectCreateDto.getFeature())
+                .build();
     }
 }
