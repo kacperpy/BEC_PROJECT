@@ -1,6 +1,8 @@
 package dk.bec.bookanything.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,6 +10,8 @@ import java.time.LocalDateTime;
 @Table
 @Entity(name = "reservation")
 @Data
+@Builder
+@NoArgsConstructor
 public class ReservationEntity {
 
     @Id
