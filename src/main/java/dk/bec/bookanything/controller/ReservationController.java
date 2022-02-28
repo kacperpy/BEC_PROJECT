@@ -3,7 +3,6 @@ package dk.bec.bookanything.controller;
 import dk.bec.bookanything.dto.ReservationCreateDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
-import dk.bec.bookanything.model.UserEntity;
 import dk.bec.bookanything.service.BookableObjectService;
 import dk.bec.bookanything.service.ReservationService;
 import lombok.AllArgsConstructor;
