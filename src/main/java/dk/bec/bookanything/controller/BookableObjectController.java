@@ -61,4 +61,9 @@ public class BookableObjectController {
                 .feature(bookableObjectCreateDto.getFeature())
                 .build();
     }
+
+    @GetMapping("/bookable-objects/{id}/reservations")
+    public Optional<BookableObjectEntity> getReservationsForBookableObject(@PathVariable("id") Long id) {
+        return bookableObjectService.getBookableObjectById(id);
+    }
 }
