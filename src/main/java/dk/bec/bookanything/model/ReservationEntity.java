@@ -1,5 +1,6 @@
 package dk.bec.bookanything.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,9 @@ import java.time.LocalDateTime;
 @Table
 @Entity(name = "reservation")
 @Data
-@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ReservationEntity {
 
     @Id
