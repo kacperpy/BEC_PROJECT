@@ -1,5 +1,6 @@
 package dk.bec.bookanything.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,8 @@ public class ReservationEntity {
     private LocalDateTime dateTo;
 
     @ManyToOne
+    @JoinColumn(name = "bookable_object_id", referencedColumnName = "id")
+    @JsonBackReference
     private BookableObjectEntity bookableObjectEntity;
 
     @ManyToOne
