@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,13 +38,13 @@ public class FacilityEntity {
     private List<DayOpenEntity> dayOpenList;
 
     @OneToMany(cascade =  CascadeType.ALL)
-    private List<DiscountCodeEntity> discountCodeList;
+    private List<DiscountCodeEntity> discountCodes;
 
     @OneToOne(cascade = CascadeType.ALL)
     private FacilityTypeEntity facilityTypeEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
-    private List<FeatureEntity> featureEntity;
+    private List<FeatureEntity> featureEntities;
 
 
 }
