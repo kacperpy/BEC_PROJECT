@@ -1,6 +1,9 @@
 package dk.bec.bookanything.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,12 +15,15 @@ import java.util.UUID;
 @Table(name = "bookable_object")
 public class BookableObjectEntity {
 
+    public BookableObjectEntity() {
+        this.uuid = UUID.randomUUID();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
-    @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
     @Column(length = 64, nullable = false)
