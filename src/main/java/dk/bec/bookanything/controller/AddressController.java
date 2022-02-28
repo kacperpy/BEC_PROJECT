@@ -19,7 +19,7 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/facilities/{id}")
+    @GetMapping("/addresses/{id}")
     ResponseEntity<AddressDto> getAddress(@PathVariable("id") Long id) {
         Optional<AddressEntity> addressOptional = addressService.getAddressById(id);
         Optional<AddressDto> addressDtoOptional = addressOptional.map(AddressDto::new);
@@ -27,7 +27,7 @@ public class AddressController {
         return addressDtoOptional.map(addressDto -> new ResponseEntity<>(addressDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/facilities")
+    @PostMapping("/addresses")
     ResponseEntity<AddressDto> createAddress(@RequestBody AddressDto addressDto) {
         AddressEntity address = new AddressEntity(addressDto);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
@@ -36,7 +36,7 @@ public class AddressController {
 
     }
 
-    @PutMapping("/facilities/{id}")
+    @PutMapping("/addresses/{id}")
     ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @RequestBody AddressDto addressDto) {
         AddressEntity address = new AddressEntity(addressDto);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
@@ -44,7 +44,7 @@ public class AddressController {
         return addressOptional.map(addressEntity -> new ResponseEntity<>(new AddressDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @DeleteMapping("/facilities/{id}")
+    @DeleteMapping("/addresses/{id}")
     ResponseEntity<AddressDto> deleteAddress(@PathVariable("id") Long id) {
         addressService.deleteAddressById(id);
 

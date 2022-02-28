@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class FacilityService {
 
-    private FacilityRepository facilityRepository;
+    private final FacilityRepository facilityRepository;
 
     public FacilityService(FacilityRepository facilityRepository) {
         this.facilityRepository = facilityRepository;
