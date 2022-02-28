@@ -1,6 +1,9 @@
 package dk.bec.bookanything.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +12,9 @@ import java.util.UUID;
 @Data
 @Table
 @Entity(name="facility")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FacilityEntity {
 
     @Id

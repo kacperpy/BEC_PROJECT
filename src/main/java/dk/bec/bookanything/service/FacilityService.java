@@ -20,13 +20,20 @@ public class FacilityService {
       return facilityRepository.findById(id);
     }
 
-    public Optional<FacilityEntity> addFacility(FacilityEntity facilityEntity)
-    {
+    public Optional<FacilityEntity> createFacility(FacilityEntity facilityEntity) {
         return Optional.of( facilityRepository.save(facilityEntity));
     }
 
-    public Optional<FacilityEntity> modifyFacility(FacilityEntity facilityEntity)
-    {
-        return Optional.of(facilityRepository.save(facilityEntity));
+    public Optional<FacilityEntity> updateFacility(Long id, FacilityEntity newFacility) {
+        return facilityRepository.findById(id).map(facility -> {
+            facility.setAddressEntity(newFacility.getAddressEntity());
+            facility.setFacilityTypeEntity(newFacility.getFacilityTypeEntity());
+            facility.setName(newFacility.getName());
+            facility.setKrs(newFacility.getKrs());
+            facility.setNip(newFacility.getNip());
+            return facilityRepository.save(facility);
+        });
     }
+
+    public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}
 }
