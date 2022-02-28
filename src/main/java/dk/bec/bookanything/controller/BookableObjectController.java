@@ -40,4 +40,9 @@ public class BookableObjectController {
     public BookableObjectEntity getBookableObjectByUUID(@PathVariable("uuid") UUID uuid) {
         return bookableObjectService.getBookableObjectByUUID(uuid);
     }
+
+    @PutMapping("/bookable-objects/{uuid}")
+    public BookableObjectEntity updateBookableObjectByUUID(@PathVariable("uuid") UUID uuid) {
+        return bookableObjectService.getBookableObjectByUUID(uuid);
+    }
 }
