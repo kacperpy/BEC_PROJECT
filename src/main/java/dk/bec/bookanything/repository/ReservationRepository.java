@@ -9,6 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
-    Optional<ReservationEntity> findByUuid(UUID uuid);
-    void deleteByUuid(UUID fromString);
+
 }

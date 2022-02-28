@@ -22,13 +22,13 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public Optional<ReservationEntity> getReservationByUUId(UUID uuid) { return reservationRepository.findByUuid(uuid); }
+    public Optional<ReservationEntity> getReservationById(Long id) { return reservationRepository.findById(id); }
 
     public Optional<ReservationEntity> createReservation(ReservationEntity reservationEntity) {
         return Optional.of(reservationRepository.save(reservationEntity));
     }
 
-    public void deleteReservation(String uuid) {
-        reservationRepository.deleteByUuid(UUID.fromString(uuid));
+    public void deleteReservation(Long id) {
+        reservationRepository.deleteById(id);
     }
 }
