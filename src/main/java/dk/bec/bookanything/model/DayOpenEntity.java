@@ -20,15 +20,15 @@ public class DayOpenEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
-    private int day;
+    @Column(nullable = false)
+    private Integer day;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime hourFrom;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime hourTo;
 
-    @ManyToOne
+    @ManyToOne()
     private FacilityEntity facility;
 }

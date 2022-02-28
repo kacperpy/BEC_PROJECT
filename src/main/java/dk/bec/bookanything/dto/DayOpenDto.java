@@ -18,7 +18,7 @@ import java.util.UUID;
 public class DayOpenDto {
 
     @Column
-    private int day;
+    private Integer day;
 
     @Column
     private LocalDateTime hourFrom;
