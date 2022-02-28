@@ -25,14 +25,10 @@ public class FacilityService {
     }
 
     public Optional<FacilityEntity> updateFacility(Long id, FacilityEntity newFacility) {
-        return facilityRepository.findById(id).map(facility -> {
-            facility.setAddressEntity(newFacility.getAddressEntity());
-            facility.setFacilityTypeEntity(newFacility.getFacilityTypeEntity());
-            facility.setName(newFacility.getName());
-            facility.setKrs(newFacility.getKrs());
-            facility.setNip(newFacility.getNip());
-            return facilityRepository.save(facility);
-        });
+        if(getFacilityById(newFacility.getId()).isPresent())
+            return Optional.of(facilityRepository.save(newFacility));
+        else
+            return Optional.empty();
     }
 
     public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}
