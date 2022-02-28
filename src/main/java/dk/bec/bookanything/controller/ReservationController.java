@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/api")
 @AllArgsConstructor
 public class ReservationController {
 
@@ -26,13 +26,13 @@ public class ReservationController {
     @Autowired
     private final BookableObjectService bookableObjectService;
 
-    @GetMapping
-    public ResponseEntity<List<ReservationEntity>> getDiscountCodes() {
+    @GetMapping("/reservations")
+    public ResponseEntity<List<ReservationEntity>> getReservations() {
         List<ReservationEntity> res = reservationService.getReservations();
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/reservations/{id}")
     public ResponseEntity<ReservationEntity> getReservation(@PathVariable("id") Long id) {
         Optional<ReservationEntity> res = reservationService.getReservationById(id);
         return res.map(reservationEntity -> new ResponseEntity<>(reservationEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

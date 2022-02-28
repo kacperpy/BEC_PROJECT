@@ -3,10 +3,10 @@ package dk.bec.bookanything.controller;
 import dk.bec.bookanything.dto.BookableObjectCreateDto;
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
+import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.service.BookableObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +25,10 @@ public class BookableObjectController {
     }
 
     @GetMapping("/bookable-objects")
-    public List<BookableObjectEntity> bookableObjects() {
-        return bookableObjectService.getAllBookableObjects();
+    public ResponseEntity<List<BookableObjectReadDto>> getBookableObjects() {
+       List<ReservationEntity> l = bookableObjectService.getBookableObjectById(1L).get().getReservations();
+        return ResponseEntity.ok()
+                .body(bookableObjectService.getAllBookableObjects());
     }
 
     @PostMapping("/bookable-objects")
@@ -63,7 +65,7 @@ public class BookableObjectController {
     }
 
     @GetMapping("/bookable-objects/{id}/reservations")
-    public Optional<BookableObjectEntity> getReservationsForBookableObject(@PathVariable("id") Long id) {
-        return bookableObjectService.getBookableObjectById(id);
+    public Optional<List<ReservationEntity>> getReservationsForBookableObject(@PathVariable("id") Long id) {
+        return Optional.ofNullable(bookableObjectService.getReservationsForBookableObject(id));
     }
 }
