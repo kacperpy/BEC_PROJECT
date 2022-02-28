@@ -15,10 +15,6 @@ public class FacilityEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column
-    @GeneratedValue(generator = "uuid2")
-    private UUID uuid;
-
     @Column(nullable = false)
     String name;
 
@@ -29,7 +25,6 @@ public class FacilityEntity {
     String krs;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
     private AddressEntity addressEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
@@ -39,7 +34,6 @@ public class FacilityEntity {
     private List<DiscountCodeEntity> discountCodeList;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "facility_type_id")
     private FacilityTypeEntity facilityTypeEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
