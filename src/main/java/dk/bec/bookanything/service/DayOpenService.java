@@ -27,7 +27,10 @@ public class DayOpenService {
 
     public Optional<DayOpenEntity> modifyDayOpen(DayOpenEntity dayOpenEntity)
     {
-        return Optional.of(dayOpenRepository.save(dayOpenEntity));
+        if(getDayOpenById(dayOpenEntity.getId()).isPresent())
+            return Optional.of(dayOpenRepository.save(dayOpenEntity));
+        else
+            return Optional.empty();
     }
 
     public void deleteDayOpen(Long id){
