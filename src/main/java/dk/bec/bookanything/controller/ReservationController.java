@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("api/reservations")
 @AllArgsConstructor
 public class ReservationController {
 
@@ -27,7 +27,7 @@ public class ReservationController {
     private final BookableObjectService bookableObjectService;
 
     @GetMapping
-    public ResponseEntity<List<ReservationEntity>> getDiscountCodes() {
+    public ResponseEntity<List<ReservationEntity>> getReservations() {
         List<ReservationEntity> res = reservationService.getReservations();
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

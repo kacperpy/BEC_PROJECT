@@ -1,6 +1,7 @@
 package dk.bec.bookanything.model;
 
 import dk.bec.bookanything.dto.AddressDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import java.util.UUID;
 
 @Data
 @Table
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "address")
 public class AddressEntity {

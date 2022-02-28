@@ -3,6 +3,8 @@ package dk.bec.bookanything.dto;
 
 
 import dk.bec.bookanything.model.AddressEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -10,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.Column;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Validated
 public class AddressDto {
