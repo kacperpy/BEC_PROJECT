@@ -2,6 +2,7 @@ package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
+import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.repository.BookableObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookableObjectService {
@@ -20,8 +22,9 @@ public class BookableObjectService {
         this.bookableObjectRepository = bookableObjectRepository;
     }
 
-    public List<BookableObjectEntity> getAllBookableObjects() {
-        return bookableObjectRepository.findAll();
+    public List<BookableObjectReadDto> getAllBookableObjects() {
+        return bookableObjectRepository.findAll().stream()
+                .map(this::convertToReadDto).collect(Collectors.toList());
     }
 
     public void createBookableObject(BookableObjectEntity bookableObjectEntity) {
@@ -30,6 +33,10 @@ public class BookableObjectService {
 
     public Optional<BookableObjectEntity> getBookableObjectById(Long id) {
         return bookableObjectRepository.findById(id);
+    }
+
+    public List<ReservationEntity> getReservationsForBookableObject(Long bookableObjectId) {
+        return bookableObjectRepository.findById(bookableObjectId).get().getReservations();
     }
 
     @Transactional
