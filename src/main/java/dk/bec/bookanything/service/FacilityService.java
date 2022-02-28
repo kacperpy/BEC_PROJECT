@@ -19,4 +19,14 @@ public class FacilityService {
     {
       return facilityRepository.findById(id);
     }
+
+    public Optional<FacilityEntity> addFacility(FacilityEntity facilityEntity)
+    {
+        return Optional.of( facilityRepository.save(facilityEntity));
+    }
+
+    public Optional<FacilityEntity> modifyFacility(FacilityEntity facilityEntity)
+    {
+        return Optional.of(facilityRepository.save(facilityEntity));
+    }
 }
