@@ -1,8 +1,9 @@
 package dk.bec.bookanything.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,18 +14,14 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "bookable_object")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookableObjectEntity {
-
-    public BookableObjectEntity() {
-        this.uuid = UUID.randomUUID();
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column
-    private UUID uuid;
 
     @Column(length = 64, nullable = false)
     private String name;
