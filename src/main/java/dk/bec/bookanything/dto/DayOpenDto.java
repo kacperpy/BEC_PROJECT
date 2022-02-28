@@ -17,12 +17,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class DayOpenDto {
 
-    @Column
     private Integer day;
 
-    @Column
     private LocalDateTime hourFrom;
 
-    @Column
     private LocalDateTime hourTo;
 }
