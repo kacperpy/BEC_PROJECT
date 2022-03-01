@@ -11,6 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
-    RoleEntity findRoleEntityByUuid(UUID uuid);
-    void deleteRoleEntityByUuid(UUID uuid);
+    RoleEntity findRoleEntityById(Long id);
+    void deleteRoleEntityById(Long id);
 }

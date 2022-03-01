@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -24,8 +24,8 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public Optional<RoleEntity> getRole(String uuid) {
-        return  Optional.of(roleRepository.findRoleEntityByUuid(UUID.fromString(uuid)));
+    public Optional<RoleEntity> getRole(Long id) {
+        return  Optional.of(roleRepository.findRoleEntityById(id));
     }
 
     public Optional<RoleEntity> createRole(RoleEntity roleEntity) {
@@ -33,12 +33,11 @@ public class RoleService {
     }
 
 
-    public void deleteRole(String uuid) {
-        roleRepository.deleteRoleEntityByUuid(UUID.fromString(uuid));
+    public void deleteRole(Long id) {
+        roleRepository.deleteRoleEntityById(id);
     }
-
     public Optional<RoleEntity> updateRole(RoleEntity roleEntity) {
-        RoleEntity roleFromDB = roleRepository.findRoleEntityByUuid(roleEntity.getUuid());
+        RoleEntity roleFromDB = roleRepository.findRoleEntityById(roleEntity.getId());
         roleFromDB.setName(roleEntity.getName());
         roleFromDB.setUserList(roleEntity.getUserList());
         return Optional.of(roleRepository.save(roleFromDB));

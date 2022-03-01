@@ -29,9 +29,9 @@ public class RoleController {
     }
 
 
-    @GetMapping("/{uuid}")
-    public ResponseEntity<RoleEntity> getRoleByUUID(@PathVariable("uuid") String uuid){
-        Optional<RoleEntity> res = roleService.getRole(uuid);
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleEntity> getRoleByUUID(@PathVariable("id") Long id){
+        Optional<RoleEntity> res = roleService.getRole(id);
         return res.isPresent()? new ResponseEntity<RoleEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
@@ -42,9 +42,9 @@ public class RoleController {
         return res.isPresent()? new ResponseEntity<RoleEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{uuid}")
-    public void deleteRole(@PathVariable("uuid") String uuid){
-        roleService.deleteRole(uuid);
+    @DeleteMapping("/{id}")
+    public void deleteRole(@PathVariable("id") Long id){
+        roleService.deleteRole(id);
     }
 
     @PutMapping
