@@ -1,6 +1,7 @@
 package dk.bec.bookanything.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class DayOpenEntity {
     @Column(nullable = false)
     private LocalDateTime hourTo;
 
-    @ManyToOne()
+    @ManyToOne
+    @JsonBackReference
     private FacilityEntity facility;
 }

@@ -39,13 +39,4 @@ public class AddressEntity {
 
     @Column(nullable = false)
     private String country;
-
-    public AddressEntity(AddressDto dto) {
-        this.street = dto.getStreet();
-        this.streetNumber = dto.getStreetNumber();
-        this.flatNumber = dto.getFlatNumber();
-        this.city = dto.getCity();
-        this.postalCode = dto.getPostalCode();
-        this.country = dto.getCountry();
-    }
 }

@@ -1,5 +1,6 @@
 package dk.bec.bookanything.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,5 +29,6 @@ public class DiscountCodeEntity {
     private Integer amount;
 
     @ManyToOne
+    @JsonBackReference
     private FacilityEntity facility;
 }
