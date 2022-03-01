@@ -14,10 +14,6 @@ public class UserEntity {
     Long id;
 
     @Column
-    @GeneratedValue(generator = "uuid2")
-    private UUID uuid;
-
-    @Column
     private String email;
 
     @Column

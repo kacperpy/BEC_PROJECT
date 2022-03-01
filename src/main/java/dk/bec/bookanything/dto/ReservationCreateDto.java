@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ReservationCreateDto {
-    @NotNull
+    @NotNull(message = "User id is required")
     private Long userId;
-    @NotNull
+    @NotNull(message = "Bookable object id is required")
     private Long bookableObjectId;
     @NotNull(message = "Date from is required")
     private LocalDateTime dateFrom;
