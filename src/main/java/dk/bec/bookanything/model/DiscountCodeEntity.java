@@ -1,14 +1,19 @@
 package dk.bec.bookanything.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Data
 @Table
+@Builder
 @Entity(name = "discount_code")
+@AllArgsConstructor
+@NoArgsConstructor
 public class DiscountCodeEntity {
 
     @Id
@@ -22,6 +27,5 @@ public class DiscountCodeEntity {
     private Integer amount;
 
     @ManyToOne
-    @JsonBackReference
     private FacilityEntity facility;
 }
