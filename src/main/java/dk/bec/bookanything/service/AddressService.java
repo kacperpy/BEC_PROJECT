@@ -26,20 +26,13 @@ public class AddressService {
     }
 
     public Optional<AddressEntity> updateAddress(Long id, AddressEntity newAddress){
-        return addressRepository.findById(id).map(address -> {
-            address.setStreet(newAddress.getStreet());
-            address.setCity(newAddress.getCity());
-            address.setStreetNumber(newAddress.getStreetNumber());
-            address.setFlatNumber(newAddress.getFlatNumber());
-            address.setPostalCode(newAddress.getPostalCode());
-            address.setCountry(newAddress.getCountry());
-            return addressRepository.save(address);
-        });
+        if(getAddressById(id).isPresent())
+        {
+            return Optional.of(addressRepository.save(newAddress));
+        }
+        return Optional.empty();
     }
-
     public void deleteAddressById(Long id){
         addressRepository.deleteById(id);
     }
-
-
 }

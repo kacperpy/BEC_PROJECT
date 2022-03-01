@@ -25,7 +25,7 @@ public class FacilityService {
     }
 
     public Optional<FacilityEntity> updateFacility(Long id, FacilityEntity newFacility) {
-        if(getFacilityById(newFacility.getId()).isPresent())
+        if(getFacilityById(id).isPresent())
             return Optional.of(facilityRepository.save(newFacility));
         else
             return Optional.empty();
