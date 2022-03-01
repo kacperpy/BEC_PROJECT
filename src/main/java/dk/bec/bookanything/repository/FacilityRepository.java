@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface FacilityRepository extends JpaRepository<FacilityEntity, Long> {
 
-    Optional<FacilityEntity> findByAddressEntity(AddressEntity addressEntity);
+    Optional<List<FacilityEntity>> findByAddressEntityIn(List<AddressEntity> addressEntities);
 
     Optional<List<FacilityEntity>> findByFacilityTypeEntity(FacilityTypeEntity facilityTypeEntity);
 }
