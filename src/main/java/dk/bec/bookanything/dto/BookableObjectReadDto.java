@@ -24,5 +24,5 @@ public class BookableObjectReadDto {
 
     Integer reservation_count;
 
-    FeatureEntity feature;
+    Long feature_id;
 }
