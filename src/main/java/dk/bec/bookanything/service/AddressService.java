@@ -1,12 +1,11 @@
 package dk.bec.bookanything.service;
 
-import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class AddressService {
@@ -19,6 +18,10 @@ public class AddressService {
 
     public Optional<AddressEntity> getAddressById(Long id){
         return addressRepository.findById(id);
+    }
+
+    public Optional<List<AddressEntity>> getAddressesByCity(String city) {
+        return addressRepository.findByCity(city);
     }
 
     public Optional<AddressEntity> createAddress(AddressEntity address){
