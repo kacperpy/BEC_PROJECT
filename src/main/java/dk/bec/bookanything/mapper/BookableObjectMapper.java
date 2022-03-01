@@ -3,10 +3,17 @@ package dk.bec.bookanything.mapper;
 import dk.bec.bookanything.dto.BookableObjectCreateDto;
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
+import dk.bec.bookanything.service.FeatureService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BookableObjectMapper {
+
+    private final FeatureService featureService;
+
+    public BookableObjectMapper(FeatureService featureService) {
+        this.featureService = featureService;
+    }
 
     public BookableObjectEntity mapDtoToEntity(BookableObjectCreateDto bookableObjectCreateDto, Long id) {
         return BookableObjectEntity.builder()
@@ -16,8 +23,8 @@ public class BookableObjectMapper {
                 .capacity(bookableObjectCreateDto.getCapacity())
                 .description(bookableObjectCreateDto.getDescription())
                 .date_time(bookableObjectCreateDto.getDate_time())
-                .reservations(bookableObjectCreateDto.getReservations())
-                .feature(bookableObjectCreateDto.getFeature())
+                .reservations(null)
+                .feature(featureService.getFeatureById(bookableObjectCreateDto.getFeature_id()).get())
                 .build();
     }
 
