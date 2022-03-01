@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 public class FacilityMapper {
 
     FacilityTypeService facilityTypeService;
+    AddressMapper addressMapper;
+
+    public FacilityMapper(FacilityTypeService facilityTypeService, AddressMapper addressMapper) {
+        this.facilityTypeService = facilityTypeService;
+        this.addressMapper = addressMapper;
+    }
 
     public  FacilityEntity mapFacilityCreateDtoToEntity(FacilityCreateDto facilityCreateDto, Long id) {
       return  FacilityEntity.builder()
@@ -17,7 +23,7 @@ public class FacilityMapper {
                 .name(facilityCreateDto.getName())
                 .nip(facilityCreateDto.getNip())
                 .krs(facilityCreateDto.getKrs())
-                .addressEntity(AddressMapper.mapAddressDtoToEntity(facilityCreateDto.getAddressDto(), null))
+                .addressEntity(addressMapper.mapAddressDtoToEntity(facilityCreateDto.getAddressDto(), null))
                 .facilityTypeEntity(facilityTypeService.getFacilityTypeById(facilityCreateDto.getFacilityTypeId()))
                 .build();
     }
@@ -27,7 +33,7 @@ public class FacilityMapper {
                 .name(facilityEntity.getName())
                 .nip(facilityEntity.getNip())
                 .krs(facilityEntity.getKrs())
-                .addressDto(AddressMapper.mapAddressEntityToDto(facilityEntity.getAddressEntity()))
+                .addressDto(addressMapper.mapAddressEntityToDto(facilityEntity.getAddressEntity()))
                 .facilityTypeEntity(facilityEntity.getFacilityTypeEntity())
                 .featureEntities(facilityEntity.getFeatureEntities())
                 .build();
