@@ -28,7 +28,5 @@ public class BookableObjectCreateDto {
 
     LocalDateTime date_time;
 
-    List<ReservationEntity> reservations;
-
-    FeatureEntity feature;
+    Long feature_id;
 }
