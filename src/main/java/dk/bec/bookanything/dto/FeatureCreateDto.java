@@ -1,6 +1,5 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.FacilityEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

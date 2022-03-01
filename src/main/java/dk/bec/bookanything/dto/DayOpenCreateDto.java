@@ -1,15 +1,12 @@
 package dk.bec.bookanything.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dk.bec.bookanything.model.FacilityEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Builder
 @Data

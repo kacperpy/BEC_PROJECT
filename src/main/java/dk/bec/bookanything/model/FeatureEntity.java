@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Builder
 @Data
@@ -30,6 +29,7 @@ public class FeatureEntity {
 
     @ManyToOne
     @JsonBackReference
+    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private FacilityEntity facility;
 
     @OneToMany

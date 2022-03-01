@@ -3,6 +3,7 @@ package dk.bec.bookanything.controller;
 import dk.bec.bookanything.dto.BookableObjectCreateDto;
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.mapper.BookableObjectMapper;
+import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.service.BookableObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,9 @@ public class BookableObjectController {
     }
 
     @PutMapping("/bookable-objects/{id}")
-    public Optional<BookableObjectReadDto> updateBookableObjectById(@RequestBody BookableObjectCreateDto bookableObjectCreateDto, @PathVariable("id") Long id) {
-        return Optional.ofNullable(bookableObjectService.updateBookableObject(bookableObjectMapper.mapDtoToEntity(bookableObjectCreateDto, id)));
+    public Optional<BookableObjectReadDto> updateBookableObjectById(@RequestBody BookableObjectEntity bookableObjectEntity, @PathVariable("id") Long id) {
+        return Optional.ofNullable(
+                bookableObjectService.updateBookableObject(bookableObjectEntity));
     }
 
     @GetMapping("/bookable-objects/{id}/reservations")

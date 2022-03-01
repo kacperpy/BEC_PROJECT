@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,7 +19,7 @@ public class FeatureReadDto {
 
     private String description;
 
-    private FacilityEntity facility;
+    private Long facility_id;
 
-    private List<BookableObjectEntity> bookableObjects;
+    private Integer bookableObjects_count;
 }

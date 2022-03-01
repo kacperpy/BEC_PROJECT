@@ -1,6 +1,5 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.DayOpenEntity;
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.model.FeatureEntity;
