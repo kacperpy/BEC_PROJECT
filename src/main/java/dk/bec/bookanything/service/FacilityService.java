@@ -1,9 +1,12 @@
 package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.model.FacilityEntity;
+import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.repository.FacilityRepository;
+import dk.bec.bookanything.repository.FacilityTypeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -11,7 +14,7 @@ public class FacilityService {
 
     private final FacilityRepository facilityRepository;
 
-    public FacilityService(FacilityRepository facilityRepository) {
+    public FacilityService(FacilityRepository facilityRepository, FacilityTypeRepository facilityTypeRepository) {
         this.facilityRepository = facilityRepository;
     }
 
@@ -29,6 +32,10 @@ public class FacilityService {
             return Optional.of(facilityRepository.save(newFacility));
         else
             return Optional.empty();
+    }
+
+    public Optional<List<FacilityEntity>> getFacilitiesByType(FacilityTypeEntity facilityTypeEntity) {
+        return facilityRepository.findByFacilityTypeEntity(facilityTypeEntity);
     }
 
     public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}
