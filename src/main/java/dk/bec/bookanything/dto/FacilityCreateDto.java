@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Builder
 @Data
@@ -15,15 +14,19 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class FacilityCreateDto {
 
+    @Size(min = 3, max = 20)
     String name;
 
+    @Size(min = 10, max = 10)
     String nip;
 
+    @Size(min = 10, max = 10)
     String krs;
 
+    @NotNull(message = "Provide address information")
     private AddressDto addressDto;
 
-    @NotNull
+    @NotNull(message = "Facility type id can't be null!")
     private Long facilityTypeId;
 
 }
