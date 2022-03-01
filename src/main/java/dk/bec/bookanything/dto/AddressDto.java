@@ -35,14 +35,4 @@ public class AddressDto {
 
     @Column(nullable = false)
     private String country;
-
-    public AddressDto(AddressEntity addressEntity) {
-        this.street = addressEntity.getStreet();
-        this.streetNumber = addressEntity.getStreetNumber();
-        this.flatNumber = addressEntity.getFlatNumber();
-        this.city = addressEntity.getCity();
-        this.postalCode = addressEntity.getPostalCode();
-        this.country = addressEntity.getCountry();
-    }
-
 }
