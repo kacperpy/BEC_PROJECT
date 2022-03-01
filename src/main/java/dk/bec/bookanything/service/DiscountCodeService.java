@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -22,8 +22,8 @@ public class DiscountCodeService {
         return discountCodeRepository.findAll();
     }
 
-    public Optional<DiscountCodeEntity> getDiscountCode(String uuid) {
-        return Optional.of(discountCodeRepository.findDiscountCodeEntityByUuid(UUID.fromString(uuid)));
+    public Optional<DiscountCodeEntity> getDiscountCode(Long id) {
+        return Optional.of(discountCodeRepository.findDiscountCodeEntityById(id));
     }
 
     public Optional<DiscountCodeEntity> createDiscountCode(DiscountCodeEntity discountCodeEntity) {
@@ -31,12 +31,12 @@ public class DiscountCodeService {
     }
 
 
-    public void deleteDiscountCode(String uuid) {
-        discountCodeRepository.deleteDiscountCodeEntityByUuid(UUID.fromString(uuid));
+    public void deleteDiscountCode(Long id) {
+        discountCodeRepository.deleteDiscountCodeEntityById(id);
     }
 
     public Optional<DiscountCodeEntity> updateDiscountCode(DiscountCodeEntity discountCode){
-      DiscountCodeEntity discountCodeEntity = discountCodeRepository.findDiscountCodeEntityByUuid(discountCode.getUuid());
+      DiscountCodeEntity discountCodeEntity = discountCodeRepository.findDiscountCodeEntityById(discountCode.getId());
       discountCodeEntity.setCode(discountCode.getCode());
       discountCodeEntity.setAmount(discountCode.getAmount());
       discountCodeEntity.setFacility(discountCode.getFacility());
