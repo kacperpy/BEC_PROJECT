@@ -29,6 +29,7 @@ public class FeatureEntity {
 
     @ManyToOne
     @JsonBackReference
+    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private FacilityEntity facility;
 
     @OneToMany

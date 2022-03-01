@@ -2,6 +2,7 @@ package dk.bec.bookanything.controller;
 
 import dk.bec.bookanything.dto.FacilityCreateDto;
 import dk.bec.bookanything.dto.FacilityReadDto;
+import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.mapper.FacilityMapper;
 import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.service.FacilityService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,6 +31,13 @@ public class FacilityController {
         Optional<FacilityEntity> facilityOptional = facilityService.getFacilityById(id);
 
         return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/facilities/{id}/features")
+    ResponseEntity<List<FeatureReadDto>> getFeaturesForFacility(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(
+                facilityService.getFeaturesForFacility(id)
+        );
     }
 
     @PostMapping("/facilities")
