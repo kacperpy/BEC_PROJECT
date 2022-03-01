@@ -35,6 +35,10 @@ public class BookableObjectService {
         return bookableObjectRepository.findById(id);
     }
 
+    public void deleteBookableObjectById(Long id) {
+        bookableObjectRepository.deleteById(id);
+    }
+
     public List<ReservationEntity> getReservationsForBookableObject(Long bookableObjectId) {
         return bookableObjectRepository.findById(bookableObjectId).get().getReservations();
     }
@@ -54,7 +58,7 @@ public class BookableObjectService {
                 .description(bookableObjectEntity.getDescription())
                 .date_time(bookableObjectEntity.getDate_time())
                 .reservation_count(bookableObjectEntity.getReservations() != null ? bookableObjectEntity.getReservations().size() : 0)
-                .feature(bookableObjectEntity.getFeature())
+                .feature_id(bookableObjectEntity.getFeature() == null ? 0 : bookableObjectEntity.getFeature().getId())
                 .build();
     }
 }
