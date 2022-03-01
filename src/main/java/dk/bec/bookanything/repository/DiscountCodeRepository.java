@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface DiscountCodeRepository extends JpaRepository<DiscountCodeEntity, Long> {
 
-DiscountCodeEntity findDiscountCodeEntityByUuid(UUID uuid);
-void deleteDiscountCodeEntityByUuid(UUID uuid);
+DiscountCodeEntity findDiscountCodeEntityById(Long id);
+void deleteDiscountCodeEntityById(Long id);
 
 }

@@ -11,16 +11,9 @@ import java.util.UUID;
 @Entity(name = "discount_code")
 public class DiscountCodeEntity {
 
-    public DiscountCodeEntity() {
-        this.uuid = UUID.randomUUID();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column
-    private UUID uuid;
 
     @Column
     private String code;

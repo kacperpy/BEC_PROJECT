@@ -28,9 +28,9 @@ public class DiscountCodeController {
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{uuid}")
-    public ResponseEntity<DiscountCodeEntity> getDiscountCode(@PathVariable("uuid") String uuid){
-        Optional<DiscountCodeEntity> res = discountCodeService.getDiscountCode(uuid);
+    @GetMapping("/{id}")
+    public ResponseEntity<DiscountCodeEntity> getDiscountCode(@PathVariable("id") Long id){
+        Optional<DiscountCodeEntity> res = discountCodeService.getDiscountCode(id);
         return res.isPresent()? new ResponseEntity<DiscountCodeEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
@@ -41,9 +41,9 @@ public class DiscountCodeController {
         return res.isPresent()? new ResponseEntity<DiscountCodeEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{uuid}")
-    public void deleteDiscountCode(@PathVariable("uuid") String uuid){
-        discountCodeService.deleteDiscountCode(uuid);
+    @DeleteMapping("/{id}")
+    public void deleteDiscountCode(@PathVariable("id") Long id){
+        discountCodeService.deleteDiscountCode(id);
     }
 
     @PutMapping
