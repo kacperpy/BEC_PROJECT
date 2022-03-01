@@ -72,6 +72,7 @@ public class ReservationController {
                                 .bookableObjectEntity(bookableObjectEntity)
                                 .dateFrom(reservationCreateDto.getDateFrom())
                                 .dateTo(reservationCreateDto.getDateTo())
+                                .peopleNumber(reservationCreateDto.getPeopleNumber())
                                 .build();
     }
 }
