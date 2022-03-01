@@ -1,8 +1,7 @@
 package dk.bec.bookanything.service;
 
-import dk.bec.bookanything.dto.BookableObjectReadDto;
+import dk.bec.bookanything.dto.ReservationCreateDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
-import dk.bec.bookanything.model.DiscountCodeEntity;
 import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -19,6 +17,7 @@ import java.util.UUID;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final BookableObjectService bookableObjectService;
 
     public List<ReservationEntity> getReservations() {
         return reservationRepository.findAll();
@@ -30,13 +29,22 @@ public class ReservationService {
         return Optional.of(reservationRepository.save(reservationEntity));
     }
 
-//    @Transactional
-//    public ReservationEntity updateReservation(ReservationEntity reservationEntity) {
-//        reservationRepository.save(reservationEntity);
-//        return convertToReadDto(bookableObjectEntity);
-//    }
+    public Optional<ReservationEntity> updateReservation(ReservationCreateDto reservationCreateDto, Long id) {
+        Optional<ReservationEntity> reservation = getReservationById(id);
+        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(id);
+        if (reservation.isPresent() && bookableObjectEntity.isPresent()) {
+            reservation.get().setDateFrom(reservationCreateDto.getDateFrom());
+            reservation.get().setDateTo(reservationCreateDto.getDateTo());
+            reservation.get().setBookableObjectEntity(bookableObjectEntity.get());
+        }
+        return reservation;
+    }
 
-    public void deleteReservation(Long id) {
-        reservationRepository.deleteById(id);
+    public Optional<ReservationEntity> deleteReservation(Long id) {
+        Optional<ReservationEntity> reservation = getReservationById(id);
+        if (reservation.isPresent()) {
+            reservationRepository.deleteById(id);
+        }
+        return reservation;
     }
 }

@@ -51,16 +51,21 @@ public class ReservationController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-//    @PutMapping
-//    public ResponseEntity<ReservationReadDto> updateReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
-//        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
-//        if (bookableObjectEntity.isPresent()) {
-//            Optional<ReservationEntity> res = reservationService.createReservation(createReservationDtoToEntity(reservationCreateDto, bookableObjectEntity.get()));
-//            return res.map(reservationEntity -> new ResponseEntity<>(new ReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-//            Optional.ofNullable(reservationService.updateReservation(createReservationDtoToEntity(reservationCreateDto, bookableObjectEntity.get())));
-//        }
-//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ReservationReadDto> updateReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
+        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
+        if (bookableObjectEntity.isPresent()) {
+            Optional<ReservationEntity> res = reservationService.updateReservation(reservationCreateDto, id);
+            return res.map(reservationEntity -> new ResponseEntity<>(new ReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ReservationReadDto> deleteReservation(@PathVariable("id") Long id) {
+        Optional<ReservationEntity> res = reservationService.deleteReservation(id);
+        return res.map(reservationEntity -> new ResponseEntity<>(new ReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     private ReservationEntity createReservationDtoToEntity(ReservationCreateDto reservationCreateDto, BookableObjectEntity bookableObjectEntity) {
         return ReservationEntity.builder()
