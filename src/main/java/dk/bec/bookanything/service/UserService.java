@@ -28,39 +28,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserEntity getUserById(Long id){
-        return userRepository.findUserById(id);
-    }
-
-    public UserEntity getUserByName(String name){
-        return userRepository.findUserByName(name);
-    }
-
-    public UserEntity getUserBySurname(String surname){
-        return userRepository.findUserBySurname(surname);
-    }
-
-    public void deleteUser(UserEntity userEntity){
-        userRepository.delete(userEntity);
+    public Optional<UserEntity> getUserById(Long id){
+        return userRepository.findById(id);
     }
 
     public void deleteUserById(Long id){
-        Optional<UserEntity> userEntityOptional = Optional.ofNullable(getUserById(id));
-        userEntityOptional.ifPresent(userEntity1 -> userRepository.delete(userEntity1));
-    }
-
-    public void deleteUserByName(String name){
-        Optional<UserEntity> userEntityOptional = Optional.ofNullable(getUserByName(name));
-        userEntityOptional.ifPresent(userEntity1 -> userRepository.delete(userEntity1));
-    }
-
-    public void deleteUserBySurname(String surname){
-        Optional<UserEntity> userEntityOptional = Optional.ofNullable(getUserBySurname(surname));
+        Optional<UserEntity> userEntityOptional = getUserById(id);
         userEntityOptional.ifPresent(userEntity1 -> userRepository.delete(userEntity1));
     }
 
     public void updateUser(Long id, UserEntity userEntity){
-        Optional<UserEntity> userEntityOptional = Optional.ofNullable(getUserById(id));
+        Optional<UserEntity> userEntityOptional = getUserById(id);
         userEntityOptional.ifPresent(userEntity1 -> userRepository.save(userEntity1));
     }
 }

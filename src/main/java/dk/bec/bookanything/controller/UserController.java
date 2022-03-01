@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/API")
+@RequestMapping("/api")
 public class UserController {
 
     private UserService userService;
@@ -27,33 +28,13 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public UserEntity getUserById(@PathVariable("id")Long id){
+    public Optional<UserEntity> getUserById(@PathVariable("id")Long id){
         return userService.getUserById(id);
     }
 
-    @GetMapping("/users/{name}")
-    public UserEntity getUserByName(@PathVariable("name")String name){
-        return userService.getUserByName(name);
-    }
-
-    @GetMapping("/users/{surname}")
-    public UserEntity getUserBySurname(@PathVariable("surname")String surname){
-        return userService.getUserBySurname(surname);
-    }
-
-    @DeleteMapping("/users")
-    public void deleteUser(@RequestBody UserEntity userEntity){
-        userService.deleteUser(userEntity);
-    }
-
-    @DeleteMapping("/users/{name}")
-    public void deleteUserByName(@PathVariable("name") String name){
-        userService.deleteUserByName(name);
-    }
-
-    @DeleteMapping("/users/{surname}")
-    public void deleteUserBySurname(@PathVariable("surname") String surname){
-        userService.deleteUserBySurname(surname);
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable("id") Long id){
+        userService.deleteUserById(id);
     }
 
     @PostMapping("users")
@@ -76,5 +57,3 @@ public class UserController {
         }
     }
 }
-
-
