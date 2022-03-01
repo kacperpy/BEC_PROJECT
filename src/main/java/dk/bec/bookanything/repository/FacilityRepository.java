@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface FacilityRepository extends JpaRepository<FacilityEntity, Long> {
 
     Optional<FacilityEntity> findByAddressEntity(AddressEntity addressEntity);
+    Optional<FacilityEntity> findFacilityEntityById(Long id);
 
 }

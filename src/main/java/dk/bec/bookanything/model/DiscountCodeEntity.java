@@ -6,14 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 
 @Data
 @Table
 @Builder
 @Entity(name = "discount_code")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class DiscountCodeEntity {
 
     @Id
