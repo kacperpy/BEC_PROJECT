@@ -1,13 +1,10 @@
 package dk.bec.bookanything.controller;
 
-import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.dto.FacilityCreateDto;
 import dk.bec.bookanything.dto.FacilityReadDto;
 import dk.bec.bookanything.mapper.FacilityMapper;
-import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.service.FacilityService;
-import dk.bec.bookanything.service.FacilityTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

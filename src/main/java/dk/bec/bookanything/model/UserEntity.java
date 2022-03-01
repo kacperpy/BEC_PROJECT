@@ -4,7 +4,6 @@ import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Entity(name = "user")
 public class UserEntity {

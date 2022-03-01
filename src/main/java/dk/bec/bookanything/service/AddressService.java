@@ -1,12 +1,10 @@
 package dk.bec.bookanything.service;
 
-import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class AddressService {

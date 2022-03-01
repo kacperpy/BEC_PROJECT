@@ -1,6 +1,5 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.FeatureEntity;
 import lombok.Builder;
 import lombok.Data;
 
