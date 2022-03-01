@@ -15,32 +15,34 @@ import java.util.Optional;
 public class AddressController {
 
     private final AddressService addressService;
+    private final AddressMapper addressMapper;
 
-    AddressController(AddressService addressService) {
+    AddressController(AddressService addressService, AddressMapper addressMapper) {
         this.addressService = addressService;
+        this.addressMapper = addressMapper;
     }
 
     @GetMapping("/addresses/{id}")
     ResponseEntity<AddressDto> getAddress(@PathVariable("id") Long id) {
         Optional<AddressEntity> addressOptional = addressService.getAddressById(id);
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(AddressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/addresses")
     ResponseEntity<AddressDto> createAddress(@RequestBody AddressDto addressDto) {
-        AddressEntity address = AddressMapper.mapAddressDtoToEntity(addressDto, null);
+        AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, null);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
 
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(AddressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 
     }
 
     @PutMapping("/addresses/{id}")
     ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @RequestBody AddressDto addressDto) {
-        AddressEntity address = AddressMapper.mapAddressDtoToEntity(addressDto, id);
+        AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, id);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
 
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(AddressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("/addresses/{id}")
@@ -49,5 +51,4 @@ public class AddressController {
 
         return addressService.getAddressById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
