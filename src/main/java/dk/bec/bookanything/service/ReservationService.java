@@ -1,5 +1,7 @@
 package dk.bec.bookanything.service;
 
+import dk.bec.bookanything.dto.BookableObjectReadDto;
+import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.DiscountCodeEntity;
 import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.repository.ReservationRepository;
@@ -27,6 +29,12 @@ public class ReservationService {
     public Optional<ReservationEntity> createReservation(ReservationEntity reservationEntity) {
         return Optional.of(reservationRepository.save(reservationEntity));
     }
+
+//    @Transactional
+//    public ReservationEntity updateReservation(ReservationEntity reservationEntity) {
+//        reservationRepository.save(reservationEntity);
+//        return convertToReadDto(bookableObjectEntity);
+//    }
 
     public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);

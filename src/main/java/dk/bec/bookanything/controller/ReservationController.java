@@ -51,6 +51,17 @@ public class ReservationController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+//    @PutMapping
+//    public ResponseEntity<ReservationReadDto> updateReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
+//        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
+//        if (bookableObjectEntity.isPresent()) {
+//            Optional<ReservationEntity> res = reservationService.createReservation(createReservationDtoToEntity(reservationCreateDto, bookableObjectEntity.get()));
+//            return res.map(reservationEntity -> new ResponseEntity<>(new ReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+//            Optional.ofNullable(reservationService.updateReservation(createReservationDtoToEntity(reservationCreateDto, bookableObjectEntity.get())));
+//        }
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
+
     private ReservationEntity createReservationDtoToEntity(ReservationCreateDto reservationCreateDto, BookableObjectEntity bookableObjectEntity) {
         return ReservationEntity.builder()
                                 .bookableObjectEntity(bookableObjectEntity)
