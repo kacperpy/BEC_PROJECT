@@ -27,6 +27,9 @@ public class ReservationEntity {
     @Column(name = "date_to", nullable = false)
     private LocalDateTime dateTo;
 
+    @Column(name = "people_number", nullable = false)
+    private int peopleNumber;
+
     @ManyToOne
     @JoinColumn(name = "bookable_object_id", referencedColumnName = "id")
     @JsonBackReference
