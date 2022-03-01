@@ -1,5 +1,6 @@
 package dk.bec.bookanything.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class FeatureEntity {
     private String description;
 
     @ManyToOne
+    @JsonBackReference
     private FacilityEntity facility;
 
     @OneToMany

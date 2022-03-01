@@ -7,9 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
@@ -18,21 +21,25 @@ import javax.persistence.Column;
 @Validated
 public class AddressDto {
 
-    @Column(nullable = false)
+    @Size(min = 3, max = 30)
+    @NotNull
     private String street;
 
-    @Column(nullable = false)
+    @Size(min = 1)
+    @NotNull
     private String streetNumber;
 
-    @Column
+    @Size(min = 1)
     private String flatNumber;
 
-    @Column(nullable = false)
+    @Size(min = 3, max = 30)
+    @NotNull
     private String city;
 
-    @Column(nullable = false)
+    @Size(min = 5, max = 5)
+    @NotNull
     private String postalCode;
 
-    @Column(nullable = false)
+    @Size(min = 3, max = 30)
     private String country;
 }

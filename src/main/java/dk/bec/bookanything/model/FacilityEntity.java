@@ -1,5 +1,7 @@
 package dk.bec.bookanything.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,15 +37,18 @@ public class FacilityEntity {
     private AddressEntity addressEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
+    @JsonManagedReference
     private List<DayOpenEntity> dayOpenList;
 
     @OneToMany(cascade =  CascadeType.ALL)
+    @JsonManagedReference
     private List<DiscountCodeEntity> discountCodes;
 
     @OneToOne(cascade = CascadeType.ALL)
     private FacilityTypeEntity facilityTypeEntity;
 
     @OneToMany(cascade =  CascadeType.ALL)
+    @JsonManagedReference
     private List<FeatureEntity> featureEntities;
 
 
