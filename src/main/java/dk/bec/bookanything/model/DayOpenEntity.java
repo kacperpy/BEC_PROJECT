@@ -2,12 +2,10 @@ package dk.bec.bookanything.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Builder
 @Data
@@ -32,5 +30,6 @@ public class DayOpenEntity {
 
     @ManyToOne
     @JsonBackReference
+    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private FacilityEntity facility;
 }

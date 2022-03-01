@@ -15,11 +15,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DayOpenDto {
+public class DayOpenCreateDto {
 
     private Integer day;
 
     private LocalDateTime hourFrom;
 
     private LocalDateTime hourTo;
+
+    private Long facilityId;
 }
