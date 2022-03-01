@@ -39,6 +39,6 @@ public class UserService {
 
     public void updateUser(Long id, UserEntity userEntity){
         Optional<UserEntity> userEntityOptional = getUserById(id);
-        userEntityOptional.ifPresent(userEntity1 -> userRepository.save(userEntity1));
+        userEntityOptional.ifPresent(userEntity1 -> userRepository.save(userEntity));
     }
 }

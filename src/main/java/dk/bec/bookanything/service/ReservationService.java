@@ -29,16 +29,17 @@ public class ReservationService {
         return Optional.of(reservationRepository.save(reservationEntity));
     }
 
-    public Optional<ReservationEntity> updateReservation(ReservationCreateDto reservationCreateDto, Long id) {
+    public Optional<ReservationEntity> updateReservation(ReservationEntity reservationEntity, Long id) {
         Optional<ReservationEntity> reservation = getReservationById(id);
-        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(id);
-        if (reservation.isPresent() && bookableObjectEntity.isPresent()) {
-            reservation.get().setDateFrom(reservationCreateDto.getDateFrom());
-            reservation.get().setDateTo(reservationCreateDto.getDateTo());
-            reservation.get().setBookableObjectEntity(bookableObjectEntity.get());
+
+        if (reservation.isPresent()) {
+            return Optional.of(reservationRepository.save(reservationEntity));
+        } else {
+            return Optional.empty();
         }
-        return reservation;
     }
+
+
 
     public Optional<ReservationEntity> deleteReservation(Long id) {
         Optional<ReservationEntity> reservation = getReservationById(id);
