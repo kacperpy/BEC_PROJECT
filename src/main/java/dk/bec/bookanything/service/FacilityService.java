@@ -1,5 +1,6 @@
 package dk.bec.bookanything.service;
 
+import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.repository.FacilityRepository;
@@ -36,6 +37,10 @@ public class FacilityService {
 
     public Optional<List<FacilityEntity>> getFacilitiesByType(FacilityTypeEntity facilityTypeEntity) {
         return facilityRepository.findByFacilityTypeEntity(facilityTypeEntity);
+    }
+
+    public Optional<List<FacilityEntity>> getFacilitiesByAddressIn(List<AddressEntity> addressEntities) {
+        return facilityRepository.findByAddressEntityIn(addressEntities);
     }
 
     public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}
