@@ -36,6 +36,7 @@ public class FacilityMapper {
                 .addressDto(addressMapper.mapAddressEntityToDto(facilityEntity.getAddressEntity()))
                 .facilityTypeEntity(facilityEntity.getFacilityTypeEntity())
                 .featureEntities(facilityEntity.getFeatureEntities())
+                .dayOpenEntities(facilityEntity.getDayOpenList())
                 .build();
     }
 }

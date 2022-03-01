@@ -32,5 +32,6 @@ public class DayOpenEntity {
 
     @ManyToOne
     @JsonBackReference
+    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private FacilityEntity facility;
 }
