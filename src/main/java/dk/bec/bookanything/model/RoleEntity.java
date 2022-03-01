@@ -12,13 +12,10 @@ import java.util.UUID;
 @Entity(name = "role")
 public class RoleEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column
-    @GeneratedValue(generator = "uuid2")
-    private UUID uuid;
 
     @Column(length = 200)
     private String name;
