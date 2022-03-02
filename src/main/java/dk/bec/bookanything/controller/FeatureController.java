@@ -29,12 +29,6 @@ public class FeatureController {
         this.featureService = featureService;
     }
 
-    @GetMapping("/features")
-    public ResponseEntity<List<FeatureReadDto>> getAllFeatures(){
-        return ResponseEntity.ok()
-                .body(featureService.getFeatures());
-    }
-
     @GetMapping("/features/{id}")
     public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id){
         Optional<FeatureEntity> featureOptional = featureService.getFeatureById(id);

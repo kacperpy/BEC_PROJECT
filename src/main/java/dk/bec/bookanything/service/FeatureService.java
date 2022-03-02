@@ -1,7 +1,6 @@
 package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.dto.BookableObjectReadDto;
-import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.mapper.BookableObjectMapper;
 import dk.bec.bookanything.mapper.FeatureMapper;
 import dk.bec.bookanything.model.FeatureEntity;
@@ -25,8 +24,8 @@ public class FeatureService {
         this.featureMapper = featureMapper;
     }
 
-    public Optional<FeatureEntity> createFeature(FeatureEntity featureEntity){
-        return Optional.of(featureRepository.save(featureEntity));
+    public void createFeature(FeatureEntity featureEntity){
+        featureRepository.save(featureEntity);
     }
 
     public Optional<FeatureEntity> getFeatureById(Long id){
@@ -37,16 +36,8 @@ public class FeatureService {
         featureRepository.deleteById(id);
     }
 
-    public List<FeatureReadDto> getFeatures() {
-        return featureRepository.findAll().stream()
-                .map(featureMapper::mapFeatureEntityToDto).collect(Collectors.toList());
-    }
-
-    public Optional<FeatureEntity> updateFeatureObject(FeatureEntity featureEntity, Long id) {
-        if(getFeatureById(id).isPresent())
-            return Optional.of(featureRepository.save(featureEntity));
-        else
-            return Optional.empty();
+    public void updateFeatureObject(FeatureEntity featureEntity, Long id) {
+            featureRepository.save(featureEntity);
     }
 
     public Optional<List<BookableObjectReadDto>> getBookableForFeatureId(Long id) {
