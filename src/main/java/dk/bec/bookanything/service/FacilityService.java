@@ -43,5 +43,9 @@ public class FacilityService {
         return facilityRepository.findByAddressEntityIn(addressEntities);
     }
 
+    public Optional<List<FacilityEntity>> getFacilitiesByAddressInAndType(List<AddressEntity> addressEntities, FacilityTypeEntity facilityTypeEntity) {
+        return facilityRepository.findByAddressEntityInAndFacilityTypeEntity(addressEntities, facilityTypeEntity);
+    }
+
     public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}
 }

@@ -14,5 +14,7 @@ public interface FacilityRepository extends JpaRepository<FacilityEntity, Long> 
 
     Optional<List<FacilityEntity>> findByAddressEntityIn(List<AddressEntity> addressEntities);
 
+    Optional<List<FacilityEntity>> findByAddressEntityInAndFacilityTypeEntity(List<AddressEntity> addressEntities, FacilityTypeEntity facilityTypeEntity);
+
     Optional<List<FacilityEntity>> findByFacilityTypeEntity(FacilityTypeEntity facilityTypeEntity);
 }
