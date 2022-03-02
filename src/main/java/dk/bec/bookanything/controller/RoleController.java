@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @ResponseBody
-@RequestMapping("/api/roles")
+@RequestMapping("/api")
 public class RoleController {
 
 
@@ -27,7 +27,7 @@ public class RoleController {
         this.roleMapper = roleMapper;
     }
 
-    @GetMapping
+    @GetMapping("/roles")
     public ResponseEntity<List<RoleReadDto>> getRoles() {
         List<RoleReadDto> res = roleService.getRoles().stream().map(roleMapper::roleEntityToDto).collect(Collectors.toList());
         if (res.size() > 0) return new ResponseEntity<>(res, HttpStatus.OK);
@@ -35,26 +35,26 @@ public class RoleController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/roles/{id}")
     public ResponseEntity<RoleReadDto> getRoleById(@PathVariable("id") Long id) {
         Optional<RoleReadDto> res = roleService.getRole(id).map(roleMapper::roleEntityToDto);
         return res.map(roleReadDto -> new ResponseEntity<>(roleReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
-    @PostMapping
+    @PostMapping("/roles")
     public ResponseEntity<RoleReadDto> createRole(@RequestBody RoleCreateDto roleCreateDto) {
         RoleEntity roleEntity = roleMapper.roleDtoToEntity(roleCreateDto);
         Optional<RoleReadDto> res = roleService.createRole(roleEntity).map(roleMapper::roleEntityToDto);
         return res.map(roleReadDto -> new ResponseEntity<>(roleReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/roles/{id}")
     public void deleteRole(@PathVariable("id") Long id) {
         roleService.deleteRole(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/roles/{id}")
     public ResponseEntity<RoleReadDto> updateRole(@PathVariable("id") Long id, @RequestBody RoleCreateDto roleCreateDto) {
         RoleEntity roleEntity = roleMapper.roleDtoToEntityWhenModified(roleCreateDto, id);
         Optional<RoleReadDto> res = roleService.updateRole(roleEntity).map(roleMapper::roleEntityToDto);
