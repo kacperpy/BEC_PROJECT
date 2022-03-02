@@ -44,7 +44,7 @@ public class FacilityEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private FacilityTypeEntity facilityTypeEntity;
 
-    @OneToMany(cascade =  CascadeType.ALL)
+    @OneToMany(mappedBy = "facility", cascade =  CascadeType.ALL)
     @JsonManagedReference
     private List<FeatureEntity> featureEntities;
 

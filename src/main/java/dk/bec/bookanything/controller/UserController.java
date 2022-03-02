@@ -1,6 +1,8 @@
 package dk.bec.bookanything.controller;
 
 
+import dk.bec.bookanything.dto.UserCreateDto;
+import dk.bec.bookanything.mapper.UserMapper;
 import dk.bec.bookanything.model.UserEntity;
 import dk.bec.bookanything.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, UserMapper userMapper){
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/users")
@@ -38,20 +42,20 @@ public class UserController {
     }
 
     @PostMapping("users")
-    public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity userEntity){
+    public ResponseEntity<UserCreateDto> addUser(@RequestBody UserCreateDto userCreateDto){
         try {
-            userService.addUser(userEntity);
-            return new ResponseEntity<>(userEntity, HttpStatus.CREATED);
+            userService.addUser(userMapper.mapUserCreateDtoToUserEntity(userCreateDto, null));
+            return new ResponseEntity<>(userCreateDto, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable("id") Long id, UserEntity userEntity){
+    public ResponseEntity<UserCreateDto> updateUser(@PathVariable("id") Long id, @RequestBody UserCreateDto userCreateDto){
         try {
-            userService.updateUser(id, userEntity);
-            return new ResponseEntity<>(userEntity, HttpStatus.OK);
+            userService.updateUser(id, userMapper.mapUserCreateDtoToUserEntity(userCreateDto, id));
+            return new ResponseEntity<>(userCreateDto, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -3,16 +3,17 @@ package dk.bec.bookanything.mapper;
 import dk.bec.bookanything.dto.FeatureCreateDto;
 import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.model.FeatureEntity;
+import dk.bec.bookanything.repository.FacilityRepository;
 import dk.bec.bookanything.service.FacilityService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FeatureMapper {
 
-    private final FacilityService facilityService;
+    private final FacilityRepository facilityRepository;
 
-    public FeatureMapper(FacilityService facilityService) {
-        this.facilityService = facilityService;
+    public FeatureMapper(FacilityRepository facilityRepository) {
+        this.facilityRepository = facilityRepository;
     }
 
     public FeatureEntity mapFeatureDtoToEntity(FeatureCreateDto featureCreateDto, Long id){
@@ -20,7 +21,7 @@ public class FeatureMapper {
 //                .id(id)
                 .description(featureCreateDto.getDescription())
                 .name(featureCreateDto.getName())
-                .facility(facilityService.getFacilityById(featureCreateDto.getFacilityId()).get()) //verify
+                .facility(facilityRepository.getById(featureCreateDto.getFacilityId())) //verify
                 .build();
     }
 
@@ -28,7 +29,8 @@ public class FeatureMapper {
         return FeatureReadDto.builder()
                 .description(featureEntity.getDescription())
                 .name(featureEntity.getName())
-                .facility(featureEntity.getFacility())
+                .facility_id(featureEntity.getFacility().getId())
+                .bookableObjects_count(featureEntity.getBookableObjects().size())
                 .build();
     }
 }
