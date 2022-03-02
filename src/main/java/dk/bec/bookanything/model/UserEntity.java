@@ -15,11 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity(name = "user")
-@Table
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class UserEntity {
 
     public UserEntity(String email, String password, LocalDateType birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
