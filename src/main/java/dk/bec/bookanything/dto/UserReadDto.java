@@ -1,5 +1,7 @@
-package dk.bec.bookanything.model;
+package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.model.ReservationEntity;
+import dk.bec.bookanything.model.RoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,33 +11,21 @@ import org.hibernate.type.LocalDateType;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "user")
-@Table
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class UserEntity {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserReadDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-
-    @Column
     private String email;
 
-    @Column
     private String password;
 
-    @Column
     private LocalDateType birthDate;
 
-    @Column
     private String phoneNumber;
 
-    @ManyToOne
     private RoleEntity role;
 
-    @OneToMany
     private List<ReservationEntity> reservations;
 }
