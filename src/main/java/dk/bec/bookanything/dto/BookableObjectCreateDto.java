@@ -5,14 +5,12 @@ import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import dk.bec.bookanything.validator.FutureDateTimeConstraint;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 
 @Data
 public class BookableObjectCreateDto {
@@ -21,13 +19,14 @@ public class BookableObjectCreateDto {
     private String name;
 
     @Positive(message = "Time_period cannot be negative")
-    private Integer timePeriod;
+    private Integer timePeriod; //TODO units?
 
     @Positive(message = "Capacity cannot be negative")
     @NotNull(message = "Capacity is mandatory")
     private Integer capacity;
 
     @NotBlank(message = "Description is mandatory")
+    @Length(max = 200)
     private String description;
 
     @FutureDateTimeConstraint

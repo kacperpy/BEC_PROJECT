@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
 
@@ -30,10 +29,10 @@ public class AddressDto {
     @NotNull
     private String city;
 
-    @Size(min = 5, max = 5)
+    @Size(min = 5, max = 5) //TODO think about it
     @NotNull
     private String postalCode;
 
     @Size(min = 3, max = 30)
-    private String country;
+    private String country; //TODO maybe verify country
 }
