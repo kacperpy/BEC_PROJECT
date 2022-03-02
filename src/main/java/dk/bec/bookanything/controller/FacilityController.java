@@ -1,5 +1,6 @@
 package dk.bec.bookanything.controller;
 
+import dk.bec.bookanything.dto.DayOpenReadDto;
 import dk.bec.bookanything.dto.FacilityCreateDto;
 import dk.bec.bookanything.dto.FacilityReadDto;
 import dk.bec.bookanything.dto.FeatureReadDto;
@@ -47,6 +48,11 @@ public class FacilityController {
         return ResponseEntity.ok().body(
                 facilityService.getFeaturesForFacility(id)
         );
+    }
+
+    @GetMapping("facilities/{id}/days_open")
+    ResponseEntity<List<DayOpenReadDto>>  getDaysOpenForFacility(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(facilityService.getDaysOpenForFacility(id));
     }
 
     @PostMapping("/facilities")
