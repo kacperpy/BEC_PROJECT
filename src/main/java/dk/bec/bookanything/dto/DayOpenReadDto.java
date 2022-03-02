@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DayOpenReadDto {
-    private Integer day;
+    private String day;
 
     private LocalTime hourFrom;
 
