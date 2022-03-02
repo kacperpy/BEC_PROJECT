@@ -58,8 +58,8 @@ public class FacilityTypeControllerTest {
 
 //    @Test
 //    void getFacilityTypeById() throws Exception {
+//        Mockito.when(facilityTypeService.getFacilityTypeById(2L)).thenReturn(facilityTypes.get(1));
 //        String name = "gym";
-//        FacilityTypeEntity facilityTypeEntity = facilityTypes.get(2);
 //
 //        mockMvc.perform(MockMvcRequestBuilders
 //                .get("/API/facility-types/2")
@@ -99,7 +99,16 @@ public class FacilityTypeControllerTest {
         FacilityTypeEntity facilityTypeEntity = facilityTypes.get(1);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .delete("/API/facility-types/1")
+                .delete("/API/facility-types/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void updateFeatureType() throws Exception{
+        FacilityTypeEntity facilityTypeEntity = facilityTypes.get(1);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .put("/API/facility-types/3")
                 .content(mapToJson(facilityTypeEntity))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
