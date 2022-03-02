@@ -4,7 +4,6 @@ import dk.bec.bookanything.dto.FeatureCreateDto;
 import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.model.FeatureEntity;
 import dk.bec.bookanything.repository.FacilityRepository;
-import dk.bec.bookanything.service.FacilityService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +17,6 @@ public class FeatureMapper {
 
     public FeatureEntity mapFeatureDtoToEntity(FeatureCreateDto featureCreateDto, Long id){
         return FeatureEntity.builder()
-//                .id(id)
                 .description(featureCreateDto.getDescription())
                 .name(featureCreateDto.getName())
                 .facility(facilityRepository.getById(featureCreateDto.getFacilityId())) //verify

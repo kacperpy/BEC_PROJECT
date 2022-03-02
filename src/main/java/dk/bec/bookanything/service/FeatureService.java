@@ -1,19 +1,24 @@
 package dk.bec.bookanything.service;
 
+import dk.bec.bookanything.dto.BookableObjectReadDto;
+import dk.bec.bookanything.mapper.BookableObjectMapper;
 import dk.bec.bookanything.model.FeatureEntity;
 import dk.bec.bookanything.repository.FeatureRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FeatureService {
 
     private final FeatureRepository featureRepository;
+    private final BookableObjectMapper bookableObjectMapper;
 
-    public FeatureService(FeatureRepository featureRepository) {
+    public FeatureService(FeatureRepository featureRepository, BookableObjectMapper bookableObjectMapper) {
         this.featureRepository = featureRepository;
+        this.bookableObjectMapper = bookableObjectMapper;
     }
 
     public FeatureEntity createFeature(FeatureEntity featureEntity){
@@ -36,5 +41,11 @@ public class FeatureService {
         if(getFeatureById(id).isPresent())
             featureRepository.save(featureEntity);
         return featureEntity;
+    }
+
+    public List<BookableObjectReadDto> getBookableForFeatureId(Long id) {
+        return featureRepository.findById(id).get().getBookableObjects().stream().map(
+                bookableObjectMapper::mapEntityToDto
+        ).collect(Collectors.toList());
     }
 }
