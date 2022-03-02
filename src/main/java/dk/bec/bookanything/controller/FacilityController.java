@@ -38,21 +38,20 @@ public class FacilityController {
 
     @GetMapping("/facilities/{id}")
     ResponseEntity<FacilityReadDto> getFacility(@PathVariable("id") Long id) {
-        Optional<FacilityEntity> facilityOptional = facilityService.getFacilityById(id);
-
-        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return facilityService.getFacilityById(id).map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/facilities/{id}/features")
     ResponseEntity<List<FeatureReadDto>> getFeaturesForFacility(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(
-                facilityService.getFeaturesForFacility(id)
-        );
+        return facilityService.getFeaturesForFacility(id).map(featureReadDtos -> new ResponseEntity<>(featureReadDtos, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("facilities/{id}/days_open")
     ResponseEntity<List<DayOpenReadDto>>  getDaysOpenForFacility(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(facilityService.getDaysOpenForFacility(id));
+        return facilityService.getDaysOpenForFacility(id).map(dayOpenReadDtos -> new ResponseEntity<>(dayOpenReadDtos, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/facilities")

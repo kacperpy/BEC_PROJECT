@@ -32,18 +32,17 @@ public class FacilityService {
       return facilityRepository.findById(id);
     }
 
-    public List<FeatureReadDto> getFeaturesForFacility(Long id)
+    public Optional<List<FeatureReadDto>> getFeaturesForFacility(Long id)
     {
-        return facilityRepository.findById(id).get().getFeatureEntities().stream().map(
-                featureMapper::mapFeatureEntityToDto
-        ).collect(Collectors.toList());
+        return getFacilityById(id).map(entity -> entity.getFeatureEntities().stream()
+                .map(featureMapper::mapFeatureEntityToDto
+        ).collect(Collectors.toList()));
     }
-    public List<DayOpenReadDto> getDaysOpenForFacility(Long id)
+    public Optional<List<DayOpenReadDto>> getDaysOpenForFacility(Long id)
     {
-        return facilityRepository.findById(id).get().getDayOpenList().stream()
-                .map(dayOpenMapper::mapDayOpenEntityToReadDto).collect(Collectors.toList());
+        return getFacilityById(id).map(entity -> entity.getDayOpenList().stream()
+                .map(dayOpenMapper::mapDayOpenEntityToReadDto).collect(Collectors.toList()));
     }
-
 
     public Optional<FacilityEntity> createFacility(FacilityEntity facilityEntity) {
         return Optional.of( facilityRepository.save(facilityEntity));
