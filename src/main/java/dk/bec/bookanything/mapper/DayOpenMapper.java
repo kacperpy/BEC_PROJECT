@@ -13,7 +13,7 @@ import java.util.Optional;
 @Component
 public class DayOpenMapper {
 
-    FacilityRepository facilityRepository;
+    private final FacilityRepository facilityRepository;
 
     public DayOpenMapper(FacilityRepository facilityRepository) {
         this.facilityRepository = facilityRepository;

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Service
 public class DayOpenService {
-    DayOpenRepository dayOpenRepository;
+    private final DayOpenRepository dayOpenRepository;
 
     public DayOpenService(DayOpenRepository dayOpenRepository) {
         this.dayOpenRepository = dayOpenRepository;
