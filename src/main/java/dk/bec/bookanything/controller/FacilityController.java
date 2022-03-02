@@ -4,6 +4,7 @@ import dk.bec.bookanything.dto.FacilityCreateDto;
 import dk.bec.bookanything.dto.FacilityReadDto;
 import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.mapper.FacilityMapper;
+import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.service.AddressService;
