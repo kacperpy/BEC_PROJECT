@@ -29,7 +29,7 @@ public class FeatureController {
     }
 
     @GetMapping("/feautres")
-    public ResponseEntity<List<FeatureEntity>> getAllFeatures(){
+    public ResponseEntity<List<FeatureReadDto>> getAllFeatures(){
         return ResponseEntity.ok()
                 .body(featureService.getFeatures());
     }
@@ -54,22 +54,22 @@ public class FeatureController {
     public ResponseEntity<FeatureCreateDto> updateFeature(@RequestBody FeatureCreateDto feature, @PathVariable("id") Long id) {
         try {
             featureService.updateFeatureObject(featureMapper.mapFeatureDtoToEntity(feature, id), id);
-            return new ResponseEntity<>(feature, HttpStatus.OK); //zwroc dto
+            return new ResponseEntity<>(feature, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/features/{id}")
-    public void deleteFeatureById(@PathVariable("id") Long id){
+    public ResponseEntity<FeatureCreateDto> deleteFeatureById(@PathVariable("id") Long id){
         featureService.deleteFeatureById(id);
+        return featureService.getFeatureById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR): new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/fetures/{id}/bookable-objects")
     public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id){
-        return ResponseEntity.ok().body(
-                featureService.getBookableForFeatureId(id)
-        );
+        return featureService.getBookableForFeatureId(id).map(bookableReadDto -> new ResponseEntity<>(bookableReadDto, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
