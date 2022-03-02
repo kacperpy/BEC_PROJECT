@@ -5,6 +5,7 @@ import dk.bec.bookanything.dto.DayOpenReadDto;
 import dk.bec.bookanything.mapper.DayOpenMapper;
 import dk.bec.bookanything.model.DayOpenEntity;
 import dk.bec.bookanything.service.DayOpenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class DayOpenController {
+
   private final  DayOpenService dayOpenService;
   private final  DayOpenMapper dayOpenMapper;
 
+    @Autowired
     public DayOpenController(DayOpenService dayOpenService, DayOpenMapper dayOpenMapper) {
         this.dayOpenService = dayOpenService;
         this.dayOpenMapper = dayOpenMapper;
@@ -45,6 +48,6 @@ public class DayOpenController {
     @DeleteMapping("/days-open/{id}")
     public ResponseEntity<Void> deleteDayOpen(@PathVariable("id") Long id){
         dayOpenService.deleteDayOpen(id);
-        return  ResponseEntity.ok().build();
+        return  ResponseEntity.ok().build(); //TODO check if id existed?
     }
 }

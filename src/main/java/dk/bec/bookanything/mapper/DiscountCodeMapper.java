@@ -22,11 +22,11 @@ public class DiscountCodeMapper {
 
     public DiscountCodeEntity discountCodeDtoToEntity(DiscountCodeCreateDto discountCodeCreateDto) {
         Optional<FacilityEntity> facilityEntity = facilityService.getFacilityById(discountCodeCreateDto.getFacilityId());
-        System.out.println(facilityEntity.isPresent());
+        System.out.println(facilityEntity.isPresent()); //TODO remove this
         return DiscountCodeEntity.builder()
                 .code(discountCodeCreateDto.getCode())
                 .amount(discountCodeCreateDto.getAmount())
-                .facility(facilityEntity.orElse(null)).build();
+                .facility(facilityEntity.orElse(null)).build(); //TODO ?
 
     }
 

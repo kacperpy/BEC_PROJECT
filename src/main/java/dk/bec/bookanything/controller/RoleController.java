@@ -5,6 +5,7 @@ import dk.bec.bookanything.dto.RoleReadDto;
 import dk.bec.bookanything.mapper.RoleMapper;
 import dk.bec.bookanything.model.RoleEntity;
 import dk.bec.bookanything.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,13 @@ public class RoleController {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
 
+    @Autowired
     public RoleController(RoleService roleService, RoleMapper roleMapper) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
     }
+
+    //TODO should the methods be public?
 
     @GetMapping("/roles")
     public ResponseEntity<List<RoleReadDto>> getRoles() {

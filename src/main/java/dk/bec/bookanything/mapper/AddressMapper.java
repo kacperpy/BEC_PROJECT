@@ -4,6 +4,8 @@ import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.model.AddressEntity;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+
 @Component
 public class AddressMapper {
 

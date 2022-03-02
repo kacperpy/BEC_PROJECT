@@ -4,6 +4,7 @@ import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.mapper.AddressMapper;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.service.AddressService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class AddressController {
     private final AddressService addressService;
     private final AddressMapper addressMapper;
 
+    @Autowired
     AddressController(AddressService addressService, AddressMapper addressMapper) {
         this.addressService = addressService;
         this.addressMapper = addressMapper;
@@ -39,7 +41,7 @@ public class AddressController {
     }
 
     @PutMapping("/addresses/{id}")
-    ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id,@Valid @RequestBody AddressDto addressDto) {
+    ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @Valid @RequestBody AddressDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, id);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
 
@@ -50,6 +52,6 @@ public class AddressController {
     ResponseEntity<AddressDto> deleteAddress(@PathVariable("id") Long id) {
         addressService.deleteAddressById(id);
 
-        return addressService.getAddressById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
+        return addressService.getAddressById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK); //TODO change response to NO_CONTENT
     }
 }

@@ -13,7 +13,6 @@ import javax.validation.constraints.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class AddressDto {
 
     @Size(min = 3, max = 30)

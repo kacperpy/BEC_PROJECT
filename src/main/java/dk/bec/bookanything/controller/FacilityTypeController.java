@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/API")
+@RequestMapping("/API") //TODO stick to the bloody convention bro
 public class FacilityTypeController {
 
     private final FacilityTypeService facilityTypeService;
@@ -25,6 +25,8 @@ public class FacilityTypeController {
         this.facilityTypeService = facilityTypeService;
         this.facilityTypeMapper = facilityTypeMapper;
     }
+
+    //TODO responses
 
     @GetMapping("/facility-types")
     public List<FacilityTypeEntity> facilityTypes(){

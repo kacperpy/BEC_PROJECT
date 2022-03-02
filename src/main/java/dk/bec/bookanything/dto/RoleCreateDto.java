@@ -16,3 +16,4 @@ public class RoleCreateDto {
 
     private List<Long> userIdList;
 }
+//TODO remove userId list

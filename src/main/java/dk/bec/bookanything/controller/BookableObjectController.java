@@ -40,29 +40,29 @@ public class BookableObjectController {
             bookableObjectService.createBookableObject(bookableObjectMapper.mapDtoToEntity(bookableObjectCreateDto, null));
             return new ResponseEntity<>(bookableObjectCreateDto, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); //TODO change response code
         }
     }
 
     @GetMapping("/bookable-objects/{id}")
     public ResponseEntity<BookableObjectReadDto> getBookableObjectById(@PathVariable("id") Long id) {
         return ResponseEntity.ok()
-                .body(bookableObjectMapper.mapEntityToDto(bookableObjectService.getBookableObjectById(id).get()));
+                .body(bookableObjectMapper.mapEntityToDto(bookableObjectService.getBookableObjectById(id).get())); //TODO error handling
     }
 
     @DeleteMapping("/bookable-objects/{id}")
     public void deleteBookableObjectById(@PathVariable("id") Long id) {
-        bookableObjectService.deleteBookableObjectById(id);
+        bookableObjectService.deleteBookableObjectById(id); //TODO return response
     }
 
     @PutMapping("/bookable-objects/{id}")
-    public Optional<BookableObjectReadDto> updateBookableObjectById(@Valid @RequestBody BookableObjectEntity bookableObjectEntity, @PathVariable("id") Long id) {
+    public Optional<BookableObjectReadDto> updateBookableObjectById(@Valid @RequestBody BookableObjectEntity bookableObjectEntity, @PathVariable("id") Long id) { //TODO unused parameter!
         return Optional.ofNullable(
-                bookableObjectService.updateBookableObject(bookableObjectEntity));
+                bookableObjectService.updateBookableObject(bookableObjectEntity)); //TODO response
     }
 
     @GetMapping("/bookable-objects/{id}/reservations")
     public Optional<List<ReservationEntity>> getReservationsForBookableObject(@PathVariable("id") Long id) {
-        return Optional.ofNullable(bookableObjectService.getReservationsForBookableObject(id));
+        return Optional.ofNullable(bookableObjectService.getReservationsForBookableObject(id)); //TODO response
     }
 }

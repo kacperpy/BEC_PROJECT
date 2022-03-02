@@ -14,6 +14,8 @@ public class ErrorData {
 
     private String message;
 
+    private Integer value;
+
     private HttpStatus status;
 
     private List<String> errors;

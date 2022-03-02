@@ -7,7 +7,7 @@ import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.service.BookableObjectService;
 import dk.bec.bookanything.service.ReservationService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,18 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/reservations")
-@AllArgsConstructor
 public class ReservationController {
 
     private final ReservationService reservationService;
     private final BookableObjectService bookableObjectService;
     private final ReservationMapper reservationMapper;
+
+    @Autowired
+    public ReservationController(ReservationService reservationService, BookableObjectService bookableObjectService, ReservationMapper reservationMapper) {
+        this.reservationService = reservationService;
+        this.bookableObjectService = bookableObjectService;
+        this.reservationMapper = reservationMapper;
+    }
 
     @GetMapping
     public ResponseEntity<List<ReservationReadDto>> getReservations() {
@@ -59,7 +65,7 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ReservationReadDto> deleteReservation(@PathVariable("id") Long id) {
         Optional<ReservationEntity> res = reservationService.deleteReservation(id);
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
 

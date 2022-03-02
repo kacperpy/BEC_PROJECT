@@ -11,6 +11,7 @@ import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.service.AddressService;
 import dk.bec.bookanything.service.FacilityService;
 import dk.bec.bookanything.service.FacilityTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class FacilityController {
     private final FacilityTypeService facilityTypeService;
     private final AddressService addressService;
 
+    @Autowired
     public FacilityController(FacilityService facilityService, FacilityMapper facilityMapper, FacilityTypeService facilityTypeService, AddressService addressService) {
         this.facilityService = facilityService;
         this.facilityMapper = facilityMapper;

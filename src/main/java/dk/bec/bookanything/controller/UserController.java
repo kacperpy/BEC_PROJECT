@@ -27,6 +27,8 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+    //TODO responses
+
     @GetMapping("/users")
     public List<UserEntity> users(){
         return userService.getUsers();
