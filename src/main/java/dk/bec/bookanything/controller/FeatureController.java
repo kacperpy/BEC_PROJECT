@@ -1,7 +1,9 @@
 package dk.bec.bookanything.controller;
 
 
+import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.dto.FeatureCreateDto;
+import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.mapper.FeatureMapper;
 import dk.bec.bookanything.model.FeatureEntity;
 import dk.bec.bookanything.service.FeatureService;
@@ -27,13 +29,15 @@ public class FeatureController {
     }
 
     @GetMapping("/feautres")
-    public List<FeatureEntity> getAllFeatures(){
-        return featureService.getFeatures();
+    public ResponseEntity<List<FeatureEntity>> getAllFeatures(){
+        return ResponseEntity.ok()
+                .body(featureService.getFeatures());
     }
 
     @GetMapping("/feautres/{id}")
-    public Optional<FeatureEntity> getFeatureById(@PathVariable("id") Long id){
-        return featureService.getFeatureById(id);
+    public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id){
+        Optional<FeatureEntity> featureOptional = featureService.getFeatureById(id);
+        return featureOptional.map(featureEntity -> new ResponseEntity<>(featureMapper.mapFeatureEntityToDto(featureEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/features")
@@ -53,13 +57,19 @@ public class FeatureController {
             return new ResponseEntity<>(feature, HttpStatus.OK); //zwroc dto
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    }
-
 
     @DeleteMapping("/features/{id}")
     public void deleteFeatureById(@PathVariable("id") Long id){
         featureService.deleteFeatureById(id);
+    }
+
+    @GetMapping("/fetures/{id}/bookable-objects")
+    public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(
+                featureService.getBookableForFeatureId(id)
+        );
     }
 
 }

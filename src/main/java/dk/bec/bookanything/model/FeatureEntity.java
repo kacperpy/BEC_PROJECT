@@ -1,6 +1,7 @@
 package dk.bec.bookanything.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class FeatureEntity {
     @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private FacilityEntity facility;
 
-    @OneToMany
+    @OneToMany(mappedBy = "feature", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<BookableObjectEntity> bookableObjects;
 }
