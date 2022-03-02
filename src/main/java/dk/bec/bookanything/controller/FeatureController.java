@@ -28,13 +28,13 @@ public class FeatureController {
         this.featureService = featureService;
     }
 
-    @GetMapping("/feautres")
+    @GetMapping("/features")
     public ResponseEntity<List<FeatureReadDto>> getAllFeatures(){
         return ResponseEntity.ok()
                 .body(featureService.getFeatures());
     }
 
-    @GetMapping("/feautres/{id}")
+    @GetMapping("/features/{id}")
     public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id){
         Optional<FeatureEntity> featureOptional = featureService.getFeatureById(id);
         return featureOptional.map(featureEntity -> new ResponseEntity<>(featureMapper.mapFeatureEntityToDto(featureEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -66,7 +66,7 @@ public class FeatureController {
         return featureService.getFeatureById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR): new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/fetures/{id}/bookable-objects")
+    @GetMapping("/features/{id}/bookable-objects")
     public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id){
         return featureService.getBookableForFeatureId(id).map(bookableReadDto -> new ResponseEntity<>(bookableReadDto, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
