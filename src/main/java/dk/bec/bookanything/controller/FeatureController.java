@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +68,19 @@ public class FeatureController {
     }
 
     @GetMapping("/features/{id}/bookable-objects")
-    public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id){
+    public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(
+            @PathVariable("id") Long id,
+            @RequestParam(name = "from", required = false) String from,
+            @RequestParam(name = "to", required = false) String to,
+            @RequestParam(name = "people_amount", required = false) String people_amount
+    ){
+
+        if (from != null && to != null && people_amount != null) {
+            LocalDateTime requestFrom = LocalDateTime.parse(from);
+            LocalDateTime requestTo = LocalDateTime.parse(to);
+            int requestPeopleAmount = Integer.parseInt(people_amount);
+        }
+
         return ResponseEntity.ok().body(
                 featureService.getBookableForFeatureId(id)
         );
