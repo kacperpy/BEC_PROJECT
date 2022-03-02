@@ -8,8 +8,6 @@ import lombok.Data;
 @Data
 public class DiscountCodeReadDto {
 
-    private Long id;
-
     private String code;
 
     private Integer amount;

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @ResponseBody
-@RequestMapping("/api/discount-codes")
+@RequestMapping("/api")
 public class DiscountCodeController {
 
 
@@ -30,38 +30,38 @@ public class DiscountCodeController {
     }
 
 
-    @GetMapping
+    @GetMapping("/discount-codes")
     public ResponseEntity<List<DiscountCodeReadDto>> getDiscountCodes() {
         List<DiscountCodeReadDto> res = discountCodeService.getDiscountCodes().stream().map(discountCodeMapper::discountCodeEntityToDto).collect(Collectors.toList());
         if (res.size() > 0) return new ResponseEntity<>(res, HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/discount-codes/{id}")
     public ResponseEntity<DiscountCodeReadDto> getDiscountCode(@PathVariable("id") Long id) {
         Optional<DiscountCodeReadDto> res = discountCodeService.getDiscountCode(id).map(discountCodeMapper::discountCodeEntityToDto);
-        return res.isPresent() ? new ResponseEntity<DiscountCodeReadDto>(res.get(), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return res.map(discountCodeReadDto -> new ResponseEntity<>(discountCodeReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
-    @PostMapping
+    @PostMapping("/discount-codes")
     public ResponseEntity<DiscountCodeReadDto> createDiscountCode(@RequestBody DiscountCodeCreateDto discountCodeCreateDto) {
         DiscountCodeEntity discountCodeEntity = discountCodeMapper.discountCodeDtoToEntity(discountCodeCreateDto);
         Optional<DiscountCodeReadDto> res = discountCodeService.createDiscountCode(discountCodeEntity).map(discountCodeMapper::discountCodeEntityToDto);
-        return res.isPresent() ? new ResponseEntity<DiscountCodeReadDto>(res.get(), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return res.map(discountCodeReadDto -> new ResponseEntity<>(discountCodeReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/discount-codes/{id}")
     public ResponseEntity<Void> deleteDiscountCode(@PathVariable("id") Long id) {
         discountCodeService.deleteDiscountCode(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/discount-codes/{id}")
     public ResponseEntity<DiscountCodeReadDto> updateDiscountCode(@PathVariable("id") Long id, @RequestBody DiscountCodeCreateDto discountCodeCreateDto) {
         DiscountCodeEntity discountCodeEntity = discountCodeMapper.discountCodeDtoToEntityWhenModified(discountCodeCreateDto, id);
         Optional<DiscountCodeReadDto> res = discountCodeService.updateDiscountCode(discountCodeEntity).map(discountCodeMapper::discountCodeEntityToDto);
-        return res.isPresent() ? new ResponseEntity<DiscountCodeReadDto>(res.get(), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return res.map(discountCodeReadDto -> new ResponseEntity<>(discountCodeReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
