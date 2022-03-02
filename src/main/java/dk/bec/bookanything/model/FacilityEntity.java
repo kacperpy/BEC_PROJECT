@@ -32,6 +32,7 @@ public class FacilityEntity {
     String krs;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
     private AddressEntity addressEntity;
 
     @OneToMany(mappedBy = "facility", cascade =  CascadeType.ALL)
@@ -43,6 +44,7 @@ public class FacilityEntity {
     private List<DiscountCodeEntity> discountCodes;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
     private FacilityTypeEntity facilityTypeEntity;
 
     @OneToMany(mappedBy = "facility", cascade =  CascadeType.ALL)
