@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -30,12 +31,12 @@ public class DayOpenController {
     }
 
     @PostMapping("/days-open")
-    public ResponseEntity<DayOpenReadDto> addDayOpen(@RequestBody DayOpenCreateDto dayOpenCreateDto){
+    public ResponseEntity<DayOpenReadDto> addDayOpen(@Valid @RequestBody DayOpenCreateDto dayOpenCreateDto){
         Optional<DayOpenEntity> dayOpenEntityOptional = dayOpenService.addDayOpen(dayOpenMapper.mapDayOpenDtoToEntity(dayOpenCreateDto,null));
         return dayOpenEntityOptional.map(dayOpen -> new ResponseEntity<>(dayOpenMapper.mapDayOpenEntityToReadDto(dayOpen), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
     @PutMapping("/days-open/{id}")
-    public ResponseEntity<DayOpenReadDto> modifyDayOpen(@RequestBody DayOpenCreateDto dayOpenCreateDto, @PathVariable Long id){
+    public ResponseEntity<DayOpenReadDto> modifyDayOpen(@Valid @RequestBody DayOpenCreateDto dayOpenCreateDto, @PathVariable Long id){
 
         Optional<DayOpenEntity> dayOpenEntityOptional = dayOpenService.modifyDayOpen(dayOpenMapper.mapDayOpenDtoToEntity(dayOpenCreateDto,id));
         return dayOpenEntityOptional.map(dayOpen -> new ResponseEntity<>(dayOpenMapper.mapDayOpenEntityToReadDto(dayOpen), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));

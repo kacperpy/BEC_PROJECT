@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolationException;
 
 public class ForeignKeyExistsValidator implements ConstraintValidator<ForeignKeyExistsConstraint, Long> {
 

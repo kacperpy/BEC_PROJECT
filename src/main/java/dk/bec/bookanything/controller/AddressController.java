@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -29,7 +30,7 @@ public class AddressController {
     }
 
     @PostMapping("/addresses")
-    ResponseEntity<AddressDto> createAddress(@RequestBody AddressDto addressDto) {
+    ResponseEntity<AddressDto> createAddress(@Valid @RequestBody AddressDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, null);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
 

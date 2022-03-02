@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<RoleEntity> createRole(@RequestBody RoleEntity roleEntity){
+    public ResponseEntity<RoleEntity> createRole(@Valid @RequestBody RoleEntity roleEntity){
         Optional<RoleEntity> res = roleService.createRole(roleEntity);
         return res.isPresent()? new ResponseEntity<RoleEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -45,7 +46,7 @@ public class RoleController {
     }
 
     @PutMapping
-    public ResponseEntity<RoleEntity> updateRole(@RequestBody RoleEntity roleEntity){
+    public ResponseEntity<RoleEntity> updateRole(@Valid @RequestBody RoleEntity roleEntity){
         Optional<RoleEntity> res =roleService.updateRole(roleEntity);
         return res.isPresent()? new ResponseEntity<RoleEntity>(res.get(), HttpStatus.OK): new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

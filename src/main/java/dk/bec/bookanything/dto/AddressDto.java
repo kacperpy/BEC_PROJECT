@@ -7,8 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @Builder
@@ -21,11 +20,11 @@ public class AddressDto {
     @NotNull
     private String street;
 
-    @Size(min = 1)
+    @Min(1)
     @NotNull
     private String streetNumber;
 
-    @Size(min = 1)
+    @Min(1)
     private String flatNumber;
 
     @Size(min = 3, max = 30)

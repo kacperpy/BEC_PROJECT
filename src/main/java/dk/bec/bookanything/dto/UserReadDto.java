@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -22,7 +22,7 @@ public class UserReadDto {
 
     private String password;
 
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
     private String phoneNumber;
 

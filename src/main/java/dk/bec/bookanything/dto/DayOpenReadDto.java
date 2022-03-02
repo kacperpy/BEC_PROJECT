@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Builder
@@ -14,7 +15,7 @@ import java.time.LocalTime;
 public class DayOpenReadDto {
     private String day;
 
-    private LocalTime hourFrom;
+    private LocalDateTime hourFrom;
 
-    private LocalTime hourTo;
+    private LocalDateTime hourTo;
 }

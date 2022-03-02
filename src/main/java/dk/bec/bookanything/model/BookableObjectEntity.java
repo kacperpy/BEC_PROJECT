@@ -25,8 +25,8 @@ public class BookableObjectEntity {
     @Column(length = 64, nullable = false)
     private String name;
 
-    @Column(nullable = true)
-    private Integer time_period;
+    @Column
+    private Integer timePeriod;
 
     @Column(nullable = false)
     private Integer capacity;
@@ -34,14 +34,14 @@ public class BookableObjectEntity {
     @Column(length = 256, nullable = false)
     private String description;
 
-    @Column(nullable = true)
-    private LocalDateTime date_time;
+    @Column
+    private LocalDateTime dateTime;
 
     @Column(nullable = false)
     private Boolean is_reusable;
 
     @Column(nullable = false)
-    private Integer price;
+    private Double price;
 
     @OneToMany(mappedBy = "bookableObjectEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

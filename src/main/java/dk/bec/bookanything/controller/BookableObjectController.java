@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public class BookableObjectController {
     }
 
     @PostMapping("/bookable-objects")
-    public ResponseEntity<BookableObjectCreateDto> createBookableObject(@RequestBody BookableObjectCreateDto bookableObjectCreateDto) {
+    public ResponseEntity<BookableObjectCreateDto> createBookableObject(@Valid @RequestBody BookableObjectCreateDto bookableObjectCreateDto) {
         try {
             bookableObjectService.createBookableObject(bookableObjectMapper.mapDtoToEntity(bookableObjectCreateDto, null));
             return new ResponseEntity<>(bookableObjectCreateDto, HttpStatus.CREATED);
@@ -55,7 +56,7 @@ public class BookableObjectController {
     }
 
     @PutMapping("/bookable-objects/{id}")
-    public Optional<BookableObjectReadDto> updateBookableObjectById(@RequestBody BookableObjectEntity bookableObjectEntity, @PathVariable("id") Long id) {
+    public Optional<BookableObjectReadDto> updateBookableObjectById(@Valid @RequestBody BookableObjectEntity bookableObjectEntity, @PathVariable("id") Long id) {
         return Optional.ofNullable(
                 bookableObjectService.updateBookableObject(bookableObjectEntity));
     }

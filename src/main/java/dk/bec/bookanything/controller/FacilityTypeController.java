@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -46,7 +47,7 @@ public class FacilityTypeController {
     }
 
     @PostMapping("/facility-types")
-    public ResponseEntity<FacilityTypeDto> addFacilityType(@RequestBody FacilityTypeDto facilityType){
+    public ResponseEntity<FacilityTypeDto> addFacilityType(@Valid @RequestBody FacilityTypeDto facilityType){
         try {
             facilityTypeService.addFacilityType(facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, null));
             return new ResponseEntity<>(facilityType, HttpStatus.CREATED);
@@ -56,7 +57,7 @@ public class FacilityTypeController {
     }
 
     @PutMapping("/facility-types/{id}")
-    public ResponseEntity<FacilityTypeDto> updateFacilityTypes(@PathVariable("id") Long id, @RequestBody FacilityTypeDto facilityType){
+    public ResponseEntity<FacilityTypeDto> updateFacilityTypes(@PathVariable("id") Long id, @Valid @RequestBody FacilityTypeDto facilityType){
         try {
             facilityTypeService.updateFacilityType(id, facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, id));
             return new ResponseEntity<>(facilityType, HttpStatus.OK);

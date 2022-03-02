@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,15 +17,6 @@ import java.util.List;
 @Builder
 @Entity(name = "user")
 public class UserEntity {
-
-    public UserEntity(String email, String password, LocalDateTime birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-        this.reservations = reservations;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +29,7 @@ public class UserEntity {
     private String password;
 
     @Column
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
     @Column
     private String phoneNumber;

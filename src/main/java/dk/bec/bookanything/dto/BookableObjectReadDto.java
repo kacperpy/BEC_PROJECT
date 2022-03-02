@@ -9,23 +9,23 @@ import java.time.LocalDateTime;
 @Builder
 public class BookableObjectReadDto {
 
-    Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
-    Integer time_period;
+    private Integer timePeriod;
 
-    Integer capacity;
+    private Integer capacity;
 
-    String description;
+    private String description;
 
-    Boolean is_reusable;
+    private Boolean is_reusable;
 
-    Integer price;
+    private Double price;
 
-    LocalDateTime date_time;
+    private LocalDateTime dateTime;
 
-    Integer reservation_count;
+    private Integer reservationCount;
 
-    Long feature_id;
+    private Long featureId;
 }

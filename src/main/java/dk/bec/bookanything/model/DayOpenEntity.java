@@ -24,10 +24,10 @@ public class DayOpenEntity {
     private Integer day;
 
     @Column(nullable = false)
-    private LocalTime hourFrom;
+    private LocalDateTime hourFrom;
 
     @Column(nullable = false)
-    private LocalTime hourTo;
+    private LocalDateTime hourTo;
 
     @ManyToOne
     @JsonBackReference

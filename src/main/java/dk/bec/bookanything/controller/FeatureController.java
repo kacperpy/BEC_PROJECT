@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class FeatureController {
     }
 
     @PostMapping("/features")
-    public ResponseEntity<FeatureCreateDto> addFeature(@RequestBody FeatureCreateDto feature) {
+    public ResponseEntity<FeatureCreateDto> addFeature(@Valid @RequestBody FeatureCreateDto feature) {
         try {
             featureService.createFeature(featureMapper.mapFeatureDtoToEntity(feature, null ));
             return new ResponseEntity<>(feature, HttpStatus.CREATED);
@@ -51,7 +52,7 @@ public class FeatureController {
     }
 
     @PutMapping("/features/{id}")
-    public ResponseEntity<FeatureCreateDto> updateFeature(@RequestBody FeatureCreateDto feature, @PathVariable("id") Long id) {
+    public ResponseEntity<FeatureCreateDto> updateFeature(@Valid @RequestBody FeatureCreateDto feature, @PathVariable("id") Long id) {
         try {
             featureService.updateFeatureObject(featureMapper.mapFeatureDtoToEntity(feature, id), id);
             return new ResponseEntity<>(feature, HttpStatus.OK); //zwroc dto

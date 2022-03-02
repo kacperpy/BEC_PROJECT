@@ -68,7 +68,7 @@ public class FacilityController {
     }
 
     @PutMapping("/facilities/{id}")
-    ResponseEntity<FacilityReadDto> updateFacility(@PathVariable("id") Long id, @RequestBody FacilityCreateDto facilityDto) {
+    ResponseEntity<FacilityReadDto> updateFacility(@PathVariable("id") Long id, @Valid @RequestBody FacilityCreateDto facilityDto) {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, id);
         Optional<FacilityEntity> facilityOptional = facilityService.updateFacility(id, facility);
 
