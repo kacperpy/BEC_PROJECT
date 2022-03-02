@@ -9,6 +9,7 @@ import dk.bec.bookanything.repository.FacilityRepository;
 import dk.bec.bookanything.repository.FacilityTypeRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class FacilityService {
         ).collect(Collectors.toList());
     }
 
+    @Transactional
     public Optional<FacilityEntity> createFacility(FacilityEntity facilityEntity) {
         return Optional.of( facilityRepository.save(facilityEntity));
     }

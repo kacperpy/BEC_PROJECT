@@ -8,6 +8,7 @@ import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.service.FacilityTypeService;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
