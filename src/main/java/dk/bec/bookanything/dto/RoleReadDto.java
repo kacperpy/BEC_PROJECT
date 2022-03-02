@@ -10,8 +10,6 @@ import java.util.List;
 @Data
 public class RoleReadDto {
 
-    private Long id;
-
     private String name;
 
     private List<UserReadDto> userList;
