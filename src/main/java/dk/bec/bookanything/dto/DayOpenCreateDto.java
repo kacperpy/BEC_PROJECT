@@ -8,10 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Builder
@@ -25,9 +22,11 @@ public class DayOpenCreateDto {
     private Integer day;
 
     @FutureDateTimeConstraint
+    @NotNull
     private LocalDateTime hourFrom;
 
     @FutureDateTimeConstraint
+    @NotNull
     private LocalDateTime hourTo;
 
     @ForeignKeyExistsConstraint
