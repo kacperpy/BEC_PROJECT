@@ -13,7 +13,7 @@ import java.util.Optional;
 @ApplicationScope
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository){
@@ -34,7 +34,7 @@ public class UserService {
 
     public void deleteUserById(Long id){
         Optional<UserEntity> userEntityOptional = getUserById(id);
-        userEntityOptional.ifPresent(userEntity1 -> userRepository.delete(userEntity1));
+        userEntityOptional.ifPresent(userRepository::delete);
     }
 
     public void updateUser(Long id, UserEntity userEntity){

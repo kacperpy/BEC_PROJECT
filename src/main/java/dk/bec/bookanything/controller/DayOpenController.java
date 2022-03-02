@@ -14,8 +14,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class DayOpenController {
-    DayOpenService dayOpenService;
-    DayOpenMapper dayOpenMapper;
+  private final  DayOpenService dayOpenService;
+  private final  DayOpenMapper dayOpenMapper;
 
     public DayOpenController(DayOpenService dayOpenService, DayOpenMapper dayOpenMapper) {
         this.dayOpenService = dayOpenService;

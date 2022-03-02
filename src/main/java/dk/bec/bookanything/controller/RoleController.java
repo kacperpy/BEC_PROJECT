@@ -3,7 +3,6 @@ package dk.bec.bookanything.controller;
 import dk.bec.bookanything.model.RoleEntity;
 import dk.bec.bookanything.service.RoleService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,7 @@ import java.util.Optional;
 @RequestMapping("/roles")
 public class RoleController {
 
-    @Autowired
     private final RoleService roleService;
-
 
     @GetMapping
     public ResponseEntity<List<RoleEntity>> getRoles(){

@@ -22,4 +22,9 @@ public class FacilityTypeEntity {
 
     @Column(length = 200)
     private String name;
+
+
+    public FacilityTypeEntity(String name) {
+        this.name = name;
+    }
 }

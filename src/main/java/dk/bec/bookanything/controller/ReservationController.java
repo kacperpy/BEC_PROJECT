@@ -8,7 +8,6 @@ import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.service.BookableObjectService;
 import dk.bec.bookanything.service.ReservationService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +22,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ReservationController {
 
-    @Autowired
     private final ReservationService reservationService;
-
-    @Autowired
     private final BookableObjectService bookableObjectService;
-
-    @Autowired
     private final ReservationMapper reservationMapper;
 
     @GetMapping

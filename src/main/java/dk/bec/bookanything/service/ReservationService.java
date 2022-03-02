@@ -1,7 +1,5 @@
 package dk.bec.bookanything.service;
 
-import dk.bec.bookanything.dto.ReservationCreateDto;
-import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
@@ -17,7 +15,6 @@ import java.util.Optional;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final BookableObjectService bookableObjectService;
 
     public List<ReservationEntity> getReservations() {
         return reservationRepository.findAll();
