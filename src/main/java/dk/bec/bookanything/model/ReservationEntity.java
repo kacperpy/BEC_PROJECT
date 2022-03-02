@@ -34,4 +34,10 @@ public class ReservationEntity {
 
     @ManyToOne
     private UserEntity userEntity;
+
+    public ReservationEntity(LocalDateTime dateFrom, LocalDateTime dateTo, BookableObjectEntity bookableObjectEntity){
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.bookableObjectEntity = bookableObjectEntity;
+    }
 }
