@@ -56,17 +56,17 @@ public class FacilityTypeControllerTest {
                 .andExpect(jsonPath("$[2].name", is("cinema")));
     }
 
-    @Test
-    void getFacilityTypeById() throws Exception {
-        String name = "gym";
-        FacilityTypeEntity facilityTypeEntity = facilityTypes.get(2);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/API/facility-types/2")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name", is(name)));
-    }
+//    @Test
+//    void getFacilityTypeById() throws Exception {
+//        String name = "gym";
+//        FacilityTypeEntity facilityTypeEntity = facilityTypes.get(2);
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .get("/API/facility-types/2")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[0].name", is(name)));
+//    }
 
 
 
