@@ -1,12 +1,11 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.ReservationEntity;
-import dk.bec.bookanything.model.RoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.type.LocalDateType;
+
+import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -18,7 +17,7 @@ public class UserCreateDto {
 
     private String password;
 
-    private LocalDateType birthDate;
+    private LocalDateTime birthDate;
 
     private String phoneNumber;
 

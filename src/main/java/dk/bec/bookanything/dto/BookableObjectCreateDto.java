@@ -1,11 +1,8 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.FeatureEntity;
-import dk.bec.bookanything.model.ReservationEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -25,6 +22,13 @@ public class BookableObjectCreateDto {
 
     @NotBlank(message = "Description is mandatory")
     String description;
+
+    @NotBlank(message = "Is_reusable is mandatory")
+    Boolean is_reusable;
+
+    @Positive(message = "Price cannot be negative")
+    @NotBlank(message = "Price is mandatory")
+    Integer price;
 
     LocalDateTime date_time;
 

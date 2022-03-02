@@ -37,6 +37,12 @@ public class BookableObjectEntity {
     @Column(nullable = true)
     private LocalDateTime date_time;
 
+    @Column(nullable = false)
+    private Boolean is_reusable;
+
+    @Column(nullable = false)
+    private Integer price;
+
     @OneToMany(mappedBy = "bookableObjectEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ReservationEntity> reservations;

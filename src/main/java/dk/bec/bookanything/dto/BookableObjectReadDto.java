@@ -19,6 +19,10 @@ public class BookableObjectReadDto {
 
     String description;
 
+    Boolean is_reusable;
+
+    Integer price;
+
     LocalDateTime date_time;
 
     Integer reservation_count;
