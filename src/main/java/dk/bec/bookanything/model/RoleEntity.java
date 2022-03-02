@@ -1,13 +1,19 @@
 package dk.bec.bookanything.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Table
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "role")
 public class RoleEntity {
 
