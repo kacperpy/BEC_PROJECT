@@ -40,13 +40,13 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationReadDto> createReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
+    public ResponseEntity<ReservationReadDto> createReservation(@Valid @RequestBody ReservationCreateDto reservationCreateDto) {
         Optional<ReservationEntity> res = reservationService.createReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, null));
         return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationReadDto> updateReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
+    public ResponseEntity<ReservationReadDto> updateReservation(@Valid @RequestBody ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
         Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
 
         if (bookableObjectEntity.isPresent()) {

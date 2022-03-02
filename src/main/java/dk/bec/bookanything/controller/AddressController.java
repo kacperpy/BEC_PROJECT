@@ -39,7 +39,7 @@ public class AddressController {
     }
 
     @PutMapping("/addresses/{id}")
-    ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @RequestBody AddressDto addressDto) {
+    ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id,@Valid @RequestBody AddressDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, id);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
 

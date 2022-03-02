@@ -14,7 +14,6 @@ import java.util.Optional;
 @Transactional
 public class RoleService {
 
-
     private final RoleRepository roleRepository;
 
     public RoleService(RoleRepository roleRepository) {
@@ -26,7 +25,7 @@ public class RoleService {
     }
 
     public Optional<RoleEntity> getRole(Long id) {
-        return  Optional.of(roleRepository.findRoleEntityById(id));
+        return Optional.of(roleRepository.findRoleEntityById(id));
     }
 
     public Optional<RoleEntity> createRole(RoleEntity roleEntity) {
@@ -37,6 +36,7 @@ public class RoleService {
     public void deleteRole(Long id) {
         roleRepository.deleteRoleEntityById(id);
     }
+
     public Optional<RoleEntity> updateRole(RoleEntity roleEntity) {
         RoleEntity roleFromDB = roleRepository.findRoleEntityById(roleEntity.getId());
         roleFromDB.setName(roleEntity.getName());

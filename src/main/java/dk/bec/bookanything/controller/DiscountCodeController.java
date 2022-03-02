@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,14 +39,14 @@ public class DiscountCodeController {
     }
 
     @GetMapping("/discount-codes/{id}")
-    public ResponseEntity<DiscountCodeReadDto> getDiscountCode(@PathVariable("id") Long id) {
+    public ResponseEntity<DiscountCodeReadDto> getDiscountCode(@Valid @PathVariable("id") Long id) {
         Optional<DiscountCodeReadDto> res = discountCodeService.getDiscountCode(id).map(discountCodeMapper::discountCodeEntityToDto);
         return res.map(discountCodeReadDto -> new ResponseEntity<>(discountCodeReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
     @PostMapping("/discount-codes")
-    public ResponseEntity<DiscountCodeReadDto> createDiscountCode(@RequestBody DiscountCodeCreateDto discountCodeCreateDto) {
+    public ResponseEntity<DiscountCodeReadDto> createDiscountCode(@Valid @RequestBody DiscountCodeCreateDto discountCodeCreateDto) {
         DiscountCodeEntity discountCodeEntity = discountCodeMapper.discountCodeDtoToEntity(discountCodeCreateDto);
         Optional<DiscountCodeReadDto> res = discountCodeService.createDiscountCode(discountCodeEntity).map(discountCodeMapper::discountCodeEntityToDto);
         return res.map(discountCodeReadDto -> new ResponseEntity<>(discountCodeReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
