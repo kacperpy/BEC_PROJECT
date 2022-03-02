@@ -1,6 +1,8 @@
 package dk.bec.bookanything.controller;
 
 
+import dk.bec.bookanything.dto.FacilityTypeDto;
+import dk.bec.bookanything.mapper.FacilityTypeMapper;
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.service.FacilityTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,13 @@ import java.util.List;
 @RequestMapping("/API")
 public class FacilityTypeController {
 
-    private FacilityTypeService facilityTypeService;
+    private final FacilityTypeService facilityTypeService;
+    private final FacilityTypeMapper facilityTypeMapper;
 
     @Autowired
-    public FacilityTypeController(FacilityTypeService facilityTypeService){
+    public FacilityTypeController(FacilityTypeService facilityTypeService,  FacilityTypeMapper facilityTypeMapper){
         this.facilityTypeService = facilityTypeService;
+        this.facilityTypeMapper = facilityTypeMapper;
     }
 
     @GetMapping("/facility-types")
@@ -42,9 +46,9 @@ public class FacilityTypeController {
     }
 
     @PostMapping("/facility-types")
-    public ResponseEntity<FacilityTypeEntity> addFacilityType(@RequestBody FacilityTypeEntity facilityType){
+    public ResponseEntity<FacilityTypeDto> addFacilityType(@RequestBody FacilityTypeDto facilityType){
         try {
-            facilityTypeService.addFacilityType(facilityType);
+            facilityTypeService.addFacilityType(facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, null));
             return new ResponseEntity<>(facilityType, HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,9 +56,9 @@ public class FacilityTypeController {
     }
 
     @PutMapping("/facility-types/{id}")
-    public ResponseEntity<FacilityTypeEntity> updateFacilityTypes(@PathVariable("id") Long id, @RequestBody FacilityTypeEntity facilityType){
+    public ResponseEntity<FacilityTypeDto> updateFacilityTypes(@PathVariable("id") Long id, @RequestBody FacilityTypeDto facilityType){
         try {
-            facilityTypeService.updateFacilityType(id, facilityType);
+            facilityTypeService.updateFacilityType(id, facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, id));
             return new ResponseEntity<>(facilityType, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
