@@ -18,8 +18,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class BookableObjectController {
 
-    private BookableObjectService bookableObjectService;
-    private BookableObjectMapper bookableObjectMapper;
+    private final BookableObjectService bookableObjectService;
+    private final BookableObjectMapper bookableObjectMapper;
 
     @Autowired
     public BookableObjectController(BookableObjectService bookableObjectService, BookableObjectMapper bookableObjectMapper) {

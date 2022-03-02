@@ -4,18 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "user")
-@Table
 @Data
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity(name = "user")
 public class UserEntity {
+
+    public UserEntity(String email, String password, LocalDateTime birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
+        this.email = email;
+        this.password = password;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.reservations = reservations;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +37,7 @@ public class UserEntity {
     private String password;
 
     @Column
-    private LocalDateType birthDate;
+    private LocalDateTime birthDate;
 
     @Column
     private String phoneNumber;
@@ -38,4 +47,6 @@ public class UserEntity {
 
     @OneToMany
     private List<ReservationEntity> reservations;
+
+
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Builder
 @Data
@@ -23,10 +24,10 @@ public class DayOpenEntity {
     private Integer day;
 
     @Column(nullable = false)
-    private LocalDateTime hourFrom;
+    private LocalTime hourFrom;
 
     @Column(nullable = false)
-    private LocalDateTime hourTo;
+    private LocalTime hourTo;
 
     @ManyToOne
     @JsonBackReference

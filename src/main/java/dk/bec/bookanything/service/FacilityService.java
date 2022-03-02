@@ -1,8 +1,12 @@
 package dk.bec.bookanything.service;
 
+import dk.bec.bookanything.dto.DayOpenReadDto;
 import dk.bec.bookanything.dto.FeatureReadDto;
+import dk.bec.bookanything.mapper.DayOpenMapper;
 import dk.bec.bookanything.mapper.FeatureMapper;
+import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.FacilityEntity;
+import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.repository.FacilityRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +19,12 @@ public class FacilityService {
 
     private final FacilityRepository facilityRepository;
     private final FeatureMapper featureMapper;
+    private final DayOpenMapper dayOpenMapper;
 
-    public FacilityService(FacilityRepository facilityRepository, FeatureMapper featureMapper) {
+    public FacilityService(FacilityRepository facilityRepository, FeatureMapper featureMapper, DayOpenMapper dayOpenMapper) {
         this.facilityRepository = facilityRepository;
         this.featureMapper = featureMapper;
+        this.dayOpenMapper = dayOpenMapper;
     }
 
     public Optional<FacilityEntity> getFacilityById(Long id)
@@ -26,11 +32,16 @@ public class FacilityService {
       return facilityRepository.findById(id);
     }
 
-    public List<FeatureReadDto> getFeaturesForFacility(Long id)
+    public Optional<List<FeatureReadDto>> getFeaturesForFacility(Long id)
     {
-        return facilityRepository.findById(id).get().getFeatureEntities().stream().map(
-                feature -> featureMapper.mapFeatureEntityToDto(feature)
-        ).collect(Collectors.toList());
+        return getFacilityById(id).map(entity -> entity.getFeatureEntities().stream()
+                .map(featureMapper::mapFeatureEntityToDto
+        ).collect(Collectors.toList()));
+    }
+    public Optional<List<DayOpenReadDto>> getDaysOpenForFacility(Long id)
+    {
+        return getFacilityById(id).map(entity -> entity.getDayOpenList().stream()
+                .map(dayOpenMapper::mapDayOpenEntityToReadDto).collect(Collectors.toList()));
     }
 
     public Optional<FacilityEntity> createFacility(FacilityEntity facilityEntity) {
@@ -42,6 +53,18 @@ public class FacilityService {
             return Optional.of(facilityRepository.save(newFacility));
         else
             return Optional.empty();
+    }
+
+    public Optional<List<FacilityEntity>> getFacilitiesByType(FacilityTypeEntity facilityTypeEntity) {
+        return facilityRepository.findByFacilityTypeEntity(facilityTypeEntity);
+    }
+
+    public Optional<List<FacilityEntity>> getFacilitiesByAddressIn(List<AddressEntity> addressEntities) {
+        return facilityRepository.findByAddressEntityIn(addressEntities);
+    }
+
+    public Optional<List<FacilityEntity>> getFacilitiesByAddressInAndType(List<AddressEntity> addressEntities, FacilityTypeEntity facilityTypeEntity) {
+        return facilityRepository.findByAddressEntityInAndFacilityTypeEntity(addressEntities, facilityTypeEntity);
     }
 
     public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}

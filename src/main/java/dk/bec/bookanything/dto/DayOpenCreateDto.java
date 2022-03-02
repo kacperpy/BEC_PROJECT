@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Builder
 @Data
@@ -16,9 +16,9 @@ public class DayOpenCreateDto {
 
     private Integer day;
 
-    private LocalDateTime hourFrom;
+    private LocalTime hourFrom;
 
-    private LocalDateTime hourTo;
+    private LocalTime hourTo;
 
     private Long facilityId;
 }

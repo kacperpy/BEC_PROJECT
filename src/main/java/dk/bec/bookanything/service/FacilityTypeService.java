@@ -14,7 +14,7 @@ import java.util.Optional;
 @ApplicationScope
 public class FacilityTypeService {
 
-    private FacilityTypeRepository facilityTypeRepository;
+    private final FacilityTypeRepository facilityTypeRepository;
 
     @Autowired
     public FacilityTypeService(FacilityTypeRepository facilityTypeRepository){

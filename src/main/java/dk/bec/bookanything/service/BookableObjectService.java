@@ -5,7 +5,6 @@ import dk.bec.bookanything.mapper.BookableObjectMapper;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.repository.BookableObjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,10 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class BookableObjectService {
 
-    private BookableObjectRepository bookableObjectRepository;
-    private BookableObjectMapper bookableObjectMapper;
+    private final BookableObjectRepository bookableObjectRepository;
+    private final BookableObjectMapper bookableObjectMapper;
 
-    @Autowired
     public BookableObjectService(BookableObjectRepository bookableObjectRepository, BookableObjectMapper bookableObjectMapper) {
         this.bookableObjectRepository = bookableObjectRepository;
         this.bookableObjectMapper = bookableObjectMapper;
@@ -27,7 +25,7 @@ public class BookableObjectService {
 
     public List<BookableObjectReadDto> getAllBookableObjects() {
         return bookableObjectRepository.findAll().stream()
-                .map(object -> bookableObjectMapper.mapEntityToDto(object)).collect(Collectors.toList());
+                .map(bookableObjectMapper::mapEntityToDto).collect(Collectors.toList());
     }
 
     public void createBookableObject(BookableObjectEntity bookableObjectEntity) {

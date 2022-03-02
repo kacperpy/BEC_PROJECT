@@ -1,14 +1,9 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.DayOpenEntity;
-import dk.bec.bookanything.model.FacilityTypeEntity;
-import dk.bec.bookanything.model.FeatureEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Builder
 @Data
@@ -24,9 +19,9 @@ public class FacilityReadDto {
 
     private AddressDto addressDto;
 
-    private FacilityTypeEntity facilityTypeEntity;
+    private FacilityTypeDto facilityTypeDto;
 
-    private List<FeatureEntity> featureEntities;
+    private Integer featureCount;
 
-    private List<DayOpenEntity> dayOpenEntities;
+    private Integer dayOpenCount;
 }

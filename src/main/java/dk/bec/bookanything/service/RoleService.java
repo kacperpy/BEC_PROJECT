@@ -3,7 +3,6 @@ package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.model.RoleEntity;
 import dk.bec.bookanything.repository.RoleRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +11,15 @@ import java.util.Optional;
 
 
 @Service
-@AllArgsConstructor
 @Transactional
 public class RoleService {
 
 
     private final RoleRepository roleRepository;
+
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     public List<RoleEntity> getRoles() {
         return roleRepository.findAll();
