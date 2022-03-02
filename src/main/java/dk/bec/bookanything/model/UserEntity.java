@@ -17,7 +17,7 @@ import java.util.List;
 @Entity(name = "user")
 public class UserEntity {
 
-    public UserEntity(String email, String password, LocalDateType birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
+    public UserEntity(String email, String password, LocalDateTime birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
