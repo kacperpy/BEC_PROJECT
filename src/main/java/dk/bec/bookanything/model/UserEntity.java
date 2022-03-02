@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name = "user")
@@ -28,7 +28,7 @@ public class UserEntity {
     private String password;
 
     @Column
-    private LocalDateType birthDate;
+    private LocalDateTime birthDate;
 
     @Column
     private String phoneNumber;

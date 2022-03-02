@@ -24,6 +24,8 @@ public class BookableObjectMapper {
                 .capacity(bookableObjectCreateDto.getCapacity())
                 .description(bookableObjectCreateDto.getDescription())
                 .date_time(bookableObjectCreateDto.getDate_time())
+                .is_reusable(bookableObjectCreateDto.getIs_reusable())
+                .price(bookableObjectCreateDto.getPrice())
                 .reservations(null)
                 .feature(featureRepository.getById(bookableObjectCreateDto.getFeature_id()))
                 .build();
@@ -37,6 +39,8 @@ public class BookableObjectMapper {
                 .capacity(bookableObjectEntity.getCapacity())
                 .description(bookableObjectEntity.getDescription())
                 .date_time(bookableObjectEntity.getDate_time())
+                .is_reusable(bookableObjectEntity.getIs_reusable())
+                .price(bookableObjectEntity.getPrice())
                 .reservation_count(bookableObjectEntity.getReservations() != null ? bookableObjectEntity.getReservations().size() : 0)
                 .feature_id(bookableObjectEntity.getFeature() == null ? 0 : bookableObjectEntity.getFeature().getId())
                 .build();
