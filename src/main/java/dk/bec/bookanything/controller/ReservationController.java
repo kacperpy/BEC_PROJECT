@@ -5,10 +5,9 @@ import dk.bec.bookanything.dto.ReservationReadDto;
 import dk.bec.bookanything.mapper.ReservationMapper;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
-import dk.bec.bookanything.service.BookableObjectService;
-import dk.bec.bookanything.service.ReservationService;
+import dk.bec.bookanything.model.UserEntity;
+import dk.bec.bookanything.service.*;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +22,16 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ReservationController {
 
-    @Autowired
     private final ReservationService reservationService;
 
-    @Autowired
+    private final UserService userService;
+
     private final BookableObjectService bookableObjectService;
 
-    @Autowired
+    private final EmailServiceImpl emailService;
+
     private final ReservationMapper reservationMapper;
+
 
     @GetMapping
     public ResponseEntity<List<ReservationReadDto>> getReservations() {
@@ -47,17 +48,31 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationReadDto> createReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
+        Optional<UserEntity> usr = userService.getUserById(reservationCreateDto.getUserId());
         Optional<ReservationEntity> res = reservationService.createReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, null));
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        if (res.isPresent()) {
+            if (usr.isPresent()) {
+                emailService.sendSimpleMessage(usr.get().getEmail(), "new reservation", "You booked " + res.get().getBookableObjectEntity().getName() + " at " + res.get().getBookableObjectEntity().getFeature().getFacility().getName() +
+                        "\nNumber of people: " + res.get().getPeopleNumber() + "\n Your reservation number is " + res.get().getId() + "\n Date: " + res.get().getDateFrom() + " to " + res.get().getDateTo());
+                return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ReservationReadDto> updateReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
         Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
-
+        Optional<UserEntity> usr = userService.getUserById(reservationCreateDto.getUserId());
         if (bookableObjectEntity.isPresent()) {
             Optional<ReservationEntity> res = reservationService.updateReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, id), id);
-            return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            if (res.isPresent()) {
+                if (usr.isPresent()) {
+                    emailService.sendSimpleMessage(usr.get().getEmail(), "reservation update", "You updated your reservation " + res.get().getBookableObjectEntity().getName() + " at " + res.get().getBookableObjectEntity().getFeature().getFacility().getName() +
+                            "\nNumber of people: " + res.get().getPeopleNumber() + "\n Your reservation number is " + res.get().getId() + "\n New date: " + res.get().getDateFrom() + " to " + res.get().getDateTo());
+                    return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                }
+            }
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

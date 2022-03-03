@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,7 +17,7 @@ import java.util.List;
 @Entity(name = "user")
 public class UserEntity {
 
-    public UserEntity(String email, String password, LocalDateType birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
+    public UserEntity(String email, String password, LocalDateTime birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
@@ -37,7 +37,7 @@ public class UserEntity {
     private String password;
 
     @Column
-    private LocalDateType birthDate;
+    private LocalDateTime birthDate;
 
     @Column
     private String phoneNumber;
