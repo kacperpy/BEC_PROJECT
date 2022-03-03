@@ -12,15 +12,11 @@ public class FacilityMapper {
     private final FacilityTypeRepository facilityTypeRepository;
     private final AddressMapper addressMapper;
     private final FacilityTypeMapper facilityTypeMapper;
-    private final FeatureMapper featureMapper;
-    private final DayOpenMapper dayOpenMapper;
 
-    public FacilityMapper(FacilityTypeRepository facilityTypeRepository, AddressMapper addressMapper, FacilityTypeMapper facilityTypeMapper, FeatureMapper featureMapper, DayOpenMapper dayOpenMapper) {
+    public FacilityMapper(FacilityTypeRepository facilityTypeRepository, AddressMapper addressMapper, FacilityTypeMapper facilityTypeMapper) {
         this.facilityTypeRepository = facilityTypeRepository;
         this.addressMapper = addressMapper;
         this.facilityTypeMapper = facilityTypeMapper;
-        this.featureMapper = featureMapper;
-        this.dayOpenMapper = dayOpenMapper;
     }
 
     public  FacilityEntity mapFacilityCreateDtoToEntity(FacilityCreateDto facilityCreateDto, Long id) {
