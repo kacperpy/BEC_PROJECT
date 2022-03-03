@@ -1,5 +1,6 @@
 package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.service.FacilityService;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,6 @@ public class DiscountCodeCreateDto {
     @Max(value = 100)
     private Integer amount;
 
-    @ForeignKeyExistsConstraint
+    @ForeignKeyExistsConstraint(serviceClass = FacilityService.class)
     private Long facilityId;
 }

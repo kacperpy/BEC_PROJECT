@@ -1,5 +1,7 @@
 package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.service.BookableObjectService;
+import dk.bec.bookanything.service.UserService;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import dk.bec.bookanything.validator.FutureDateTimeConstraint;
 import lombok.Getter;
@@ -12,10 +14,10 @@ import java.time.LocalDateTime;
 @Setter
 public class ReservationCreateDto {
 
-    @ForeignKeyExistsConstraint
+    @ForeignKeyExistsConstraint(serviceClass = UserService.class)
     private Long userId;
 
-    @ForeignKeyExistsConstraint
+    @ForeignKeyExistsConstraint(serviceClass = BookableObjectService.class)
     private Long bookableObjectId;
 
     @FutureDateTimeConstraint

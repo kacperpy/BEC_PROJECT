@@ -95,14 +95,14 @@ public class FacilityController {
     ResponseEntity<List<FacilityReadDto>> getFacilitiesByCityAndType(@RequestParam(name = "facilityTypeId", required = false) Long facilityTypeId,
                                                                      @RequestParam(name = "city", required = false) String city) {
         if (facilityTypeId != null && city != null) {
-            Optional<FacilityTypeEntity> facilityTypeById = Optional.ofNullable(facilityTypeService.getFacilityTypeById(facilityTypeId));
+            Optional<FacilityTypeEntity> facilityTypeById = facilityTypeService.getFacilityTypeById(facilityTypeId);
             Optional<List<AddressEntity>> addressEntitiesByCity = addressService.getAddressesByCity(city);
             if (facilityTypeById.isPresent() && addressEntitiesByCity.isPresent()) {
                 return new ResponseEntity<>(getFacilitiesByAddressEntitiesAndType(addressEntitiesByCity.get(), facilityTypeById.get()), HttpStatus.OK);
             }
         }
         if (facilityTypeId != null) {
-            Optional<FacilityTypeEntity> facilityTypeById = Optional.ofNullable(facilityTypeService.getFacilityTypeById(facilityTypeId));
+            Optional<FacilityTypeEntity> facilityTypeById = facilityTypeService.getFacilityTypeById(facilityTypeId);
             if (facilityTypeById.isPresent()) {
                 return new ResponseEntity<>(getFacilitiesByType(facilityTypeById.get()), HttpStatus.OK);
             }

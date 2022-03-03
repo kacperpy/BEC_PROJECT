@@ -1,5 +1,6 @@
 package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.service.FeatureService;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import dk.bec.bookanything.validator.FutureDateTimeConstraint;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class BookableObjectCreateDto {
     @FutureDateTimeConstraint
     private LocalDateTime dateTime;
 
-    @ForeignKeyExistsConstraint
+    @ForeignKeyExistsConstraint(serviceClass = FeatureService.class)
     private Long featureId;
 
     @NotNull
