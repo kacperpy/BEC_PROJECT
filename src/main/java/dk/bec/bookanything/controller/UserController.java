@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -27,22 +27,22 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<UserEntity> users() {
         return userService.getUsers();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public Optional<UserEntity> getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
     }
 
-    @PostMapping("users")
+    @PostMapping("/")
     public ResponseEntity<UserCreateDto> addUser(@Valid @RequestBody UserCreateDto userCreateDto) {
         try {
             userService.addUser(userMapper.mapUserCreateDtoToUserEntity(userCreateDto, null));
@@ -52,7 +52,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserCreateDto> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserCreateDto userCreateDto) {
         try {
             userService.updateUser(id, userMapper.mapUserCreateDtoToUserEntity(userCreateDto, id));
