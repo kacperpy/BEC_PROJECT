@@ -100,18 +100,15 @@ public class FacilityController {
             if (facilityTypeById.isPresent() && addressEntitiesByCity.isPresent()) {
                 return new ResponseEntity<>(getFacilitiesByAddressEntitiesAndType(addressEntitiesByCity.get(), facilityTypeById.get()), HttpStatus.OK);
             }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (facilityTypeId != null) {
             Optional<FacilityTypeEntity> facilityTypeById = facilityTypeService.getFacilityTypeById(facilityTypeId);
-            if (facilityTypeById.isPresent()) {
-                return new ResponseEntity<>(getFacilitiesByType(facilityTypeById.get()), HttpStatus.OK);
-            }
+            return facilityTypeById.map(facilityTypeEntity -> new ResponseEntity<>(getFacilitiesByType(facilityTypeEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
         if (city != null) {
             Optional<List<AddressEntity>> addressEntitiesByCity = addressService.getAddressesByCity(city);
-            if (addressEntitiesByCity.isPresent()) {
-                return new ResponseEntity<>(getFacilitiesByAddressEntities(addressEntitiesByCity.get()), HttpStatus.OK);
-            }
+            return addressEntitiesByCity.map(addressEntities -> new ResponseEntity<>(getFacilitiesByAddressEntities(addressEntities), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
