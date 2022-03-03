@@ -1,15 +1,11 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -17,19 +13,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserCreateDto {
 
-    @Email
     private String email;
 
-    @Size(min = 6)
     private String password;
 
-    @Past
-    private LocalDate birthDate;
+    private LocalDateTime birthDate;
 
-    @Size(min = 9, max = 12)
     private String phoneNumber;
 
-    @ForeignKeyExistsConstraint
     private Long roleId;
 
 }
