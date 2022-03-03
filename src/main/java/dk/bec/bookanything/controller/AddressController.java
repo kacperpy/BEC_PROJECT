@@ -26,7 +26,8 @@ public class AddressController {
     @GetMapping("/addresses/{id}")
     ResponseEntity<AddressDto> getAddress(@PathVariable("id") Long id) {
         Optional<AddressEntity> addressOptional = addressService.getAddressById(id);
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/addresses")
@@ -34,7 +35,8 @@ public class AddressController {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, null);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
 
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 
     }
 
@@ -43,7 +45,8 @@ public class AddressController {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, id);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
 
-        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("/addresses/{id}")

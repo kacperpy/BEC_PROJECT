@@ -32,7 +32,8 @@ public class FeatureController {
     @GetMapping("/features/{id}")
     public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id) {
         Optional<FeatureEntity> featureOptional = featureService.getFeatureById(id);
-        return featureOptional.map(featureEntity -> new ResponseEntity<>(featureMapper.mapFeatureEntityToDto(featureEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return featureOptional.map(featureEntity -> new ResponseEntity<>(featureMapper.mapFeatureEntityToDto(featureEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/features")

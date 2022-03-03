@@ -36,13 +36,15 @@ public class ReservationController {
     @GetMapping("/{id}")
     public ResponseEntity<ReservationReadDto> getReservation(@PathVariable("id") Long id) {
         Optional<ReservationEntity> res = reservationService.getReservationById(id);
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
     public ResponseEntity<ReservationReadDto> createReservation(@Valid @RequestBody ReservationCreateDto reservationCreateDto) {
         Optional<ReservationEntity> res = reservationService.createReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, null));
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @PutMapping("/{id}")
@@ -51,7 +53,8 @@ public class ReservationController {
 
         if (bookableObjectEntity.isPresent()) {
             Optional<ReservationEntity> res = reservationService.updateReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, id), id);
-            return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -59,7 +62,8 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ReservationReadDto> deleteReservation(@PathVariable("id") Long id) {
         Optional<ReservationEntity> res = reservationService.deleteReservation(id);
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 

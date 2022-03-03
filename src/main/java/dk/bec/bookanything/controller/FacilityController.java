@@ -61,7 +61,8 @@ public class FacilityController {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, null);
         Optional<FacilityEntity> facilityOptional = facilityService.createFacility(facility);
 
-        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 
     }
 
@@ -70,7 +71,8 @@ public class FacilityController {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, id);
         Optional<FacilityEntity> facilityOptional = facilityService.updateFacility(id, facility);
 
-        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("/facilities/{id}")
@@ -108,7 +110,8 @@ public class FacilityController {
     private List<FacilityReadDto> getFacilitiesByType(FacilityTypeEntity facilityTypeEntity) {
         Optional<List<FacilityEntity>> facilitiesByType = facilityService.getFacilitiesByType(facilityTypeEntity);
         List<FacilityReadDto> facilities = new ArrayList<>();
-        facilitiesByType.ifPresent(facilityEntities -> facilityEntities.forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
+        facilitiesByType.ifPresent(facilityEntities -> facilityEntities
+                .forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
         return facilities;
     }
 
