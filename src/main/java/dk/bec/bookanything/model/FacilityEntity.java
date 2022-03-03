@@ -19,16 +19,16 @@ public class FacilityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    String nip;
+    private String nip;
 
     @Column(nullable = false)
-    String krs;
+    private String krs;
 
     @OneToOne(cascade = CascadeType.ALL)
     private AddressEntity addressEntity;
