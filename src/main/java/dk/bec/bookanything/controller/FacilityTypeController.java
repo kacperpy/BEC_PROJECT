@@ -5,7 +5,7 @@ import dk.bec.bookanything.dto.FacilityTypeDto;
 import dk.bec.bookanything.mapper.FacilityTypeMapper;
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.service.FacilityTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/API")
+@RequiredArgsConstructor
 public class FacilityTypeController {
 
     private final FacilityTypeService facilityTypeService;
     private final FacilityTypeMapper facilityTypeMapper;
-
-    @Autowired
-    public FacilityTypeController(FacilityTypeService facilityTypeService,  FacilityTypeMapper facilityTypeMapper){
-        this.facilityTypeService = facilityTypeService;
-        this.facilityTypeMapper = facilityTypeMapper;
-    }
 
     @GetMapping("/facility-types")
     public List<FacilityTypeEntity> facilityTypes(){
