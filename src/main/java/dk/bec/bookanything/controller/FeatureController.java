@@ -30,7 +30,7 @@ public class FeatureController {
     }
 
     @GetMapping("/features/{id}")
-    public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id){
+    public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id) {
         Optional<FeatureEntity> featureOptional = featureService.getFeatureById(id);
         return featureOptional.map(featureEntity -> new ResponseEntity<>(featureMapper.mapFeatureEntityToDto(featureEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -38,7 +38,7 @@ public class FeatureController {
     @PostMapping("/features")
     public ResponseEntity<FeatureCreateDto> addFeature(@Valid @RequestBody FeatureCreateDto feature) {
         try {
-            featureService.createFeature(featureMapper.mapFeatureDtoToEntity(feature, null ));
+            featureService.createFeature(featureMapper.mapFeatureDtoToEntity(feature, null));
             return new ResponseEntity<>(feature, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -50,19 +50,19 @@ public class FeatureController {
         try {
             featureService.updateFeatureObject(featureMapper.mapFeatureDtoToEntity(feature, id), id);
             return new ResponseEntity<>(feature, HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/features/{id}")
-    public ResponseEntity<FeatureCreateDto> deleteFeatureById(@PathVariable("id") Long id){
+    public ResponseEntity<FeatureCreateDto> deleteFeatureById(@PathVariable("id") Long id) {
         featureService.deleteFeatureById(id);
-        return featureService.getFeatureById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR): new ResponseEntity<>(HttpStatus.OK);
+        return featureService.getFeatureById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/features/{id}/bookable-objects")
-    public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id){
+    public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id) {
         return featureService.getBookableForFeatureId(id).map(bookableReadDto -> new ResponseEntity<>(bookableReadDto, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -15,7 +15,7 @@ public class FeatureMapper {
         this.facilityRepository = facilityRepository;
     }
 
-    public FeatureEntity mapFeatureDtoToEntity(FeatureCreateDto featureCreateDto, Long id){
+    public FeatureEntity mapFeatureDtoToEntity(FeatureCreateDto featureCreateDto, Long id) {
         return FeatureEntity.builder()
                 .description(featureCreateDto.getDescription())
                 .name(featureCreateDto.getName())
@@ -23,7 +23,7 @@ public class FeatureMapper {
                 .build();
     }
 
-    public FeatureReadDto mapFeatureEntityToDto(FeatureEntity featureEntity){
+    public FeatureReadDto mapFeatureEntityToDto(FeatureEntity featureEntity) {
         return FeatureReadDto.builder()
                 .description(featureEntity.getDescription())
                 .name(featureEntity.getName())

@@ -16,28 +16,28 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public UserEntity addUser(UserEntity userEntity){
+    public UserEntity addUser(UserEntity userEntity) {
         return userRepository.save(userEntity);
     }
 
-    public List<UserEntity> getUsers(){
+    public List<UserEntity> getUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<UserEntity> getUserById(Long id){
+    public Optional<UserEntity> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public void deleteUserById(Long id){
+    public void deleteUserById(Long id) {
         Optional<UserEntity> userEntityOptional = getUserById(id);
         userEntityOptional.ifPresent(userRepository::delete);
     }
 
-    public void updateUser(Long id, UserEntity userEntity){
+    public void updateUser(Long id, UserEntity userEntity) {
         Optional<UserEntity> userEntityOptional = getUserById(id);
         userEntityOptional.ifPresent(userEntity1 -> userRepository.save(userEntity));
     }

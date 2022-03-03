@@ -19,8 +19,7 @@ public class DayOpenMapper {
         this.facilityRepository = facilityRepository;
     }
 
-    public DayOpenEntity mapDayOpenDtoToEntity(DayOpenCreateDto dayOpenCreateDto, Long id)
-    {
+    public DayOpenEntity mapDayOpenDtoToEntity(DayOpenCreateDto dayOpenCreateDto, Long id) {
         Optional<FacilityEntity> facilityEntityOptional = facilityRepository.findById(dayOpenCreateDto.getFacilityId());
         return DayOpenEntity.builder()
                 .id(id)
@@ -31,7 +30,7 @@ public class DayOpenMapper {
                 .build();
     }
 
-    public DayOpenReadDto mapDayOpenEntityToReadDto(DayOpenEntity dayOpenEntity){
+    public DayOpenReadDto mapDayOpenEntityToReadDto(DayOpenEntity dayOpenEntity) {
         return DayOpenReadDto.builder()
                 .day(WeekDay.getDayNameFromDayNumber(dayOpenEntity.getDay()))
                 .hourFrom(dayOpenEntity.getHourFrom())

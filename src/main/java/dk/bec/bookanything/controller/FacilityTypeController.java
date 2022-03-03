@@ -22,48 +22,44 @@ public class FacilityTypeController {
     private final FacilityTypeMapper facilityTypeMapper;
 
     @GetMapping("/facility-types")
-    public List<FacilityTypeEntity> facilityTypes(){
+    public List<FacilityTypeEntity> facilityTypes() {
         return facilityTypeService.getFacilityTypes();
     }
 
     @GetMapping("/facility-types/{id}")
-    public FacilityTypeEntity getFacilityTypesById(@PathVariable("id")Long id){
-      return facilityTypeService.getFacilityTypeById(id);
+    public FacilityTypeEntity getFacilityTypesById(@PathVariable("id") Long id) {
+        return facilityTypeService.getFacilityTypeById(id);
     }
 
     @DeleteMapping("/facility-types")
-    public void deleteFacilityType(@RequestBody FacilityTypeEntity facilityType){
+    public void deleteFacilityType(@RequestBody FacilityTypeEntity facilityType) {
         facilityTypeService.deleteFacilityType(facilityType);
     }
 
     @DeleteMapping("/facility-types/{id}")
-    public void deleteFacilityType(@PathVariable("id") Long id){
+    public void deleteFacilityType(@PathVariable("id") Long id) {
         facilityTypeService.deleteFacilityTypeById(id);
     }
 
     @PostMapping("/facility-types")
-    public ResponseEntity<FacilityTypeDto> addFacilityType(@Valid @RequestBody FacilityTypeDto facilityType){
+    public ResponseEntity<FacilityTypeDto> addFacilityType(@Valid @RequestBody FacilityTypeDto facilityType) {
         try {
             facilityTypeService.addFacilityType(facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, null));
             return new ResponseEntity<>(facilityType, HttpStatus.CREATED);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/facility-types/{id}")
-    public ResponseEntity<FacilityTypeDto> updateFacilityTypes(@PathVariable("id") Long id, @Valid @RequestBody FacilityTypeDto facilityType){
+    public ResponseEntity<FacilityTypeDto> updateFacilityTypes(@PathVariable("id") Long id, @Valid @RequestBody FacilityTypeDto facilityType) {
         try {
             facilityTypeService.updateFacilityType(id, facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, id));
             return new ResponseEntity<>(facilityType, HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-
 
 
 }

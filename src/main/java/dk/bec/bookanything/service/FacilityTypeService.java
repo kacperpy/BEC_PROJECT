@@ -17,36 +17,35 @@ public class FacilityTypeService {
     private final FacilityTypeRepository facilityTypeRepository;
 
     @Autowired
-    public FacilityTypeService(FacilityTypeRepository facilityTypeRepository){
+    public FacilityTypeService(FacilityTypeRepository facilityTypeRepository) {
         this.facilityTypeRepository = facilityTypeRepository;
     }
 
-    public FacilityTypeEntity addFacilityType(FacilityTypeEntity facilityType){
+    public FacilityTypeEntity addFacilityType(FacilityTypeEntity facilityType) {
         return facilityTypeRepository.save(facilityType);
     }
 
-    public List<FacilityTypeEntity> getFacilityTypes(){
+    public List<FacilityTypeEntity> getFacilityTypes() {
         return facilityTypeRepository.findAll();
     }
 
-    public FacilityTypeEntity getFacilityTypeById(Long id){
+    public FacilityTypeEntity getFacilityTypeById(Long id) {
         return facilityTypeRepository.findFacilityTypeById(id);
     }
 
-    public void deleteFacilityType(FacilityTypeEntity facilityType){
+    public void deleteFacilityType(FacilityTypeEntity facilityType) {
         facilityTypeRepository.delete(facilityType);
     }
 
-    public void deleteFacilityTypeById(Long id){
+    public void deleteFacilityTypeById(Long id) {
         Optional<FacilityTypeEntity> facilityType = Optional.ofNullable(getFacilityTypeById(id));
         facilityType.ifPresent(facilityType1 -> facilityTypeRepository.delete(facilityType1));
     }
 
-    public void updateFacilityType(Long id, FacilityTypeEntity newFacilityType){
+    public void updateFacilityType(Long id, FacilityTypeEntity newFacilityType) {
         Optional<FacilityTypeEntity> facilityTypeOptional = Optional.ofNullable(getFacilityTypeById(id));
         facilityTypeOptional.ifPresent(facilityType -> facilityTypeRepository.save(facilityType));
     }
-
 
 
 }

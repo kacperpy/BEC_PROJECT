@@ -6,8 +6,8 @@ import dk.bec.bookanything.model.DiscountCodeEntity;
 import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.service.FacilityService;
 import org.springframework.stereotype.Component;
-import java.util.Optional;
 
+import java.util.Optional;
 
 
 @Component

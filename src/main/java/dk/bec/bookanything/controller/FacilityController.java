@@ -13,8 +13,6 @@ import dk.bec.bookanything.service.FacilityService;
 import dk.bec.bookanything.service.FacilityTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +51,7 @@ public class FacilityController {
     }
 
     @GetMapping("facilities/{id}/days_open")
-    ResponseEntity<List<DayOpenReadDto>>  getDaysOpenForFacility(@PathVariable("id") Long id) {
+    ResponseEntity<List<DayOpenReadDto>> getDaysOpenForFacility(@PathVariable("id") Long id) {
         return facilityService.getDaysOpenForFacility(id).map(dayOpenReadDtos -> new ResponseEntity<>(dayOpenReadDtos, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -84,7 +82,7 @@ public class FacilityController {
 
     @GetMapping("/facilities")
     ResponseEntity<List<FacilityReadDto>> getFacilitiesByCityAndType(@RequestParam(name = "facilityTypeId", required = false) Long facilityTypeId,
-                                                              @RequestParam(name = "city", required = false) String city) {
+                                                                     @RequestParam(name = "city", required = false) String city) {
         if (facilityTypeId != null && city != null) {
             Optional<FacilityTypeEntity> facilityTypeById = Optional.ofNullable(facilityTypeService.getFacilityTypeById(facilityTypeId));
             Optional<List<AddressEntity>> addressEntitiesByCity = addressService.getAddressesByCity(city);

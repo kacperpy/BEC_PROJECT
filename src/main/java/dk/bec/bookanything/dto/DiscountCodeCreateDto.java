@@ -3,11 +3,10 @@ package dk.bec.bookanything.dto;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import lombok.Builder;
 import lombok.Data;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 
 
 @Builder

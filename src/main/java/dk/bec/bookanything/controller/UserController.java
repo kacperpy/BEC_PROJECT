@@ -22,42 +22,42 @@ public class UserController {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper){
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
 
     @GetMapping("/users")
-    public List<UserEntity> users(){
+    public List<UserEntity> users() {
         return userService.getUsers();
     }
 
     @GetMapping("/users/{id}")
-    public Optional<UserEntity> getUserById(@PathVariable("id")Long id){
+    public Optional<UserEntity> getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable("id") Long id){
+    public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
     }
 
     @PostMapping("users")
-    public ResponseEntity<UserCreateDto> addUser(@Valid @RequestBody UserCreateDto userCreateDto){
+    public ResponseEntity<UserCreateDto> addUser(@Valid @RequestBody UserCreateDto userCreateDto) {
         try {
             userService.addUser(userMapper.mapUserCreateDtoToUserEntity(userCreateDto, null));
             return new ResponseEntity<>(userCreateDto, HttpStatus.CREATED);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<UserCreateDto> updateUser(@PathVariable("id") Long id,@Valid @RequestBody UserCreateDto userCreateDto){
+    public ResponseEntity<UserCreateDto> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserCreateDto userCreateDto) {
         try {
             userService.updateUser(id, userMapper.mapUserCreateDtoToUserEntity(userCreateDto, id));
             return new ResponseEntity<>(userCreateDto, HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

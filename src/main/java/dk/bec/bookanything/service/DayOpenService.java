@@ -14,25 +14,22 @@ public class DayOpenService {
         this.dayOpenRepository = dayOpenRepository;
     }
 
-    public Optional<DayOpenEntity> getDayOpenById(Long id)
-    {
+    public Optional<DayOpenEntity> getDayOpenById(Long id) {
         return dayOpenRepository.findById(id);
     }
 
-    public Optional<DayOpenEntity> addDayOpen(DayOpenEntity dayOpenEntity)
-    {
+    public Optional<DayOpenEntity> addDayOpen(DayOpenEntity dayOpenEntity) {
         return Optional.of(dayOpenRepository.save(dayOpenEntity));
     }
 
-    public Optional<DayOpenEntity> modifyDayOpen(DayOpenEntity dayOpenEntity)
-    {
-        if(getDayOpenById(dayOpenEntity.getId()).isPresent())
+    public Optional<DayOpenEntity> modifyDayOpen(DayOpenEntity dayOpenEntity) {
+        if (getDayOpenById(dayOpenEntity.getId()).isPresent())
             return Optional.of(dayOpenRepository.save(dayOpenEntity));
         else
             return Optional.empty();
     }
 
-    public void deleteDayOpen(Long id){
+    public void deleteDayOpen(Long id) {
         dayOpenRepository.deleteById(id);
     }
 }

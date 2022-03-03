@@ -24,24 +24,24 @@ public class FeatureService {
         this.featureMapper = featureMapper;
     }
 
-    public void createFeature(FeatureEntity featureEntity){
+    public void createFeature(FeatureEntity featureEntity) {
         featureRepository.save(featureEntity);
     }
 
-    public Optional<FeatureEntity> getFeatureById(Long id){
+    public Optional<FeatureEntity> getFeatureById(Long id) {
         return featureRepository.findById(id);
     }
 
-    public void deleteFeatureById(Long id){
+    public void deleteFeatureById(Long id) {
         featureRepository.deleteById(id);
     }
 
     public void updateFeatureObject(FeatureEntity featureEntity, Long id) {
-            featureRepository.save(featureEntity);
+        featureRepository.save(featureEntity);
     }
 
     public Optional<List<BookableObjectReadDto>> getBookableForFeatureId(Long id) {
-            return getFeatureById(id).map(featureEntity -> featureEntity.getBookableObjects().stream()
-            .map(bookableObjectMapper::mapEntityToDto).collect(Collectors.toList()));
+        return getFeatureById(id).map(featureEntity -> featureEntity.getBookableObjects().stream()
+                .map(bookableObjectMapper::mapEntityToDto).collect(Collectors.toList()));
     }
 }

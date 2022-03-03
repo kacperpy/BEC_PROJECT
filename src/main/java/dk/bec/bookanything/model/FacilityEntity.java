@@ -7,12 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
 @Table
-@Entity(name="facility")
+@Entity(name = "facility")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,18 +33,18 @@ public class FacilityEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private AddressEntity addressEntity;
 
-    @OneToMany(mappedBy = "facility", cascade =  CascadeType.ALL)
+    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DayOpenEntity> dayOpenList;
 
-    @OneToMany(cascade =  CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DiscountCodeEntity> discountCodes;
 
     @OneToOne(cascade = CascadeType.ALL)
     private FacilityTypeEntity facilityTypeEntity;
 
-    @OneToMany(mappedBy = "facility", cascade =  CascadeType.ALL)
+    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<FeatureEntity> featureEntities;
 

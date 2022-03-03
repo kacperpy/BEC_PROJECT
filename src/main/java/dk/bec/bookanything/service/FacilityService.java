@@ -28,30 +28,28 @@ public class FacilityService {
         this.dayOpenMapper = dayOpenMapper;
     }
 
-    public Optional<FacilityEntity> getFacilityById(Long id)
-    {
-      return facilityRepository.findById(id);
+    public Optional<FacilityEntity> getFacilityById(Long id) {
+        return facilityRepository.findById(id);
     }
 
-    public Optional<List<FeatureReadDto>> getFeaturesForFacility(Long id)
-    {
+    public Optional<List<FeatureReadDto>> getFeaturesForFacility(Long id) {
         return getFacilityById(id).map(entity -> entity.getFeatureEntities().stream()
                 .map(featureMapper::mapFeatureEntityToDto
-        ).collect(Collectors.toList()));
+                ).collect(Collectors.toList()));
     }
-    public Optional<List<DayOpenReadDto>> getDaysOpenForFacility(Long id)
-    {
+
+    public Optional<List<DayOpenReadDto>> getDaysOpenForFacility(Long id) {
         return getFacilityById(id).map(entity -> entity.getDayOpenList().stream()
                 .map(dayOpenMapper::mapDayOpenEntityToReadDto).collect(Collectors.toList()));
     }
 
     @Transactional
     public Optional<FacilityEntity> createFacility(FacilityEntity facilityEntity) {
-        return Optional.of( facilityRepository.save(facilityEntity));
+        return Optional.of(facilityRepository.save(facilityEntity));
     }
 
     public Optional<FacilityEntity> updateFacility(Long id, FacilityEntity newFacility) {
-        if(getFacilityById(id).isPresent())
+        if (getFacilityById(id).isPresent())
             return Optional.of(facilityRepository.save(newFacility));
         else
             return Optional.empty();
@@ -69,5 +67,7 @@ public class FacilityService {
         return facilityRepository.findByAddressEntityInAndFacilityTypeEntity(addressEntities, facilityTypeEntity);
     }
 
-    public void deleteFacilityById(Long id){facilityRepository.deleteById(id);}
+    public void deleteFacilityById(Long id) {
+        facilityRepository.deleteById(id);
+    }
 }

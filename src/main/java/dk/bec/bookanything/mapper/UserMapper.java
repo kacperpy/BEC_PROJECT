@@ -15,7 +15,7 @@ public class UserMapper {
         this.roleService = roleService;
     }
 
-    public UserEntity mapUserCreateDtoToUserEntity(UserCreateDto userCreateDto, Long id){
+    public UserEntity mapUserCreateDtoToUserEntity(UserCreateDto userCreateDto, Long id) {
         return UserEntity.builder()
                 .id(id)
                 .birthDate(userCreateDto.getBirthDate())
@@ -25,7 +25,7 @@ public class UserMapper {
                 .password(userCreateDto.getPassword()).build();
     }
 
-    public UserReadDto mapUserEntityToUserReadDto(UserEntity userEntity){
+    public UserReadDto mapUserEntityToUserReadDto(UserEntity userEntity) {
         return UserReadDto.builder()
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())

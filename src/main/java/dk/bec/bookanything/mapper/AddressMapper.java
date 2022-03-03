@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddressMapper {
 
-    public AddressEntity mapAddressDtoToEntity(AddressDto addressDto, Long id){
+    public AddressEntity mapAddressDtoToEntity(AddressDto addressDto, Long id) {
         return AddressEntity.builder()
                 .id(id)
                 .street(addressDto.getStreet())
@@ -19,7 +19,7 @@ public class AddressMapper {
                 .build();
     }
 
-    public AddressDto mapAddressEntityToDto(AddressEntity addressEntity){
+    public AddressDto mapAddressEntityToDto(AddressEntity addressEntity) {
         return AddressDto.builder()
                 .street(addressEntity.getStreet())
                 .streetNumber(addressEntity.getStreetNumber())
