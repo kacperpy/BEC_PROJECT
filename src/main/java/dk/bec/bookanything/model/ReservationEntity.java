@@ -43,4 +43,6 @@ public class ReservationEntity {
         this.dateTo = dateTo;
         this.bookableObjectEntity = bookableObjectEntity;
     }
+
+
 }

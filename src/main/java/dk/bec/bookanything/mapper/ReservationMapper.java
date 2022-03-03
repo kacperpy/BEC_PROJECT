@@ -20,7 +20,7 @@ public class ReservationMapper {
     }
 
     public ReservationEntity mapReservationCreateDtoToReservationEntity(ReservationCreateDto reservationCreateDto, Long id) {
-        return ReservationEntity.builder()
+        return  ReservationEntity.builder()
                 .id(id)
                 .dateFrom(reservationCreateDto.getDateFrom())
                 .dateTo(reservationCreateDto.getDateTo())

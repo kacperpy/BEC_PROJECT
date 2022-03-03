@@ -36,11 +36,17 @@ public class FacilityTypeControllerTest {
     @MockBean
     FacilityTypeService facilityTypeService;
 
+    private static final String restaurant_name = "restaurant";
+    private static final String gym_name = "gym";
+    private static final String cinema_name = "cinema";
+    private static final String opera_name = "opera";
+
+
     private static final List<FacilityTypeEntity> facilityTypes = Arrays.asList(
-            new FacilityTypeEntity("restaurant"),
-            new FacilityTypeEntity("gym"),
-            new FacilityTypeEntity("cinema"),
-            new FacilityTypeEntity("opera")
+            new FacilityTypeEntity(1L, restaurant_name),
+            new FacilityTypeEntity(1L, gym_name),
+            new FacilityTypeEntity(1L, cinema_name),
+            new FacilityTypeEntity(1L, opera_name)
     );
 
     @Test

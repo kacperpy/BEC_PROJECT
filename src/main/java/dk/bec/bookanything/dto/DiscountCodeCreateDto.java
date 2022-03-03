@@ -1,5 +1,6 @@
 package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.service.FacilityService;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import lombok.Builder;
 import lombok.Data;
@@ -13,13 +14,13 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class DiscountCodeCreateDto {
 
-    @NotBlank(message = "Code is mandatory field!")
+    @NotBlank(message = "Code is mandatory field")
     private String code;
 
     @Min(value = 0)
     @Max(value = 100)
     private Integer amount;
 
-    @ForeignKeyExistsConstraint
+    @ForeignKeyExistsConstraint(serviceClass = FacilityService.class)
     private Long facilityId;
 }

@@ -18,6 +18,7 @@ public class RoleMapper {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    List<UserEntity> userList = new ArrayList<>();
 
     public RoleMapper(UserService userService, UserMapper userMapper) {
         this.userService = userService;
@@ -25,7 +26,6 @@ public class RoleMapper {
     }
 
     public RoleEntity roleDtoToEntity(RoleCreateDto roleCreateDto) {
-        List<UserEntity> userList = new ArrayList<>();
         for (Long id : roleCreateDto.getUserIdList()) {
             Optional<UserEntity> userEntity = userService.getUsers().stream().filter(e -> e.getId().equals(id)).findFirst();
             userEntity.ifPresent(userList::add);
@@ -45,7 +45,6 @@ public class RoleMapper {
     }
 
     public RoleEntity roleDtoToEntityWhenModified(RoleCreateDto roleCreateDto, Long id) {
-        List<UserEntity> userList = new ArrayList<>();
         for (Long i : roleCreateDto.getUserIdList()) {
             Optional<UserEntity> userEntity = userService.getUsers().stream().filter(e -> e.getId().equals(i)).findFirst();
             userEntity.ifPresent(userList::add);

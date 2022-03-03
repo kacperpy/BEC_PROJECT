@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -20,7 +20,7 @@ public class UserReadDto {
 
     private String password;
 
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
     private String phoneNumber;
 

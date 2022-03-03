@@ -28,8 +28,8 @@ public class FeatureMapper {
         return FeatureReadDto.builder()
                 .description(featureEntity.getDescription())
                 .name(featureEntity.getName())
-                .facility_id(featureEntity.getFacility().getId())
-                .bookableObjects_count(featureEntity.getBookableObjects().size())
+                .facilityId(featureEntity.getFacility().getId())
+                .bookableObjectsCount(featureEntity.getBookableObjects().size())
                 .build();
     }
 }

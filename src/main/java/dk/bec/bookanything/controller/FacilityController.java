@@ -1,9 +1,7 @@
 package dk.bec.bookanything.controller;
 
-import dk.bec.bookanything.dto.DayOpenReadDto;
-import dk.bec.bookanything.dto.FacilityCreateDto;
-import dk.bec.bookanything.dto.FacilityReadDto;
-import dk.bec.bookanything.dto.FeatureReadDto;
+import dk.bec.bookanything.dto.*;
+import dk.bec.bookanything.mapper.DiscountCodeMapper;
 import dk.bec.bookanything.mapper.FacilityMapper;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.model.FacilityEntity;
@@ -20,6 +18,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -30,12 +29,14 @@ public class FacilityController {
     private final FacilityMapper facilityMapper;
     private final FacilityTypeService facilityTypeService;
     private final AddressService addressService;
+    private final DiscountCodeMapper discountCodeMapper;
 
-    public FacilityController(FacilityService facilityService, FacilityMapper facilityMapper, FacilityTypeService facilityTypeService, AddressService addressService) {
+    public FacilityController(FacilityService facilityService, FacilityMapper facilityMapper, FacilityTypeService facilityTypeService, AddressService addressService, DiscountCodeMapper discountCodeMapper) {
         this.facilityService = facilityService;
         this.facilityMapper = facilityMapper;
         this.facilityTypeService = facilityTypeService;
         this.addressService = addressService;
+        this.discountCodeMapper = discountCodeMapper;
     }
 
     @GetMapping("/facilities/{id}")
@@ -82,18 +83,26 @@ public class FacilityController {
         return facilityService.getFacilityById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/facilities/{id}/discount-codes")
+    ResponseEntity<List<DiscountCodeReadDto>> getFacilityDiscountCodes(@PathVariable("id") Long id){
+        List<DiscountCodeReadDto> discountCodeReadDtos = facilityService.getFacilityById(id).get().getDiscountCodes().stream().map(discountCodeMapper::discountCodeEntityToDto).collect(Collectors.toList());
+        if(discountCodeReadDtos.size()>0)return new ResponseEntity<List<DiscountCodeReadDto>>(discountCodeReadDtos,HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
     @GetMapping("/facilities")
     ResponseEntity<List<FacilityReadDto>> getFacilitiesByCityAndType(@RequestParam(name = "facilityTypeId", required = false) Long facilityTypeId,
                                                                      @RequestParam(name = "city", required = false) String city) {
         if (facilityTypeId != null && city != null) {
-            Optional<FacilityTypeEntity> facilityTypeById = Optional.ofNullable(facilityTypeService.getFacilityTypeById(facilityTypeId));
+            Optional<FacilityTypeEntity> facilityTypeById = facilityTypeService.getFacilityTypeById(facilityTypeId);
             Optional<List<AddressEntity>> addressEntitiesByCity = addressService.getAddressesByCity(city);
             if (facilityTypeById.isPresent() && addressEntitiesByCity.isPresent()) {
                 return new ResponseEntity<>(getFacilitiesByAddressEntitiesAndType(addressEntitiesByCity.get(), facilityTypeById.get()), HttpStatus.OK);
             }
         }
         if (facilityTypeId != null) {
-            Optional<FacilityTypeEntity> facilityTypeById = Optional.ofNullable(facilityTypeService.getFacilityTypeById(facilityTypeId));
+            Optional<FacilityTypeEntity> facilityTypeById = facilityTypeService.getFacilityTypeById(facilityTypeId);
             if (facilityTypeById.isPresent()) {
                 return new ResponseEntity<>(getFacilitiesByType(facilityTypeById.get()), HttpStatus.OK);
             }
@@ -128,4 +137,6 @@ public class FacilityController {
         facilitiesByAddressInAndType.ifPresent(facilityEntities -> facilityEntities.forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
         return facilities;
     }
+
+
 }
