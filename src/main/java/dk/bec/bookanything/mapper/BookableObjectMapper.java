@@ -4,7 +4,6 @@ import dk.bec.bookanything.dto.BookableObjectCreateDto;
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.repository.FeatureRepository;
-import dk.bec.bookanything.service.FeatureService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,12 +19,14 @@ public class BookableObjectMapper {
         return BookableObjectEntity.builder()
                 .id(id)
                 .name(bookableObjectCreateDto.getName())
-                .time_period(bookableObjectCreateDto.getTime_period())
+                .timePeriod(bookableObjectCreateDto.getTimePeriod())
                 .capacity(bookableObjectCreateDto.getCapacity())
                 .description(bookableObjectCreateDto.getDescription())
-                .date_time(bookableObjectCreateDto.getDate_time())
+                .dateTime(bookableObjectCreateDto.getDateTime())
                 .reservations(null)
-                .feature(featureRepository.getById(bookableObjectCreateDto.getFeature_id()))
+                .feature(featureRepository.getById(bookableObjectCreateDto.getFeatureId()))
+                .reusable(bookableObjectCreateDto.getReusable())
+                .price(bookableObjectCreateDto.getPrice())
                 .build();
     }
 
@@ -33,12 +34,14 @@ public class BookableObjectMapper {
         return BookableObjectReadDto.builder()
                 .id(bookableObjectEntity.getId())
                 .name(bookableObjectEntity.getName())
-                .time_period(bookableObjectEntity.getTime_period())
+                .timePeriod(bookableObjectEntity.getTimePeriod())
                 .capacity(bookableObjectEntity.getCapacity())
                 .description(bookableObjectEntity.getDescription())
-                .date_time(bookableObjectEntity.getDate_time())
-                .reservation_count(bookableObjectEntity.getReservations() != null ? bookableObjectEntity.getReservations().size() : 0)
-                .feature_id(bookableObjectEntity.getFeature() == null ? 0 : bookableObjectEntity.getFeature().getId())
+                .dateTime(bookableObjectEntity.getDateTime())
+                .reservationCount(bookableObjectEntity.getReservations() != null ? bookableObjectEntity.getReservations().size() : 0)
+                .featureId(bookableObjectEntity.getFeature() == null ? 0 : bookableObjectEntity.getFeature().getId())
+                .reusable(bookableObjectEntity.getReusable())
+                .price(bookableObjectEntity.getPrice())
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package dk.bec.bookanything.controller;
 
+import dk.bec.bookanything.dto.DayOpenReadDto;
 import dk.bec.bookanything.dto.FacilityCreateDto;
 import dk.bec.bookanything.dto.FacilityReadDto;
 import dk.bec.bookanything.dto.FeatureReadDto;
@@ -12,6 +13,7 @@ import dk.bec.bookanything.service.FacilityService;
 import dk.bec.bookanything.service.FacilityTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,6 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@Validated
 public class FacilityController {
 
     private final FacilityService facilityService;
@@ -37,16 +40,20 @@ public class FacilityController {
 
     @GetMapping("/facilities/{id}")
     ResponseEntity<FacilityReadDto> getFacility(@PathVariable("id") Long id) {
-        Optional<FacilityEntity> facilityOptional = facilityService.getFacilityById(id);
-
-        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return facilityService.getFacilityById(id).map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/facilities/{id}/features")
     ResponseEntity<List<FeatureReadDto>> getFeaturesForFacility(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(
-                facilityService.getFeaturesForFacility(id)
-        );
+        return facilityService.getFeaturesForFacility(id).map(featureReadDtos -> new ResponseEntity<>(featureReadDtos, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("facilities/{id}/days_open")
+    ResponseEntity<List<DayOpenReadDto>> getDaysOpenForFacility(@PathVariable("id") Long id) {
+        return facilityService.getDaysOpenForFacility(id).map(dayOpenReadDtos -> new ResponseEntity<>(dayOpenReadDtos, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/facilities")
@@ -54,16 +61,18 @@ public class FacilityController {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, null);
         Optional<FacilityEntity> facilityOptional = facilityService.createFacility(facility);
 
-        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
 
     }
 
     @PutMapping("/facilities/{id}")
-    ResponseEntity<FacilityReadDto> updateFacility(@PathVariable("id") Long id, @RequestBody FacilityCreateDto facilityDto) {
+    ResponseEntity<FacilityReadDto> updateFacility(@PathVariable("id") Long id, @Valid @RequestBody FacilityCreateDto facilityDto) {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, id);
         Optional<FacilityEntity> facilityOptional = facilityService.updateFacility(id, facility);
 
-        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return facilityOptional.map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("/facilities/{id}")
@@ -75,7 +84,7 @@ public class FacilityController {
 
     @GetMapping("/facilities")
     ResponseEntity<List<FacilityReadDto>> getFacilitiesByCityAndType(@RequestParam(name = "facilityTypeId", required = false) Long facilityTypeId,
-                                                              @RequestParam(name = "city", required = false) String city) {
+                                                                     @RequestParam(name = "city", required = false) String city) {
         if (facilityTypeId != null && city != null) {
             Optional<FacilityTypeEntity> facilityTypeById = Optional.ofNullable(facilityTypeService.getFacilityTypeById(facilityTypeId));
             Optional<List<AddressEntity>> addressEntitiesByCity = addressService.getAddressesByCity(city);
@@ -101,7 +110,8 @@ public class FacilityController {
     private List<FacilityReadDto> getFacilitiesByType(FacilityTypeEntity facilityTypeEntity) {
         Optional<List<FacilityEntity>> facilitiesByType = facilityService.getFacilitiesByType(facilityTypeEntity);
         List<FacilityReadDto> facilities = new ArrayList<>();
-        facilitiesByType.ifPresent(facilityEntities -> facilityEntities.forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
+        facilitiesByType.ifPresent(facilityEntities -> facilityEntities
+                .forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
         return facilities;
     }
 

@@ -26,7 +26,7 @@ public class AddressEntity {
     private String streetNumber;
 
     @Column
-    private String flatNumber;
+    private String propertyNumber;
 
     @Column(nullable = false)
     private String city;

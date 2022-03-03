@@ -1,40 +1,47 @@
 package dk.bec.bookanything.service;
 
+import dk.bec.bookanything.dto.BookableObjectReadDto;
+import dk.bec.bookanything.mapper.BookableObjectMapper;
+import dk.bec.bookanything.mapper.FeatureMapper;
 import dk.bec.bookanything.model.FeatureEntity;
 import dk.bec.bookanything.repository.FeatureRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FeatureService {
 
     private final FeatureRepository featureRepository;
+    private final BookableObjectMapper bookableObjectMapper;
+    private final FeatureMapper featureMapper;
 
-    public FeatureService(FeatureRepository featureRepository) {
+    public FeatureService(FeatureRepository featureRepository, BookableObjectMapper bookableObjectMapper, FeatureMapper featureMapper) {
         this.featureRepository = featureRepository;
+        this.bookableObjectMapper = bookableObjectMapper;
+        this.featureMapper = featureMapper;
     }
 
-    public FeatureEntity createFeature(FeatureEntity featureEntity){
-        return featureRepository.save(featureEntity);
+    public void createFeature(FeatureEntity featureEntity) {
+        featureRepository.save(featureEntity);
     }
 
-    public Optional<FeatureEntity> getFeatureById(Long id){
+    public Optional<FeatureEntity> getFeatureById(Long id) {
         return featureRepository.findById(id);
     }
 
-    public void deleteFeatureById(Long id){
+    public void deleteFeatureById(Long id) {
         featureRepository.deleteById(id);
     }
 
-    public List<FeatureEntity> getFeatures() {
-        return featureRepository.findAll();
+    public void updateFeatureObject(FeatureEntity featureEntity, Long id) {
+        featureRepository.save(featureEntity);
     }
 
-    public FeatureEntity updateFeatureObject(FeatureEntity featureEntity, Long id) {
-        if(getFeatureById(id).isPresent())
-            featureRepository.save(featureEntity);
-        return featureEntity;
+    public Optional<List<BookableObjectReadDto>> getBookableForFeatureId(Long id) {
+        return getFeatureById(id).map(featureEntity -> featureEntity.getBookableObjects().stream()
+                .map(bookableObjectMapper::mapEntityToDto).collect(Collectors.toList()));
     }
 }

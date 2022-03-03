@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DiscountCodeRepository extends JpaRepository<DiscountCodeEntity, Long> {
 
-DiscountCodeEntity findDiscountCodeEntityById(Long id);
-void deleteDiscountCodeEntityById(Long id);
+    DiscountCodeEntity findDiscountCodeEntityById(Long id);
+
+    void deleteDiscountCodeEntityById(Long id);
 
 }

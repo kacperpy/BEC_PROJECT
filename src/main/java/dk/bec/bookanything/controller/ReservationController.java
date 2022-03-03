@@ -1,12 +1,14 @@
 package dk.bec.bookanything.controller;
 
 import dk.bec.bookanything.dto.ReservationCreateDto;
+import dk.bec.bookanything.model.UserEntity;
+import dk.bec.bookanything.service.*;
 import dk.bec.bookanything.dto.ReservationReadDto;
 import dk.bec.bookanything.mapper.ReservationMapper;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
-import dk.bec.bookanything.model.UserEntity;
-import dk.bec.bookanything.service.*;
+import dk.bec.bookanything.service.BookableObjectService;
+import dk.bec.bookanything.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,6 @@ public class ReservationController {
 
     private final ReservationMapper reservationMapper;
 
-
     @GetMapping
     public ResponseEntity<List<ReservationReadDto>> getReservations() {
         List<ReservationEntity> res = reservationService.getReservations();
@@ -43,7 +44,8 @@ public class ReservationController {
     @GetMapping("/{id}")
     public ResponseEntity<ReservationReadDto> getReservation(@PathVariable("id") Long id) {
         Optional<ReservationEntity> res = reservationService.getReservationById(id);
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
@@ -61,7 +63,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationReadDto> updateReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
+    public ResponseEntity<ReservationReadDto> updateReservation(@Valid @RequestBody ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
         Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
         Optional<UserEntity> usr = userService.getUserById(reservationCreateDto.getUserId());
         if (bookableObjectEntity.isPresent()) {
@@ -80,7 +82,8 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ReservationReadDto> deleteReservation(@PathVariable("id") Long id) {
         Optional<ReservationEntity> res = reservationService.deleteReservation(id);
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 

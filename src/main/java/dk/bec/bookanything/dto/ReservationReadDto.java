@@ -1,7 +1,5 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.ReservationEntity;
-import dk.bec.bookanything.model.UserEntity;
 import lombok.Builder;
 import lombok.Data;
 

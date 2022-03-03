@@ -56,20 +56,6 @@ public class FacilityTypeControllerTest {
                 .andExpect(jsonPath("$[2].name", is("cinema")));
     }
 
-//    @Test
-//    void getFacilityTypeById() throws Exception {
-//        Mockito.when(facilityTypeService.getFacilityTypeById(2L)).thenReturn(facilityTypes.get(1));
-//        String name = "gym";
-//
-//        mockMvc.perform(MockMvcRequestBuilders
-//                .get("/API/facility-types/2")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$[0].name", is(name)));
-//    }
-
-
-
     @Test
     void addFacilityType() throws Exception{
         FacilityTypeEntity facilityTypeEntity = facilityTypes.get(1);

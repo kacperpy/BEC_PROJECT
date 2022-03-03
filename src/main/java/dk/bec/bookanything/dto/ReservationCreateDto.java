@@ -1,24 +1,29 @@
 package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
+import dk.bec.bookanything.validator.FutureDateTimeConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class ReservationCreateDto {
-    @NotNull(message = "User id is required")
+
+    @ForeignKeyExistsConstraint
     private Long userId;
-    @NotNull(message = "Bookable object id is required")
+
+    @ForeignKeyExistsConstraint
     private Long bookableObjectId;
-    @NotNull(message = "Date from is required")
+
+    @FutureDateTimeConstraint
     private LocalDateTime dateFrom;
-    @NotNull(message = "Date to is required")
+
+    @FutureDateTimeConstraint
     private LocalDateTime dateTo;
-    @NotNull(message = "People number is required")
+
     @Positive
     private int peopleNumber;
 }

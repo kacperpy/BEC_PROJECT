@@ -1,5 +1,6 @@
 package dk.bec.bookanything.dto;
 
+import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class FacilityCreateDto {
     @NotNull(message = "Provide address information")
     private AddressDto addressDto;
 
-    @NotNull(message = "Facility type id can't be null!")
+    @ForeignKeyExistsConstraint
     private Long facilityTypeId;
 
 }

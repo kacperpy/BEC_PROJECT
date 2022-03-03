@@ -19,7 +19,7 @@ public class ReservationMapper {
         this.bookableObjectService = bookableObjectService;
     }
 
-    public ReservationEntity mapReservationCreateDtoToReservationEntity(ReservationCreateDto reservationCreateDto, Long id){
+    public ReservationEntity mapReservationCreateDtoToReservationEntity(ReservationCreateDto reservationCreateDto, Long id) {
         return ReservationEntity.builder()
                 .id(id)
                 .dateFrom(reservationCreateDto.getDateFrom())
@@ -29,7 +29,7 @@ public class ReservationMapper {
                 .bookableObjectEntity(bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId()).get()).build();
     }
 
-    public ReservationReadDto mapReservationEntityToReservationReadDto(ReservationEntity reservationEntity){
+    public ReservationReadDto mapReservationEntityToReservationReadDto(ReservationEntity reservationEntity) {
         return ReservationReadDto.builder()
                 .dateFrom(reservationEntity.getDateFrom())
                 .dateTo(reservationEntity.getDateTo())

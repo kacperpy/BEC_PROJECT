@@ -5,7 +5,7 @@ import dk.bec.bookanything.dto.DayOpenCreateDto;
 import dk.bec.bookanything.dto.DayOpenReadDto;
 import dk.bec.bookanything.model.DayOpenEntity;
 import dk.bec.bookanything.model.FacilityEntity;
-import dk.bec.bookanything.service.FacilityService;
+import dk.bec.bookanything.repository.FacilityRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -13,15 +13,14 @@ import java.util.Optional;
 @Component
 public class DayOpenMapper {
 
-    FacilityService facilityService;
+    private final FacilityRepository facilityRepository;
 
-    public DayOpenMapper(FacilityService facilityService) {
-        this.facilityService = facilityService;
+    public DayOpenMapper(FacilityRepository facilityRepository) {
+        this.facilityRepository = facilityRepository;
     }
 
-    public DayOpenEntity mapDayOpenDtoToEntity(DayOpenCreateDto dayOpenCreateDto, Long id)
-    {
-        Optional<FacilityEntity> facilityEntityOptional = facilityService.getFacilityById(dayOpenCreateDto.getFacilityId());
+    public DayOpenEntity mapDayOpenDtoToEntity(DayOpenCreateDto dayOpenCreateDto, Long id) {
+        Optional<FacilityEntity> facilityEntityOptional = facilityRepository.findById(dayOpenCreateDto.getFacilityId());
         return DayOpenEntity.builder()
                 .id(id)
                 .day(dayOpenCreateDto.getDay())
@@ -31,9 +30,9 @@ public class DayOpenMapper {
                 .build();
     }
 
-    public DayOpenReadDto mapDayOpenEntityToReadDto(DayOpenEntity dayOpenEntity){
+    public DayOpenReadDto mapDayOpenEntityToReadDto(DayOpenEntity dayOpenEntity) {
         return DayOpenReadDto.builder()
-                .day(dayOpenEntity.getDay())
+                .day(WeekDay.getDayNameFromDayNumber(dayOpenEntity.getDay()))
                 .hourFrom(dayOpenEntity.getHourFrom())
                 .hourTo(dayOpenEntity.getHourTo()).build();
     }
