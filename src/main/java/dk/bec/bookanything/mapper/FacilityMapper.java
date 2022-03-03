@@ -33,6 +33,7 @@ public class FacilityMapper {
     public FacilityReadDto mapFacilityEntityToReadDto(FacilityEntity facilityEntity) {
 
         return FacilityReadDto.builder()
+                .id(facilityEntity.getId())
                 .name(facilityEntity.getName())
                 .nip(facilityEntity.getNip())
                 .krs(facilityEntity.getKrs())
