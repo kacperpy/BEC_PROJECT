@@ -1,7 +1,6 @@
 package dk.bec.bookanything.validator;
 
 import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
@@ -10,9 +9,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FutureDateTimeConstraint {
     String message() default "DateTime must be in the future";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
-
 }
