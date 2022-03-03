@@ -15,7 +15,7 @@ public class FeatureReadDto {
 
     private String description;
 
-    private Long facility_id;
+    private Long facilityId;
 
-    private Integer bookableObjects_count;
+    private Integer bookableObjectsCount;
 }

@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/addresses")
 public class AddressController {
 
     private final AddressService addressService;
@@ -23,14 +23,14 @@ public class AddressController {
         this.addressMapper = addressMapper;
     }
 
-    @GetMapping("/addresses/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<AddressDto> getAddress(@PathVariable("id") Long id) {
         Optional<AddressEntity> addressOptional = addressService.getAddressById(id);
         return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/addresses")
+    @PostMapping("/")
     ResponseEntity<AddressDto> createAddress(@Valid @RequestBody AddressDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, null);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
@@ -40,7 +40,7 @@ public class AddressController {
 
     }
 
-    @PutMapping("/addresses/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @Valid @RequestBody AddressDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, id);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
@@ -49,7 +49,7 @@ public class AddressController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @DeleteMapping("/addresses/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<AddressDto> deleteAddress(@PathVariable("id") Long id) {
         addressService.deleteAddressById(id);
 

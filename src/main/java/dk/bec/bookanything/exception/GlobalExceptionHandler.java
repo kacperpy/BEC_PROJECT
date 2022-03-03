@@ -16,14 +16,6 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-//    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    public List<ConstraintViolation<?>> handleConstraintViolationException(ConstraintViolationException e){
-//        System.out.println("Constrain violations: " + e.getConstraintViolations());
-//
-//        return new ArrayList<>(e.getConstraintViolations());
-//    }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = new ArrayList<>();

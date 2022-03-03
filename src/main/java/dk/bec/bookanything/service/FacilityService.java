@@ -49,10 +49,11 @@ public class FacilityService {
     }
 
     public Optional<FacilityEntity> updateFacility(Long id, FacilityEntity newFacility) {
-        if (getFacilityById(id).isPresent())
+        if (getFacilityById(id).isPresent()) {
             return Optional.of(facilityRepository.save(newFacility));
-        else
+        } else {
             return Optional.empty();
+        }
     }
 
     public Optional<List<FacilityEntity>> getFacilitiesByType(FacilityTypeEntity facilityTypeEntity) {

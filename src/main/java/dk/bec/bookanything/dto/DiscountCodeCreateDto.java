@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class DiscountCodeCreateDto {
 
-    @NotBlank(message = "Code is mandatory field!")
+    @NotBlank(message = "Code is mandatory field")
     private String code;
 
     @Min(value = 0)

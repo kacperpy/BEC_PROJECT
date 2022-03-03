@@ -37,7 +37,8 @@ public class FeatureService {
     }
 
     public void updateFeatureObject(FeatureEntity featureEntity, Long id) {
-        featureRepository.save(featureEntity);
+        Optional<FeatureEntity> featureEntityOptional = getFeatureById(id);
+        featureEntityOptional.ifPresent(featureEntity1 -> featureRepository.save(featureEntity));
     }
 
     public Optional<List<BookableObjectReadDto>> getBookableForFeatureId(Long id) {

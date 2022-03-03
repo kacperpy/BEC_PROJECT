@@ -26,4 +26,5 @@ public class ReservationCreateDto {
 
     @Positive
     private int peopleNumber;
+
 }
