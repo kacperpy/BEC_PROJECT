@@ -8,6 +8,7 @@ import dk.bec.bookanything.repository.BookableObjectRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,7 +42,11 @@ public class BookableObjectService {
     }
 
     public List<ReservationEntity> getReservationsForBookableObject(Long bookableObjectId) {
-        return bookableObjectRepository.findById(bookableObjectId).get().getReservations();
+        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectRepository.findById(bookableObjectId);
+        if (bookableObjectEntity.isPresent())
+            return bookableObjectEntity.get().getReservations();
+
+        return Collections.emptyList();
     }
 
     @Transactional
