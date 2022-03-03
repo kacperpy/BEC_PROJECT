@@ -17,6 +17,7 @@ public class FeatureMapper {
 
     public FeatureEntity mapFeatureDtoToEntity(FeatureCreateDto featureCreateDto, Long id) {
         return FeatureEntity.builder()
+                .id(id)
                 .description(featureCreateDto.getDescription())
                 .name(featureCreateDto.getName())
                 .facility(facilityRepository.getById(featureCreateDto.getFacilityId())) //verify
