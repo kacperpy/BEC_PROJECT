@@ -25,7 +25,7 @@ public class AddressDto {
     private String streetNumber;
 
     @Min(1)
-    private String flatNumber;
+    private String propertyNumber;
 
     @Size(min = 3, max = 30)
     @NotNull
