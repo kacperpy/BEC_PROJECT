@@ -39,12 +39,12 @@ public class FacilityTypeService {
 
     public void deleteFacilityTypeById(Long id) {
         Optional<FacilityTypeEntity> facilityType = Optional.ofNullable(getFacilityTypeById(id));
-        facilityType.ifPresent(facilityType1 -> facilityTypeRepository.delete(facilityType1));
+        facilityType.ifPresent(facilityTypeRepository::delete);
     }
 
     public void updateFacilityType(Long id, FacilityTypeEntity newFacilityType) {
         Optional<FacilityTypeEntity> facilityTypeOptional = Optional.ofNullable(getFacilityTypeById(id));
-        facilityTypeOptional.ifPresent(facilityType -> facilityTypeRepository.save(facilityType));
+        facilityTypeOptional.ifPresent(facilityTypeRepository::save);
     }
 
 
