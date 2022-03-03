@@ -1,17 +1,10 @@
 package dk.bec.bookanything.mapper;
 
-import dk.bec.bookanything.dto.DayOpenReadDto;
 import dk.bec.bookanything.dto.FacilityCreateDto;
 import dk.bec.bookanything.dto.FacilityReadDto;
-import dk.bec.bookanything.dto.FeatureReadDto;
 import dk.bec.bookanything.model.FacilityEntity;
 import dk.bec.bookanything.repository.FacilityTypeRepository;
 import org.springframework.stereotype.Component;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class FacilityMapper {
@@ -42,16 +35,6 @@ public class FacilityMapper {
     }
 
     public FacilityReadDto mapFacilityEntityToReadDto(FacilityEntity facilityEntity) {
-        List<FeatureReadDto> featureReadDtos = new ArrayList<>();
-        if(facilityEntity.getFeatureEntities() != null)
-        featureReadDtos = facilityEntity.getFeatureEntities().stream()
-                        .map(featureMapper::mapFeatureEntityToDto).collect(Collectors.toList());
-
-        List<DayOpenReadDto>  dayOpenReadDtos = new ArrayList<>();
-        if(facilityEntity.getDayOpenList() != null)
-        dayOpenReadDtos =
-                facilityEntity.getDayOpenList().stream()
-                        .map(dayOpenMapper::mapDayOpenEntityToReadDto).collect(Collectors.toList());
 
         return FacilityReadDto.builder()
                 .name(facilityEntity.getName())
