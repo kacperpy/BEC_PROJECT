@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
     RoleEntity findRoleEntityById(Long id);
 
+    RoleEntity findByName(String name);
+
     void deleteRoleEntityById(Long id);
 }

@@ -1,6 +1,7 @@
 package dk.bec.bookanything.controller;
 
 
+import dk.bec.bookanything.dto.RoleToUserDto;
 import dk.bec.bookanything.dto.UserCreateDto;
 import dk.bec.bookanything.mapper.UserMapper;
 import dk.bec.bookanything.model.UserEntity;
@@ -60,5 +61,11 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/role/addRoleToUser")
+    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserDto roleEntity) {
+        userService.addRoleToUser(roleEntity.getEmail(), roleEntity.getRoleName());
+        return ResponseEntity.ok().build();
     }
 }

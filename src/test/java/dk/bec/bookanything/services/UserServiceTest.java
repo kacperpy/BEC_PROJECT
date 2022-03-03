@@ -2,6 +2,7 @@ package dk.bec.bookanything.services;
 
 import dk.bec.bookanything.model.RoleEntity;
 import dk.bec.bookanything.model.UserEntity;
+import dk.bec.bookanything.repository.RoleRepository;
 import dk.bec.bookanything.repository.UserRepository;
 import dk.bec.bookanything.service.UserService;
 import org.junit.Before;
@@ -10,15 +11,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -27,6 +27,8 @@ public class UserServiceTest {
     UserService userService;
 
     UserRepository userRepository;
+
+    RoleRepository roleRepository;
 
 
     private final List<UserEntity> userList = new ArrayList<>();
@@ -52,7 +54,8 @@ public class UserServiceTest {
     @Before
     public void setup() {
         userRepository = mock(UserRepository.class);
-        userService = new UserService(userRepository);
+        roleRepository = mock(RoleRepository.class);
+        userService = new UserService(userRepository, roleRepository);
     }
 
     @Test

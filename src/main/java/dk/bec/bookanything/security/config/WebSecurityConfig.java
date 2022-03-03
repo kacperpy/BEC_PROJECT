@@ -1,4 +1,4 @@
-package dk.bec.bookanything.config;
+package dk.bec.bookanything.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
