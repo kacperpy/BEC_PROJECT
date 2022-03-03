@@ -1,38 +1,39 @@
 package dk.bec.bookanything.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Data
 @Table
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "address")
 public class AddressEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String street;
+
+    @Column(nullable = false)
+    private String streetNumber;
 
     @Column
-    @GeneratedValue(generator = "uuid2")
-    private UUID uuid;
+    private String propertyNumber;
 
     @Column(nullable = false)
-    String street;
+    private String city;
 
     @Column(nullable = false)
-    String streetNumber;
-
-    @Column
-    String flatNumber;
+    private String postalCode;
 
     @Column(nullable = false)
-    String city;
-
-    @Column(nullable = false)
-    String postalCode;
-
-    @Column(nullable = false)
-    String country;
+    private String country;
 }

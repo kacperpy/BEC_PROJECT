@@ -1,21 +1,25 @@
 package dk.bec.bookanything.model;
 
-import org.hibernate.type.LocalDateType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
+@Data
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity(name = "user")
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    @Column
-    @GeneratedValue(generator = "uuid2")
-    private UUID uuid;
 
     @Column
     private String email;
@@ -24,7 +28,7 @@ public class UserEntity {
     private String password;
 
     @Column
-    private LocalDateType birthDate;
+    private LocalDate birthDate;
 
     @Column
     private String phoneNumber;
@@ -34,4 +38,6 @@ public class UserEntity {
 
     @OneToMany
     private List<ReservationEntity> reservations;
+
+
 }

@@ -1,35 +1,38 @@
 package dk.bec.bookanything.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table
 @Entity(name = "day_open")
 public class DayOpenEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @GeneratedValue(generator = "uuid2")
-    private UUID uuid;
+    @Column(nullable = false)
+    private Integer day;
 
-    @Column
-    private String day;
+    @Column(nullable = false)
+    private LocalDateTime hourFrom;
 
-    @Column
-    private LocalDateTime hour_from;
-
-    @Column
-    private LocalDateTime hour_to;
+    @Column(nullable = false)
+    private LocalDateTime hourTo;
 
     @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private FacilityEntity facility;
-
 }
