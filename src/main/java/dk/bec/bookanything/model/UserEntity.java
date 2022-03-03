@@ -17,17 +17,8 @@ import java.util.List;
 @Entity(name = "user")
 public class UserEntity {
 
-    public UserEntity(String email, String password, LocalDate birthDate, String phoneNumber, RoleEntity role, List<ReservationEntity> reservations){
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-        this.reservations = reservations;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column

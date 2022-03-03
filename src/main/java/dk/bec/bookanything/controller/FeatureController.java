@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/features")
 public class FeatureController {
 
     private final FeatureMapper featureMapper;
@@ -29,14 +29,14 @@ public class FeatureController {
         this.featureService = featureService;
     }
 
-    @GetMapping("/features/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FeatureReadDto> getFeatureById(@PathVariable("id") Long id) {
         Optional<FeatureEntity> featureOptional = featureService.getFeatureById(id);
         return featureOptional.map(featureEntity -> new ResponseEntity<>(featureMapper.mapFeatureEntityToDto(featureEntity), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/features")
+    @PostMapping("/")
     public ResponseEntity<FeatureCreateDto> addFeature(@Valid @RequestBody FeatureCreateDto feature) {
         try {
             featureService.createFeature(featureMapper.mapFeatureDtoToEntity(feature, null));
@@ -46,7 +46,7 @@ public class FeatureController {
         }
     }
 
-    @PutMapping("/features/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<FeatureCreateDto> updateFeature(@Valid @RequestBody FeatureCreateDto feature, @PathVariable("id") Long id) {
         try {
             featureService.updateFeatureObject(featureMapper.mapFeatureDtoToEntity(feature, id), id);
@@ -56,13 +56,13 @@ public class FeatureController {
         }
     }
 
-    @DeleteMapping("/features/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<FeatureCreateDto> deleteFeatureById(@PathVariable("id") Long id) {
         featureService.deleteFeatureById(id);
         return featureService.getFeatureById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/features/{id}/bookable-objects")
+    @GetMapping("/{id}/bookable-objects")
     public ResponseEntity<List<BookableObjectReadDto>> getBookableObjectsForFeature(@PathVariable("id") Long id) {
         return featureService.getBookableForFeatureId(id).map(bookableReadDto -> new ResponseEntity<>(bookableReadDto, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

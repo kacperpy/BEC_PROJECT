@@ -15,35 +15,35 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/facility-types")
 @RequiredArgsConstructor
 public class FacilityTypeController {
 
     private final FacilityTypeService facilityTypeService;
     private final FacilityTypeMapper facilityTypeMapper;
 
-    @GetMapping("/facility-types")
+    @GetMapping("/")
     public List<FacilityTypeEntity> facilityTypes(){
         return facilityTypeService.getFacilityTypes();
     }
 
-    @GetMapping("/facility-types/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FacilityTypeDto> getFacilityTypesById(@PathVariable("id")Long id){
         Optional<FacilityTypeEntity> facilityTypeEntity = facilityTypeService.getFacilityTypeById(id);
        return facilityTypeEntity.map(typeEntity -> new ResponseEntity<>(facilityTypeMapper.mapFacilityTypeEntityToDto(typeEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
-    @DeleteMapping("/facility-types")
+    @DeleteMapping("/")
     public void deleteFacilityType(@RequestBody FacilityTypeEntity facilityType){
         facilityTypeService.deleteFacilityType(facilityType);
     }
 
-    @DeleteMapping("/facility-types/{id}")
+    @DeleteMapping("/{id}")
     public void deleteFacilityType(@PathVariable("id") Long id){
         facilityTypeService.deleteFacilityTypeById(id);
     }
 
-    @PostMapping("/facility-types")
+    @PostMapping("/")
     public ResponseEntity<FacilityTypeDto> addFacilityType(@Valid @RequestBody FacilityTypeDto facilityType){
         try {
             facilityTypeService.addFacilityType(facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, null));
@@ -53,7 +53,7 @@ public class FacilityTypeController {
         }
     }
 
-    @PutMapping("/facility-types/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<FacilityTypeDto> updateFacilityTypes(@PathVariable("id") Long id, @Valid @RequestBody FacilityTypeDto facilityType){
         try {
             facilityTypeService.updateFacilityType(id, facilityTypeMapper.mapFacilityTypeDtoToEntity(facilityType, id));

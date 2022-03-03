@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/days-open")
 public class DayOpenController {
     private final DayOpenService dayOpenService;
     private final DayOpenMapper dayOpenMapper;
@@ -23,21 +23,21 @@ public class DayOpenController {
         this.dayOpenMapper = dayOpenMapper;
     }
 
-    @GetMapping("/days-open/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DayOpenReadDto> getDayOpen(@PathVariable Long id) {
         Optional<DayOpenEntity> dayOpenOptional = dayOpenService.getDayOpenById(id);
         return dayOpenOptional.map(dayOpenEntity -> new ResponseEntity<>(dayOpenMapper.mapDayOpenEntityToReadDto(dayOpenEntity), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/days-open")
+    @PostMapping("/")
     public ResponseEntity<DayOpenReadDto> addDayOpen(@Valid @RequestBody DayOpenCreateDto dayOpenCreateDto) {
         Optional<DayOpenEntity> dayOpenEntityOptional = dayOpenService.addDayOpen(dayOpenMapper.mapDayOpenDtoToEntity(dayOpenCreateDto, null));
         return dayOpenEntityOptional.map(dayOpen -> new ResponseEntity<>(dayOpenMapper.mapDayOpenEntityToReadDto(dayOpen), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @PutMapping("/days-open/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<DayOpenReadDto> modifyDayOpen(@Valid @RequestBody DayOpenCreateDto dayOpenCreateDto, @PathVariable Long id) {
 
         Optional<DayOpenEntity> dayOpenEntityOptional = dayOpenService.modifyDayOpen(dayOpenMapper.mapDayOpenDtoToEntity(dayOpenCreateDto, id));
@@ -45,7 +45,7 @@ public class DayOpenController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @DeleteMapping("/days-open/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDayOpen(@PathVariable("id") Long id) {
         dayOpenService.deleteDayOpen(id);
         return ResponseEntity.ok().build();

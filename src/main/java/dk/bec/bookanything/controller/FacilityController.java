@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/facilities")
 @Validated
 public class FacilityController {
 
@@ -39,25 +39,25 @@ public class FacilityController {
         this.discountCodeMapper = discountCodeMapper;
     }
 
-    @GetMapping("/facilities/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<FacilityReadDto> getFacility(@PathVariable("id") Long id) {
         return facilityService.getFacilityById(id).map(facilityEntity -> new ResponseEntity<>(facilityMapper.mapFacilityEntityToReadDto(facilityEntity), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/facilities/{id}/features")
+    @GetMapping("/{id}/features")
     ResponseEntity<List<FeatureReadDto>> getFeaturesForFacility(@PathVariable("id") Long id) {
         return facilityService.getFeaturesForFacility(id).map(featureReadDtos -> new ResponseEntity<>(featureReadDtos, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("facilities/{id}/days_open")
+    @GetMapping("/{id}/days_open")
     ResponseEntity<List<DayOpenReadDto>> getDaysOpenForFacility(@PathVariable("id") Long id) {
         return facilityService.getDaysOpenForFacility(id).map(dayOpenReadDtos -> new ResponseEntity<>(dayOpenReadDtos, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/facilities")
+    @PostMapping("/")
     ResponseEntity<FacilityReadDto> createFacility(@Valid @RequestBody FacilityCreateDto facilityDto) {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, null);
         Optional<FacilityEntity> facilityOptional = facilityService.createFacility(facility);
@@ -67,7 +67,7 @@ public class FacilityController {
 
     }
 
-    @PutMapping("/facilities/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<FacilityReadDto> updateFacility(@PathVariable("id") Long id, @Valid @RequestBody FacilityCreateDto facilityDto) {
         FacilityEntity facility = facilityMapper.mapFacilityCreateDtoToEntity(facilityDto, id);
         Optional<FacilityEntity> facilityOptional = facilityService.updateFacility(id, facility);
@@ -76,14 +76,14 @@ public class FacilityController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @DeleteMapping("/facilities/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<FacilityCreateDto> deleteFacility(@PathVariable("id") Long id) {
         facilityService.deleteFacilityById(id);
 
         return facilityService.getFacilityById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/facilities/{id}/discount-codes")
+    @GetMapping("/{id}/discount-codes")
     ResponseEntity<List<DiscountCodeReadDto>> getFacilityDiscountCodes(@PathVariable("id") Long id){
         List<DiscountCodeReadDto> discountCodeReadDtos = facilityService.getFacilityById(id).get().getDiscountCodes().stream().map(discountCodeMapper::discountCodeEntityToDto).collect(Collectors.toList());
         if(discountCodeReadDtos.size()>0)return new ResponseEntity<List<DiscountCodeReadDto>>(discountCodeReadDtos,HttpStatus.OK);
@@ -91,7 +91,7 @@ public class FacilityController {
     }
 
 
-    @GetMapping("/facilities")
+    @GetMapping("/")
     ResponseEntity<List<FacilityReadDto>> getFacilitiesByCityAndType(@RequestParam(name = "facilityTypeId", required = false) Long facilityTypeId,
                                                                      @RequestParam(name = "city", required = false) String city) {
         if (facilityTypeId != null && city != null) {

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/bookable-objects")
 public class BookableObjectController {
 
     private final BookableObjectService bookableObjectService;
@@ -28,13 +28,13 @@ public class BookableObjectController {
         this.bookableObjectMapper = bookableObjectMapper;
     }
 
-    @GetMapping("/bookable-objects")
+    @GetMapping("/")
     public ResponseEntity<List<BookableObjectReadDto>> getBookableObjects() {
         return ResponseEntity.ok()
                 .body(bookableObjectService.getAllBookableObjects());
     }
 
-    @PostMapping("/bookable-objects")
+    @PostMapping("/")
     public ResponseEntity<BookableObjectCreateDto> createBookableObject(@Valid @RequestBody BookableObjectCreateDto bookableObjectCreateDto) {
         try {
             bookableObjectService.createBookableObject(bookableObjectMapper.mapDtoToEntity(bookableObjectCreateDto, null));
@@ -44,26 +44,25 @@ public class BookableObjectController {
         }
     }
 
-    @GetMapping("/bookable-objects/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BookableObjectReadDto> getBookableObjectById(@PathVariable("id") Long id) {
         Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(id);
         return bookableObjectEntity.map(objectEntity -> new ResponseEntity<>(bookableObjectMapper.mapEntityToDto(objectEntity), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/bookable-objects/{id}")
+    @DeleteMapping("/{id}")
     public void deleteBookableObjectById(@PathVariable("id") Long id) {
         bookableObjectService.deleteBookableObjectById(id);
     }
 
-    @PutMapping("/bookable-objects/{id}")
-    public Optional<BookableObjectReadDto> updateBookableObjectById(@Valid @RequestBody BookableObjectEntity bookableObjectEntity, @PathVariable("id") Long id) {
-        return Optional.ofNullable(
-                bookableObjectService.updateBookableObject(bookableObjectEntity));
+    @PutMapping("/{id}")
+    public ResponseEntity<BookableObjectReadDto> updateBookableObjectById(@Valid @RequestBody BookableObjectCreateDto bookableObjectCreateDto, @PathVariable("id") Long id) {
+              return new ResponseEntity<>(bookableObjectService.updateBookableObject(bookableObjectMapper.mapDtoToEntity(bookableObjectCreateDto,id)), HttpStatus.OK);
     }
 
-    @GetMapping("/bookable-objects/{id}/reservations")
-    public Optional<List<ReservationEntity>> getReservationsForBookableObject(@PathVariable("id") Long id) {
-        return Optional.ofNullable(bookableObjectService.getReservationsForBookableObject(id));
+    @GetMapping("/{id}/reservations")
+    public ResponseEntity<List<ReservationEntity>> getReservationsForBookableObject(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(bookableObjectService.getReservationsForBookableObject(id), HttpStatus.OK);
     }
 }
