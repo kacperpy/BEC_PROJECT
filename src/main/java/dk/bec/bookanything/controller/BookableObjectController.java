@@ -46,8 +46,9 @@ public class BookableObjectController {
 
     @GetMapping("/bookable-objects/{id}")
     public ResponseEntity<BookableObjectReadDto> getBookableObjectById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok()
-                .body(bookableObjectMapper.mapEntityToDto(bookableObjectService.getBookableObjectById(id).get()));
+        Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(id);
+        return bookableObjectEntity.map(objectEntity -> new ResponseEntity<>(bookableObjectMapper.mapEntityToDto(objectEntity), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/bookable-objects/{id}")

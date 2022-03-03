@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/API")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class FacilityTypeController {
 

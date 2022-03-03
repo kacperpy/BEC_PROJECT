@@ -15,7 +15,7 @@ public class BookableObjectCreateDto {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @Positive(message = "Time_period cannot be negative")
+    @Positive(message = "Time period cannot be negative")
     private Integer timePeriod;
 
     @Positive(message = "Capacity cannot be negative")
