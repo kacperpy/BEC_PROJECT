@@ -37,16 +37,16 @@ INSERT INTO feature VALUES
 (25, 'You can buy a movie ticket', 'buy a ticket', 7),
 (26, 'You can sign up for a yoga class', 'Sign up for a class', 8);
 
-INSERT INTO bookable_object (id, capacity, description, is_reusable, name, price, time_period, feature_id) VALUES
-(27, 4, 'table for 4 people', 0, 'small table', 100, 60, 24),
-(28, 6, 'table for 6 people', 0,'medium table', 150,60, 24),
-(29, 8, 'table for 8 people', 0,'large table', 200, 60, 24);
+INSERT INTO bookable_object (id, capacity, description, name, price, reusable, time_period, feature_id) VALUES
+(27, 4, 'table for 4 people', 'small table', 100, 0, 60, 24),
+(28, 6, 'table for 6 people', 'medium table', 150, 0, 60, 24),
+(29, 8, 'table for 8 people', 'large table', 200, 0, 60, 24);
 
 INSERT INTO bookable_object VALUES
-(30, 100, {ts '2022-03-20 21:00:00.00'}, 'ticket for spider man', 1, 'movie ticket spiderman', 30, 180, 25),
-(31, 100, {ts '2022-03-20 20:00:00.00'}, 'ticket for avengers', 1, 'movie ticket avengers', 30, 200, 25),
-(32, 100, {ts '2022-04-20 20:15:00.00'}, 'ticket for some horror movie', 1, 'movie ticket some horror movie', 30, 120, 25),
-(33, 50, {ts '2022-03-15 15:00:00.00'}, 'yoga class', 1, 'yoga class ticket', 70, 90, 26);
+(30, 100, {ts '2022-03-20 21:00:00.00'}, 'ticket for spider man',  'movie ticket spiderman', 30,1, 180, 25),
+(31, 100, {ts '2022-03-20 20:00:00.00'}, 'ticket for avengers',  'movie ticket avengers', 30, 1, 200, 25),
+(32, 100, {ts '2022-04-20 20:15:00.00'}, 'ticket for some horror movie',  'movie ticket some horror movie', 30, 1, 120, 25),
+(33, 50, {ts '2022-03-15 15:00:00.00'}, 'yoga class',  'yoga class ticket', 70,1,  90, 26);
 
 INSERT INTO role VALUES
 (34, 'admin'),

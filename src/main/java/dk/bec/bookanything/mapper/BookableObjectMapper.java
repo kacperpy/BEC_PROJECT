@@ -4,7 +4,6 @@ import dk.bec.bookanything.dto.BookableObjectCreateDto;
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.repository.FeatureRepository;
-import dk.bec.bookanything.service.FeatureService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,7 +25,7 @@ public class BookableObjectMapper {
                 .dateTime(bookableObjectCreateDto.getDateTime())
                 .reservations(null)
                 .feature(featureRepository.getById(bookableObjectCreateDto.getFeatureId()))
-                .is_reusable(bookableObjectCreateDto.getIsReusable())
+                .reusable(bookableObjectCreateDto.getReusable())
                 .price(bookableObjectCreateDto.getPrice())
                 .build();
     }
@@ -41,7 +40,7 @@ public class BookableObjectMapper {
                 .dateTime(bookableObjectEntity.getDateTime())
                 .reservationCount(bookableObjectEntity.getReservations() != null ? bookableObjectEntity.getReservations().size() : 0)
                 .featureId(bookableObjectEntity.getFeature() == null ? 0 : bookableObjectEntity.getFeature().getId())
-                .is_reusable(bookableObjectEntity.getIs_reusable())
+                .reusable(bookableObjectEntity.getReusable())
                 .price(bookableObjectEntity.getPrice())
                 .build();
     }

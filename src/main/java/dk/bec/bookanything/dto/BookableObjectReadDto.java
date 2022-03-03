@@ -19,7 +19,7 @@ public class BookableObjectReadDto {
 
     private String description;
 
-    private Boolean is_reusable;
+    private Boolean reusable;
 
     private Double price;
 

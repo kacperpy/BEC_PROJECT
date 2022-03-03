@@ -1,18 +1,13 @@
 package dk.bec.bookanything.dto;
 
-import dk.bec.bookanything.model.FeatureEntity;
-import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import dk.bec.bookanything.validator.FutureDateTimeConstraint;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 @Data
 public class BookableObjectCreateDto {
@@ -37,7 +32,7 @@ public class BookableObjectCreateDto {
     private Long featureId;
 
     @NotNull
-    private Boolean isReusable;
+    private Boolean reusable;
 
     @Positive
     private Double price;

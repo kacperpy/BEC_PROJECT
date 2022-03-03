@@ -38,7 +38,7 @@ public class BookableObjectEntity {
     private LocalDateTime dateTime;
 
     @Column(nullable = false)
-    private Boolean is_reusable;
+    private Boolean reusable;
 
     @Column(nullable = false)
     private Double price;
