@@ -1,6 +1,8 @@
 package dk.bec.bookanything.controller;
 
 import dk.bec.bookanything.dto.ReservationCreateDto;
+import dk.bec.bookanything.model.UserEntity;
+import dk.bec.bookanything.service.*;
 import dk.bec.bookanything.dto.ReservationReadDto;
 import dk.bec.bookanything.mapper.ReservationMapper;
 import dk.bec.bookanything.model.BookableObjectEntity;
@@ -23,7 +25,13 @@ import java.util.stream.Collectors;
 public class ReservationController {
 
     private final ReservationService reservationService;
+
+    private final UserService userService;
+
     private final BookableObjectService bookableObjectService;
+
+    private final EmailServiceImpl emailService;
+
     private final ReservationMapper reservationMapper;
 
     @GetMapping
@@ -41,20 +49,32 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationReadDto> createReservation(@Valid @RequestBody ReservationCreateDto reservationCreateDto) {
+    public ResponseEntity<ReservationReadDto> createReservation(@RequestBody @Valid ReservationCreateDto reservationCreateDto) {
+        Optional<UserEntity> usr = userService.getUserById(reservationCreateDto.getUserId());
         Optional<ReservationEntity> res = reservationService.createReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, null));
-        return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        if (res.isPresent()) {
+            if (usr.isPresent()) {
+                emailService.sendSimpleMessage(usr.get().getEmail(), "new reservation", "You booked " + res.get().getBookableObjectEntity().getName() + " at " + res.get().getBookableObjectEntity().getFeature().getFacility().getName() +
+                        "\nNumber of people: " + res.get().getPeopleNumber() + "\n Your reservation number is " + res.get().getId() + "\n Date: " + res.get().getDateFrom() + " to " + res.get().getDateTo());
+                return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ReservationReadDto> updateReservation(@Valid @RequestBody ReservationCreateDto reservationCreateDto, @PathVariable("id") Long id) {
         Optional<BookableObjectEntity> bookableObjectEntity = bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId());
-
+        Optional<UserEntity> usr = userService.getUserById(reservationCreateDto.getUserId());
         if (bookableObjectEntity.isPresent()) {
             Optional<ReservationEntity> res = reservationService.updateReservation(reservationMapper.mapReservationCreateDtoToReservationEntity(reservationCreateDto, id), id);
-            return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            if (res.isPresent()) {
+                if (usr.isPresent()) {
+                    emailService.sendSimpleMessage(usr.get().getEmail(), "reservation update", "You updated your reservation " + res.get().getBookableObjectEntity().getName() + " at " + res.get().getBookableObjectEntity().getFeature().getFacility().getName() +
+                            "\nNumber of people: " + res.get().getPeopleNumber() + "\n Your reservation number is " + res.get().getId() + "\n New date: " + res.get().getDateFrom() + " to " + res.get().getDateTo());
+                    return res.map(reservationEntity -> new ResponseEntity<>(reservationMapper.mapReservationEntityToReservationReadDto(reservationEntity), HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                }
+            }
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
