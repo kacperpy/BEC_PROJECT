@@ -54,6 +54,7 @@ public class FacilityMapper {
                         .map(dayOpenMapper::mapDayOpenEntityToReadDto).collect(Collectors.toList());
 
         return FacilityReadDto.builder()
+                .id(facilityEntity.getId())
                 .name(facilityEntity.getName())
                 .nip(facilityEntity.getNip())
                 .krs(facilityEntity.getKrs())
