@@ -16,12 +16,13 @@ public class UserMapper {
     }
 
     public UserEntity mapUserCreateDtoToUserEntity(UserCreateDto userCreateDto, Long id) {
+
         return UserEntity.builder()
                 .id(id)
                 .birthDate(userCreateDto.getBirthDate())
                 .email(userCreateDto.getEmail())
                 .phoneNumber(userCreateDto.getPhoneNumber())
-                .role(roleService.getRole(userCreateDto.getRoleId()).get())
+                .role(roleService.getRole(userCreateDto.getRoleId()).orElse(null))
                 .password(userCreateDto.getPassword()).build();
     }
 
@@ -31,7 +32,7 @@ public class UserMapper {
                 .password(userEntity.getPassword())
                 .birthDate(userEntity.getBirthDate())
                 .phoneNumber(userEntity.getPhoneNumber())
-                .role(roleService.getRole(userEntity.getId()).get()).build();
+                .role(roleService.getRole(userEntity.getId()).orElse(null)).build();
 
     }
 }
