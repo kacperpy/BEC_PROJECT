@@ -8,7 +8,9 @@ import dk.bec.bookanything.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,6 +27,12 @@ public class UserController {
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+    }
+    @GetMapping("/user/registration")
+    public String showRegistrationForm(WebRequest request, Model model) {
+        UserCreateDto userDto = new UserCreateDto();
+        model.addAttribute("user", userDto);
+        return "registration";
     }
 
     @GetMapping("/")

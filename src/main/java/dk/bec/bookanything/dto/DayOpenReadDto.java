@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class DayOpenReadDto {
+    private Long id;
+
     private String day;
 
     private LocalDateTime hourFrom;

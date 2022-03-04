@@ -59,10 +59,13 @@ public class DiscountCodeController {
     }
 
     @PutMapping("/discount-codes/{id}")
-    public ResponseEntity<DiscountCodeReadDto> updateDiscountCode(@PathVariable("id") Long id, @RequestBody DiscountCodeCreateDto discountCodeCreateDto) {
-        DiscountCodeEntity discountCodeEntity = discountCodeMapper.discountCodeDtoToEntityWhenModified(discountCodeCreateDto, id);
-        Optional<DiscountCodeReadDto> res = discountCodeService.updateDiscountCode(discountCodeEntity).map(discountCodeMapper::discountCodeEntityToDto);
-        return res.map(discountCodeReadDto -> new ResponseEntity<>(discountCodeReadDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<DiscountCodeCreateDto> updateDiscountCode(@PathVariable("id") Long id, @Valid @RequestBody DiscountCodeCreateDto discountCodeCreateDto) {
+      try{
+          discountCodeService.updateDiscountCode(id, discountCodeMapper.discountCodeDtoToEntityWhenModified(discountCodeCreateDto, id));
+          return new ResponseEntity<>(discountCodeCreateDto, HttpStatus.OK);
+      }catch (Exception e){
+          return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
 
 

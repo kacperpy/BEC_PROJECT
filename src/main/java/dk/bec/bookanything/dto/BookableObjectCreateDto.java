@@ -3,7 +3,10 @@ package dk.bec.bookanything.dto;
 import dk.bec.bookanything.service.FeatureService;
 import dk.bec.bookanything.validator.ForeignKeyExistsConstraint;
 import dk.bec.bookanything.validator.FutureDateTimeConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,6 +14,9 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookableObjectCreateDto {
 
     @NotBlank(message = "Name is mandatory")
