@@ -3,9 +3,11 @@ package dk.bec.bookanything.mapper;
 import dk.bec.bookanything.dto.FacilityTypeCreateDto;
 import dk.bec.bookanything.dto.FacilityTypeReadDto;
 import dk.bec.bookanything.model.FacilityTypeEntity;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@NoArgsConstructor
 public class FacilityTypeMapper {
 
     public FacilityTypeReadDto mapFacilityTypeEntityToDto(FacilityTypeEntity facilityTypeEntity) {

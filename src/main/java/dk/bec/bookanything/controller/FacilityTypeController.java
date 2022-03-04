@@ -6,7 +6,6 @@ import dk.bec.bookanything.dto.FacilityTypeReadDto;
 import dk.bec.bookanything.mapper.FacilityTypeMapper;
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.service.FacilityTypeService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +13,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/facility-types")
-@RequiredArgsConstructor
 public class FacilityTypeController {
 
     private final FacilityTypeService facilityTypeService;
     private final FacilityTypeMapper facilityTypeMapper;
 
+    public FacilityTypeController(FacilityTypeService facilityTypeService, FacilityTypeMapper facilityTypeMapper) {
+        this.facilityTypeService = facilityTypeService;
+        this.facilityTypeMapper = facilityTypeMapper;
+    }
+
     @GetMapping("/")
-    public List<FacilityTypeEntity> facilityTypes(){
-        return facilityTypeService.getFacilityTypes();
+    public List<FacilityTypeReadDto> facilityTypes(){
+        return facilityTypeService.getFacilityTypes().stream().map(facilityTypeMapper::mapFacilityTypeEntityToDto).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
