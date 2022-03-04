@@ -13,8 +13,6 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,7 +24,6 @@ public class DayOpenServiceTest {
     DayOpenService dayOpenService;
     DayOpenRepository dayOpenRepository;
 
-    private final List<DayOpenEntity> dayOpenEntityList = new ArrayList<>();
     private final DayOpenEntity dayOpenEntity1 = DayOpenEntity.builder()
             .id(1L)
             .day(1)
