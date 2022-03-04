@@ -2,10 +2,14 @@ package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.dto.BookableObjectReadDto;
 import dk.bec.bookanything.mapper.BookableObjectMapper;
+import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.FeatureEntity;
+import dk.bec.bookanything.model.ReservationEntity;
 import dk.bec.bookanything.repository.FeatureRepository;
+import dk.bec.bookanything.utils.TimeUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,10 +19,12 @@ public class FeatureService {
 
     private final FeatureRepository featureRepository;
     private final BookableObjectMapper bookableObjectMapper;
+    private final TimeUtils timeUtils;
 
-    public FeatureService(FeatureRepository featureRepository, BookableObjectMapper bookableObjectMapper) {
+    public FeatureService(FeatureRepository featureRepository, BookableObjectMapper bookableObjectMapper, TimeUtils timeUtils) {
         this.featureRepository = featureRepository;
         this.bookableObjectMapper = bookableObjectMapper;
+        this.timeUtils = timeUtils;
     }
 
     public FeatureEntity createFeature(FeatureEntity featureEntity){
@@ -35,6 +41,38 @@ public class FeatureService {
 
     public List<FeatureEntity> getFeatures() {
         return featureRepository.findAll();
+    }
+
+    public List<BookableObjectReadDto> getFilteredBookableObjectsForFeatureId(Long id, LocalDateTime from, LocalDateTime to, int people_amount) {
+
+        List<BookableObjectEntity> filtered = featureRepository.findById(id).get().getBookableObjects().stream().filter(
+                bo -> bo.getCapacity() >= people_amount &&
+                        (bo.getDate_time() == null ||
+                        ((timeUtils.isEqualOrAfter(bo.getDate_time(), from)) &&
+                                (timeUtils.isEqualOrBefore(bo.getDate_time(), to))))
+        ).collect(Collectors.toList());
+
+        List<Long> idsToDelete = filtered.stream().filter(bo -> bo.getReservations().stream().anyMatch(
+                r -> (timeUtils.isEqualOrAfter(from, r.getDateFrom())) &&
+                        (timeUtils.isEqualOrBefore(to, r.getDateTo()))
+        ) && !bo.getIs_reusable()).map(BookableObjectEntity::getId).collect(Collectors.toList());
+
+        for(BookableObjectEntity bo : filtered) {
+            if (bo.getReservations().stream().anyMatch(
+                    r -> (timeUtils.isEqualOrAfter(from, r.getDateFrom())) &&
+                            (timeUtils.isEqualOrBefore(to, r.getDateTo()))
+            ) && bo.getIs_reusable()) {
+                if (bo.getReservations().stream().map(ReservationEntity::getPeopleNumber).count() >= bo.getCapacity()) {
+                    idsToDelete.add(bo.getId());
+                }
+            }
+        }
+
+        filtered = filtered.stream().filter(
+                bo -> !idsToDelete.contains(bo.getId())
+        ).collect(Collectors.toList());
+
+        return filtered.stream().map(bookableObjectMapper::mapEntityToDto).collect(Collectors.toList());
     }
 
     public FeatureEntity updateFeatureObject(FeatureEntity featureEntity, Long id) {

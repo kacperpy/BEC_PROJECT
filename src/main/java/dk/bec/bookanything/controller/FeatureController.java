@@ -79,6 +79,15 @@ public class FeatureController {
             LocalDateTime requestFrom = LocalDateTime.parse(from);
             LocalDateTime requestTo = LocalDateTime.parse(to);
             int requestPeopleAmount = Integer.parseInt(people_amount);
+
+            return ResponseEntity.ok().body(
+                    featureService.getFilteredBookableObjectsForFeatureId(
+                            id,
+                            requestFrom,
+                            requestTo,
+                            requestPeopleAmount
+                    )
+            );
         }
 
         return ResponseEntity.ok().body(
