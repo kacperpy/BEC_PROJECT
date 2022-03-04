@@ -1,12 +1,9 @@
 package dk.bec.bookanything.provider;
 
 import dk.bec.bookanything.service.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 @Data

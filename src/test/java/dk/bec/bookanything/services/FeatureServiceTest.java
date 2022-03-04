@@ -25,12 +25,12 @@ public class FeatureServiceTest {
     private final FeatureEntity featureEntity1 = FeatureEntity.builder()
             .id(1L)
             .name("feature1")
-            .description("desctiption1").build();
+            .description("description1").build();
 
     private final FeatureEntity featureEntity2 = FeatureEntity.builder()
             .id(1L)
             .name("feature2")
-            .description("desctiption2").build();
+            .description("description2").build();
 
     @Before
     public void setup(){

@@ -26,7 +26,7 @@ public class FacilityMapper {
                 .nip(facilityCreateDto.getNip())
                 .krs(facilityCreateDto.getKrs())
                 .addressEntity(addressMapper.mapAddressDtoToEntity(facilityCreateDto.getAddressDto(), null))
-                .facilityTypeEntity(facilityTypeRepository.findById(facilityCreateDto.getFacilityTypeId()).get())
+                .facilityTypeEntity(facilityTypeRepository.findById(facilityCreateDto.getFacilityTypeId()).orElse(null))
                 .build();
     }
 
