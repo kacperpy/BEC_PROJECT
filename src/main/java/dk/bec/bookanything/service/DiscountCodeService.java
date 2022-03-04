@@ -35,15 +35,12 @@ public class DiscountCodeService {
 
 
     public void deleteDiscountCode(Long id) {
-        discountCodeRepository.deleteDiscountCodeEntityById(id);
+        Optional<DiscountCodeEntity> discountCodeEntity = getDiscountCode(id);
+        discountCodeEntity.ifPresent(discountCodeRepository::delete);
     }
 
-    public Optional<DiscountCodeEntity> updateDiscountCode(DiscountCodeEntity discountCode) {
-        DiscountCodeEntity discountCodeEntity = discountCodeRepository.findDiscountCodeEntityById(discountCode.getId());
-        discountCodeEntity.setCode(discountCode.getCode());
-        discountCodeEntity.setAmount(discountCode.getAmount());
-        discountCodeEntity.setFacility(discountCode.getFacility());
-        return Optional.of(discountCodeRepository.save(discountCodeEntity));
-
+    public void updateDiscountCode(Long id, DiscountCodeEntity discountCode) {
+        Optional<DiscountCodeEntity> discountCodeEntity = getDiscountCode(id);
+        discountCodeEntity.ifPresent(discountCodeEntity1 -> discountCodeRepository.save(discountCode));
     }
 }
