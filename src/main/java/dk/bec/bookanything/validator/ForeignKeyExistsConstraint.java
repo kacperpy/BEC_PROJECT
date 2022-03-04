@@ -1,6 +1,7 @@
 package dk.bec.bookanything.validator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
@@ -10,5 +11,6 @@ import java.lang.annotation.*;
 public @interface ForeignKeyExistsConstraint {
     String message() default "Foreign key doesn't exist in this context";
     Class<?> serviceClass();
-
+    Class<?>[] groups() default{};
+    Class<? extends Payload>[] payload() default {};
 }
