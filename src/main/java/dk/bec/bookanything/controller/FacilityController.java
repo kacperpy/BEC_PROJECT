@@ -85,9 +85,14 @@ public class FacilityController {
 
     @GetMapping("/{id}/discount-codes")
     ResponseEntity<List<DiscountCodeReadDto>> getFacilityDiscountCodes(@PathVariable("id") Long id){
-        List<DiscountCodeReadDto> discountCodeReadDtos = facilityService.getFacilityById(id).get().getDiscountCodes().stream().map(discountCodeMapper::discountCodeEntityToDto).collect(Collectors.toList());
-        if(discountCodeReadDtos.size()>0)return new ResponseEntity<List<DiscountCodeReadDto>>(discountCodeReadDtos,HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<FacilityEntity> facilityEntityOptional = facilityService.getFacilityById(id);
+        if(facilityEntityOptional.isPresent()) {
+            List<DiscountCodeReadDto> discountCodeReadDtos = facilityEntityOptional.get().getDiscountCodes().stream()
+                    .map(discountCodeMapper::discountCodeEntityToDto).collect(Collectors.toList());
+            if (discountCodeReadDtos.size() > 0)
+                return new ResponseEntity<>(discountCodeReadDtos, HttpStatus.OK);
+        }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
@@ -100,18 +105,15 @@ public class FacilityController {
             if (facilityTypeById.isPresent() && addressEntitiesByCity.isPresent()) {
                 return new ResponseEntity<>(getFacilitiesByAddressEntitiesAndType(addressEntitiesByCity.get(), facilityTypeById.get()), HttpStatus.OK);
             }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (facilityTypeId != null) {
             Optional<FacilityTypeEntity> facilityTypeById = facilityTypeService.getFacilityTypeById(facilityTypeId);
-            if (facilityTypeById.isPresent()) {
-                return new ResponseEntity<>(getFacilitiesByType(facilityTypeById.get()), HttpStatus.OK);
-            }
+            return facilityTypeById.map(facilityTypeEntity -> new ResponseEntity<>(getFacilitiesByType(facilityTypeEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
         if (city != null) {
             Optional<List<AddressEntity>> addressEntitiesByCity = addressService.getAddressesByCity(city);
-            if (addressEntitiesByCity.isPresent()) {
-                return new ResponseEntity<>(getFacilitiesByAddressEntities(addressEntitiesByCity.get()), HttpStatus.OK);
-            }
+            return addressEntitiesByCity.map(addressEntities -> new ResponseEntity<>(getFacilitiesByAddressEntities(addressEntities), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -127,14 +129,16 @@ public class FacilityController {
     private List<FacilityReadDto> getFacilitiesByAddressEntities(List<AddressEntity> addressesByCity) {
         Optional<List<FacilityEntity>> facilitiesByCity = facilityService.getFacilitiesByAddressIn(addressesByCity);
         List<FacilityReadDto> facilities = new ArrayList<>();
-        facilitiesByCity.ifPresent(facilityEntities -> facilityEntities.forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
+        facilitiesByCity.ifPresent(facilityEntities -> facilityEntities
+                .forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
         return facilities;
     }
 
     private List<FacilityReadDto> getFacilitiesByAddressEntitiesAndType(List<AddressEntity> addressesByCity, FacilityTypeEntity facilityTypeEntity) {
         Optional<List<FacilityEntity>> facilitiesByAddressInAndType = facilityService.getFacilitiesByAddressInAndType(addressesByCity, facilityTypeEntity);
         List<FacilityReadDto> facilities = new ArrayList<>();
-        facilitiesByAddressInAndType.ifPresent(facilityEntities -> facilityEntities.forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
+        facilitiesByAddressInAndType.ifPresent(facilityEntities -> facilityEntities
+                .forEach(facilityEntity -> facilities.add(facilityMapper.mapFacilityEntityToReadDto(facilityEntity))));
         return facilities;
     }
 

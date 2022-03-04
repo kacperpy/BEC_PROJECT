@@ -1,22 +1,27 @@
 package dk.bec.bookanything.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleReadDto {
+public class AddressReadDto {
 
     private Long id;
 
-    private String name;
+    private String street;
 
-    private List<UserReadDto> userList;
+    private String streetNumber;
+
+    private String propertyNumber;
+
+    private String city;
+
+    private String postalCode;
+
+    private String country;
 }

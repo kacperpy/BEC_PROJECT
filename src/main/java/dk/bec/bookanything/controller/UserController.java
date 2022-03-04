@@ -8,6 +8,7 @@ import dk.bec.bookanything.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,13 @@ public class UserController {
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+    }
+    @SuppressWarnings("SameReturnValue")
+    @GetMapping("/user/registration")
+    public String showRegistrationForm(Model model) {
+        UserCreateDto userDto = new UserCreateDto();
+        model.addAttribute("user", userDto);
+        return "registration";
     }
 
     @GetMapping("/")

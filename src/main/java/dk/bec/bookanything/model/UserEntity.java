@@ -1,5 +1,6 @@
 package dk.bec.bookanything.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +38,7 @@ public class UserEntity {
     private RoleEntity role;
 
     @OneToMany
+    @JsonManagedReference
     private List<ReservationEntity> reservations;
 
 

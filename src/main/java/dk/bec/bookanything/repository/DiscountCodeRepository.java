@@ -9,6 +9,5 @@ public interface DiscountCodeRepository extends JpaRepository<DiscountCodeEntity
 
     DiscountCodeEntity findDiscountCodeEntityById(Long id);
 
-    void deleteDiscountCodeEntityById(Long id);
 
 }

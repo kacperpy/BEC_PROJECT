@@ -5,16 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FacilityTypeDto {
+public class FacilityTypeReadDto {
 
-    @Column
+    private Long id;
+
     private String name;
-
 }
-

@@ -25,12 +25,13 @@ public class ReservationMapper {
                 .dateFrom(reservationCreateDto.getDateFrom())
                 .dateTo(reservationCreateDto.getDateTo())
                 .peopleNumber(reservationCreateDto.getPeopleNumber())
-                .userEntity(userService.getUserById(reservationCreateDto.getUserId()).get())
-                .bookableObjectEntity(bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId()).get()).build();
+                .userEntity(userService.getUserById(reservationCreateDto.getUserId()).orElse(null))
+                .bookableObjectEntity(bookableObjectService.getBookableObjectById(reservationCreateDto.getBookableObjectId()).orElse(null)).build();
     }
 
     public ReservationReadDto mapReservationEntityToReservationReadDto(ReservationEntity reservationEntity) {
         return ReservationReadDto.builder()
+                .id(reservationEntity.getId())
                 .dateFrom(reservationEntity.getDateFrom())
                 .dateTo(reservationEntity.getDateTo())
                 .bookableObjectEntityId(reservationEntity.getBookableObjectEntity().getId())

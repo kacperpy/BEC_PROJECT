@@ -26,6 +26,7 @@ public class FeatureMapper {
 
     public FeatureReadDto mapFeatureEntityToDto(FeatureEntity featureEntity) {
         return FeatureReadDto.builder()
+                .id(featureEntity.getId())
                 .description(featureEntity.getDescription())
                 .name(featureEntity.getName())
                 .facilityId(featureEntity.getFacility().getId())
