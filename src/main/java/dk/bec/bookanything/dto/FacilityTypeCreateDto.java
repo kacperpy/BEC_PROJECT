@@ -5,19 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
+@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-public class FeatureReadDto {
-
-    private Long id;
-
+public class FacilityTypeCreateDto {
+    @Column
     private String name;
-
-    private String description;
-
-    private Long facilityId;
-
-    private Integer bookableObjectsCount;
 }

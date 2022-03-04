@@ -13,6 +13,7 @@ import javax.persistence.Column;
 @NoArgsConstructor
 public class FacilityTypeDto {
 
+
     @Column
     private String name;
 

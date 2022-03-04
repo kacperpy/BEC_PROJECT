@@ -5,19 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-public class FeatureReadDto {
+public class FacilityTypeReadDto {
 
     private Long id;
 
     private String name;
-
-    private String description;
-
-    private Long facilityId;
-
-    private Integer bookableObjectsCount;
 }

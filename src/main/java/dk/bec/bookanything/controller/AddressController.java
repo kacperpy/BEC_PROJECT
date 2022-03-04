@@ -1,6 +1,8 @@
 package dk.bec.bookanything.controller;
 
+import dk.bec.bookanything.dto.AddressCreateDto;
 import dk.bec.bookanything.dto.AddressDto;
+import dk.bec.bookanything.dto.AddressReadDto;
 import dk.bec.bookanything.mapper.AddressMapper;
 import dk.bec.bookanything.model.AddressEntity;
 import dk.bec.bookanything.service.AddressService;
@@ -24,14 +26,14 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<AddressDto> getAddress(@PathVariable("id") Long id) {
+    ResponseEntity<AddressReadDto> getAddress(@PathVariable("id") Long id) {
         Optional<AddressEntity> addressOptional = addressService.getAddressById(id);
         return addressOptional.map(addressEntity -> new ResponseEntity<>(addressMapper.mapAddressEntityToDto(addressEntity), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/")
-    ResponseEntity<AddressDto> createAddress(@Valid @RequestBody AddressDto addressDto) {
+    ResponseEntity<AddressReadDto> createAddress(@Valid @RequestBody AddressCreateDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, null);
         Optional<AddressEntity> addressOptional = addressService.createAddress(address);
 
@@ -41,7 +43,7 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<AddressDto> updateAddress(@PathVariable("id") Long id, @Valid @RequestBody AddressDto addressDto) {
+    ResponseEntity<AddressReadDto> updateAddress(@PathVariable("id") Long id, @Valid @RequestBody AddressCreateDto addressDto) {
         AddressEntity address = addressMapper.mapAddressDtoToEntity(addressDto, id);
         Optional<AddressEntity> addressOptional = addressService.updateAddress(id, address);
 

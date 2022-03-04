@@ -26,7 +26,7 @@ public class FacilityCreateDto {
     String krs;
 
     @NotNull(message = "Provide address information")
-    private AddressDto addressDto;
+    private AddressCreateDto addressDto;
 
     @ForeignKeyExistsConstraint(serviceClass = FacilityTypeService.class)
     private Long facilityTypeId;

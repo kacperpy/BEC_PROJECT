@@ -37,8 +37,8 @@ public class FacilityMapper {
                 .name(facilityEntity.getName())
                 .nip(facilityEntity.getNip())
                 .krs(facilityEntity.getKrs())
-                .addressDto(addressMapper.mapAddressEntityToDto(facilityEntity.getAddressEntity()))
-                .facilityTypeDto(facilityEntity.getFacilityTypeEntity() != null ? facilityTypeMapper.mapFacilityTypeEntityToDto(facilityEntity.getFacilityTypeEntity()) : null)
+                .addressReadDto(addressMapper.mapAddressEntityToDto(facilityEntity.getAddressEntity()))
+                .facilityTypeReadDto(facilityEntity.getFacilityTypeEntity() != null ? facilityTypeMapper.mapFacilityTypeEntityToDto(facilityEntity.getFacilityTypeEntity()) : null)
                 .featureCount(facilityEntity.getFeatureEntities() != null ? facilityEntity.getFeatureEntities().size() : 0)
                 .dayOpenCount(facilityEntity.getDayOpenList() != null ? facilityEntity.getDayOpenList().size() : 0)
                 .build();
