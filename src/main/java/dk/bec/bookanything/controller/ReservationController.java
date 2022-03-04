@@ -35,8 +35,8 @@ public class ReservationController {
     @GetMapping
     public ResponseEntity<List<ReservationReadDto>> getReservations() {
         List<ReservationEntity> res = reservationService.getReservations();
-        List<ReservationReadDto> reservationReadDtos = res.stream().map(reservationMapper::mapReservationEntityToReservationReadDto).collect(Collectors.toList());
-        return new ResponseEntity<>(reservationReadDtos, HttpStatus.OK);
+        List<ReservationReadDto> reservationReadDto = res.stream().map(reservationMapper::mapReservationEntityToReservationReadDto).collect(Collectors.toList());
+        return new ResponseEntity<>(reservationReadDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
