@@ -2,17 +2,16 @@ package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.model.DayOpenEntity;
 import dk.bec.bookanything.repository.DayOpenRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DayOpenService {
-    private final DayOpenRepository dayOpenRepository;
 
-    public DayOpenService(DayOpenRepository dayOpenRepository) {
-        this.dayOpenRepository = dayOpenRepository;
-    }
+    private final DayOpenRepository dayOpenRepository;
 
     public Optional<DayOpenEntity> getDayOpenById(Long id) {
         return dayOpenRepository.findById(id);
