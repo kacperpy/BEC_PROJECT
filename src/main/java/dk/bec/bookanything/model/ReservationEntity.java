@@ -36,7 +36,7 @@ public class ReservationEntity {
     private BookableObjectEntity bookableObjectEntity;
 
     @ManyToOne
-    @JoinColumn(name = "bookable_object_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference
     private UserEntity userEntity;
 
