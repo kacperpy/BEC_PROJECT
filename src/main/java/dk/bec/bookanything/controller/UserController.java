@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,8 +27,9 @@ public class UserController {
         this.userService = userService;
         this.userMapper = userMapper;
     }
+    @SuppressWarnings("SameReturnValue")
     @GetMapping("/user/registration")
-    public String showRegistrationForm(WebRequest request, Model model) {
+    public String showRegistrationForm(Model model) {
         UserCreateDto userDto = new UserCreateDto();
         model.addAttribute("user", userDto);
         return "registration";

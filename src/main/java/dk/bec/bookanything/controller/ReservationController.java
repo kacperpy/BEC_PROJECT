@@ -7,8 +7,6 @@ import dk.bec.bookanything.dto.ReservationReadDto;
 import dk.bec.bookanything.mapper.ReservationMapper;
 import dk.bec.bookanything.model.BookableObjectEntity;
 import dk.bec.bookanything.model.ReservationEntity;
-import dk.bec.bookanything.service.BookableObjectService;
-import dk.bec.bookanything.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

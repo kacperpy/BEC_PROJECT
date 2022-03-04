@@ -35,7 +35,8 @@ public class FacilityTypeController {
     @GetMapping("/{id}")
     public ResponseEntity<FacilityTypeReadDto> getFacilityTypesById(@PathVariable("id")Long id){
         Optional<FacilityTypeEntity> facilityTypeEntity = facilityTypeService.getFacilityTypeById(id);
-       return facilityTypeEntity.map(typeEntity -> new ResponseEntity<>(facilityTypeMapper.mapFacilityTypeEntityToDto(typeEntity), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+       return facilityTypeEntity.map(typeEntity -> new ResponseEntity<>(facilityTypeMapper.mapFacilityTypeEntityToDto(typeEntity), HttpStatus.OK))
+               .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @DeleteMapping("/")

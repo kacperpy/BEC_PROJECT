@@ -18,7 +18,7 @@ public class RoleMapper {
 
     private final UserService userService;
     private final UserMapper userMapper;
-    List<UserEntity> userList = new ArrayList<>();
+    final List<UserEntity> userList = new ArrayList<>();
 
     public RoleMapper(UserService userService, UserMapper userMapper) {
         this.userService = userService;
