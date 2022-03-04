@@ -4,6 +4,7 @@ import dk.bec.bookanything.mapper.BookableObjectMapper;
 import dk.bec.bookanything.model.FeatureEntity;
 import dk.bec.bookanything.repository.FeatureRepository;
 import dk.bec.bookanything.service.FeatureService;
+import dk.bec.bookanything.utils.TimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +36,7 @@ public class FeatureServiceTest {
     @Before
     public void setup(){
         featureRepository = mock(FeatureRepository.class);
-        featureService = new FeatureService(featureRepository, new BookableObjectMapper(featureRepository));
+        featureService = new FeatureService(featureRepository, new BookableObjectMapper(featureRepository), new TimeUtils());
     }
 
     @Test

@@ -47,21 +47,21 @@ public class FeatureService {
 
         List<BookableObjectEntity> filtered = featureRepository.findById(id).get().getBookableObjects().stream().filter(
                 bo -> bo.getCapacity() >= people_amount &&
-                        (bo.getDate_time() == null ||
-                        ((timeUtils.isEqualOrAfter(bo.getDate_time(), from)) &&
-                                (timeUtils.isEqualOrBefore(bo.getDate_time(), to))))
+                        (bo.getDateTime() == null ||
+                        ((timeUtils.isEqualOrAfter(bo.getDateTime(), from)) &&
+                                (timeUtils.isEqualOrBefore(bo.getDateTime(), to))))
         ).collect(Collectors.toList());
 
         List<Long> idsToDelete = filtered.stream().filter(bo -> bo.getReservations().stream().anyMatch(
                 r -> (timeUtils.isEqualOrAfter(from, r.getDateFrom())) &&
                         (timeUtils.isEqualOrBefore(to, r.getDateTo()))
-        ) && !bo.getIs_reusable()).map(BookableObjectEntity::getId).collect(Collectors.toList());
+        ) && !bo.getReusable()).map(BookableObjectEntity::getId).collect(Collectors.toList());
 
         for(BookableObjectEntity bo : filtered) {
             if (bo.getReservations().stream().anyMatch(
                     r -> (timeUtils.isEqualOrAfter(from, r.getDateFrom())) &&
                             (timeUtils.isEqualOrBefore(to, r.getDateTo()))
-            ) && bo.getIs_reusable()) {
+            ) && bo.getReusable()) {
                 if (bo.getReservations().stream().map(ReservationEntity::getPeopleNumber).count() >= bo.getCapacity()) {
                     idsToDelete.add(bo.getId());
                 }

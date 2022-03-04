@@ -26,12 +26,4 @@ public class TimeUtils {
     public boolean isTimeEqualOrBefore(LocalTime time1, LocalTime time2) {
         return time1 == time2 || time1.isBefore(time2);
     }
-
-    public boolean isOpen(LocalDateTime from, LocalDateTime to, DayOpenEntity day) {
-        return from.toLocalDate().datesUntil(to.toLocalDate()).anyMatch(
-                d -> d.getDayOfWeek().getValue() == day.getDay().intValue() &&
-                        (isTimeEqualOrAfter(from.toLocalTime(), day.getHourFrom()) &&
-                                isTimeEqualOrBefore(to.toLocalTime(), day.getHourTo()))
-        );
-    }
 }
