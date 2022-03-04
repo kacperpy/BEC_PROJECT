@@ -32,6 +32,7 @@ public class DiscountCodeMapper {
 
     public DiscountCodeReadDto discountCodeEntityToDto(DiscountCodeEntity discountCodeEntity) {
         return DiscountCodeReadDto.builder()
+                .id(discountCodeEntity.getId())
                 .code(discountCodeEntity.getCode())
                 .amount(discountCodeEntity.getAmount())
                 .facilityId(discountCodeEntity.getFacility().getId())

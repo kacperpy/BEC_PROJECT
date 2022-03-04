@@ -19,9 +19,9 @@ public class FacilityReadDto {
 
     private String krs;
 
-    private AddressDto addressDto;
+    private AddressReadDto addressReadDto;
 
-    private FacilityTypeDto facilityTypeDto;
+    private FacilityTypeReadDto facilityTypeReadDto;
 
     private Integer featureCount;
 

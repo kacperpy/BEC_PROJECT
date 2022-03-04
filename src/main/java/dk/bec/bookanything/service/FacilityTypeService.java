@@ -3,7 +3,7 @@ package dk.bec.bookanything.service;
 
 import dk.bec.bookanything.model.FacilityTypeEntity;
 import dk.bec.bookanything.repository.FacilityTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 
@@ -12,14 +12,10 @@ import java.util.Optional;
 
 @Service
 @ApplicationScope
+@RequiredArgsConstructor
 public class FacilityTypeService {
 
     private final FacilityTypeRepository facilityTypeRepository;
-
-    @Autowired
-    public FacilityTypeService(FacilityTypeRepository facilityTypeRepository){
-        this.facilityTypeRepository = facilityTypeRepository;
-    }
 
     public FacilityTypeEntity addFacilityType(FacilityTypeEntity facilityType){
         return facilityTypeRepository.save(facilityType);
@@ -30,7 +26,7 @@ public class FacilityTypeService {
     }
 
     public Optional<FacilityTypeEntity> getFacilityTypeById(Long id){
-        return Optional.ofNullable(facilityTypeRepository.findFacilityTypeById(id));
+        return facilityTypeRepository.findById(id);
     }
 
     public void deleteFacilityType(FacilityTypeEntity facilityType){

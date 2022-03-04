@@ -1,12 +1,17 @@
 package dk.bec.bookanything.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Builder
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DiscountCodeReadDto {
+    private Long id;
 
     private String code;
 

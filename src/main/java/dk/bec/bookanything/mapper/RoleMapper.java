@@ -39,6 +39,7 @@ public class RoleMapper {
     public RoleReadDto roleEntityToDto(RoleEntity roleEntity) {
         List<UserReadDto> userReadDtoList = roleEntity.getUserList().stream().map(userMapper::mapUserEntityToUserReadDto).collect(Collectors.toList());
         return RoleReadDto.builder()
+                .id(roleEntity.getId())
                 .name(roleEntity.getName())
                 .userList(userReadDtoList).build();
 

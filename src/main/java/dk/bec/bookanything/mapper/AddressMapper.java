@@ -1,13 +1,14 @@
 package dk.bec.bookanything.mapper;
 
-import dk.bec.bookanything.dto.AddressDto;
+import dk.bec.bookanything.dto.AddressCreateDto;
+import dk.bec.bookanything.dto.AddressReadDto;
 import dk.bec.bookanything.model.AddressEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AddressMapper {
 
-    public AddressEntity mapAddressDtoToEntity(AddressDto addressDto, Long id) {
+    public AddressEntity mapAddressDtoToEntity(AddressCreateDto addressDto, Long id) {
         return AddressEntity.builder()
                 .id(id)
                 .street(addressDto.getStreet())
@@ -19,8 +20,9 @@ public class AddressMapper {
                 .build();
     }
 
-    public AddressDto mapAddressEntityToDto(AddressEntity addressEntity) {
-        return AddressDto.builder()
+    public AddressReadDto mapAddressEntityToDto(AddressEntity addressEntity) {
+        return AddressReadDto.builder()
+                .id(addressEntity.getId())
                 .street(addressEntity.getStreet())
                 .streetNumber(addressEntity.getStreetNumber())
                 .propertyNumber(addressEntity.getPropertyNumber())

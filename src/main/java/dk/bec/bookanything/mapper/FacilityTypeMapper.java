@@ -1,22 +1,26 @@
 package dk.bec.bookanything.mapper;
 
-import dk.bec.bookanything.dto.FacilityTypeDto;
+import dk.bec.bookanything.dto.FacilityTypeCreateDto;
+import dk.bec.bookanything.dto.FacilityTypeReadDto;
 import dk.bec.bookanything.model.FacilityTypeEntity;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@NoArgsConstructor
 public class FacilityTypeMapper {
 
-    public FacilityTypeDto mapFacilityTypeEntityToDto(FacilityTypeEntity facilityTypeEntity) {
-        return FacilityTypeDto.builder()
+    public FacilityTypeReadDto mapFacilityTypeEntityToDto(FacilityTypeEntity facilityTypeEntity) {
+        return FacilityTypeReadDto.builder()
+                .id(facilityTypeEntity.getId())
                 .name(facilityTypeEntity.getName())
                 .build();
     }
 
-    public FacilityTypeEntity mapFacilityTypeDtoToEntity(FacilityTypeDto facilityTypeDto, Long id) {
+    public FacilityTypeEntity mapFacilityTypeDtoToEntity(FacilityTypeCreateDto facilityTypeCreateDto, Long id) {
         return FacilityTypeEntity.builder()
                 .id(id)
-                .name(facilityTypeDto.getName())
+                .name(facilityTypeCreateDto.getName())
                 .build();
     }
 }

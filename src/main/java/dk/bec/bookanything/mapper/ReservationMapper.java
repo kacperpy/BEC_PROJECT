@@ -31,6 +31,7 @@ public class ReservationMapper {
 
     public ReservationReadDto mapReservationEntityToReservationReadDto(ReservationEntity reservationEntity) {
         return ReservationReadDto.builder()
+                .id(reservationEntity.getId())
                 .dateFrom(reservationEntity.getDateFrom())
                 .dateTo(reservationEntity.getDateTo())
                 .bookableObjectEntityId(reservationEntity.getBookableObjectEntity().getId())
