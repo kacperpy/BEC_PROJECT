@@ -1,7 +1,6 @@
 package dk.bec.bookanything.controller;
 
 import dk.bec.bookanything.dto.AddressCreateDto;
-import dk.bec.bookanything.dto.AddressDto;
 import dk.bec.bookanything.dto.AddressReadDto;
 import dk.bec.bookanything.mapper.AddressMapper;
 import dk.bec.bookanything.model.AddressEntity;
@@ -52,7 +51,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<AddressDto> deleteAddress(@PathVariable("id") Long id) {
+    ResponseEntity<AddressCreateDto> deleteAddress(@PathVariable("id") Long id) {
         addressService.deleteAddressById(id);
 
         return addressService.getAddressById(id).isPresent() ? new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) : new ResponseEntity<>(HttpStatus.OK);
