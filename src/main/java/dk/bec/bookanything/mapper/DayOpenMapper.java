@@ -32,6 +32,7 @@ public class DayOpenMapper {
 
     public DayOpenReadDto mapDayOpenEntityToReadDto(DayOpenEntity dayOpenEntity) {
         return DayOpenReadDto.builder()
+                .id(dayOpenEntity.getId())
                 .day(WeekDayNumberToNameMapper.mapDayNumberToName(dayOpenEntity.getDay()))
                 .hourFrom(dayOpenEntity.getHourFrom())
                 .hourTo(dayOpenEntity.getHourTo()).build();

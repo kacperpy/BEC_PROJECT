@@ -28,6 +28,7 @@ public class UserMapper {
 
     public UserReadDto mapUserEntityToUserReadDto(UserEntity userEntity) {
         return UserReadDto.builder()
+                .id(userEntity.getId())
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
                 .birthDate(userEntity.getBirthDate())
